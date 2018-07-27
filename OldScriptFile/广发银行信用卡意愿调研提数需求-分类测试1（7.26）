@@ -1,0 +1,209 @@
+广发银行信用卡意愿调研提数需求-分类测试
+
+文件包1：
+
+标签：同时满足以下4个标签
+
+1、家庭V网
+
+2、性别：男性
+
+3、当月APRU：120元以上
+
+4、入网时长：12个月以上
+
+5、城市：一二线城市（如下表）
+
+号码量：2000 
+(select ARPU.id as PhoneNumber from tags.tag_1202_arpu as ARPU where tag_value>=120;) as ARPU
+HighLevelCity = ("北京北京" "上海上海" "广东广州" "广东深圳" "四川成都" "浙江杭州" "湖北武汉" "重庆重庆" "江苏南京" 
+                 "天津天津" "江苏苏州" "陕西西安" "湖南长沙" "辽宁沈阳" "山东青岛" "河南郑州" "辽宁大连" "广东东莞" "浙江宁波")
+
+				 ("北京北京" ,"上海上海" ,"广东广州", "广东深圳", "四川成都", "浙江杭州", "湖北武汉", "重庆重庆", "江苏南京" ,
+                 "天津天津", "江苏苏州", "陕西西安", "湖南长沙" ,"辽宁沈阳" ,"山东青岛", "河南郑州", "辽宁大连" ,"广东东莞", "浙江宁波")
+				 
+hive -e 
+"create table if not exists temp.ZZ0726_1 as 
+ select distinct imei.id as PhoneNumber from tags.tag_1101_imei as imei
+ 
+ select SEX.id as PhoneNumber from tags.tag_1101_sex as SEX where tag_value=1 and id in
+(select FamilyClient.id as PhoneNumber from tags.tag_1102_family_client as FamilyClient where id in 
+(select  OwnerCity.id as PhoneNumber from tags.tag_1102_owner_city as OwnerCity where OwnerCity.tag_value in ("北京北京" ,"上海上海" ,"广东广州", "广东深圳") and OwnerCity.id in 
+ (select NetLong.id as PhoneNumber from tags.tag_1102_netlong as NetLong where NetLong.tag_value>=12 and NetLong.id in 
+ (select ARPU.id as PhoneNumber from tags.tag_1202_arpu as ARPU where ARPU.tag_value>=120) ) ) )
+"
+
+hive -e 
+"
+select SEX.id as PhoneNumber from tags.tag_1101_sex as SEX where tag_value=1 and id in
+(select FamilyClient.id as PhoneNumber from tags.tag_1102_family_client as FamilyClient where id in 
+(select  OwnerCity.id as PhoneNumber from tags.tag_1102_owner_city as OwnerCity where tag_value in ("北京北京" ,"上海上海" ,"广东广州", "广东深圳", "四川成都", "浙江杭州", "湖北武汉", "重庆重庆", "江苏南京" ,
+                 "天津天津", "江苏苏州", "陕西西安", "湖南长沙" ,"辽宁沈阳" ,"山东青岛", "河南郑州", "辽宁大连" ,"广东东莞", "浙江宁波") and id in 
+ (select NetLong.id as PhoneNumber from tags.tag_1102_netlong as NetLong where tag_value>=12 and id in 
+ (select ARPU.id as PhoneNumber from tags.tag_1202_arpu as ARPU where tag_value>=120) ) ) )
+" > /home/qizhi_user/zhangzhuo/SaveSerchDataDir/_0726_1
+
+
+select a.id from tags.tag_1102_owner_city a 
+ INNER JOIN
+ (select id from tags.tag_1102_netlong  where tag_value>=12 and id in(select id as PhoneNumber from tags.tag_1202_arpu  where tag_value>=120)) b
+  on a.id = b.id and a.tag_value in ('北京北京')
+
+  
+select c.id from tags.tag_1102_family_client c 
+INNER JOIN 
+(select distinc a.id from tags.tag_1102_owner_city a 
+ INNER JOIN
+ (select id from tags.tag_1102_netlong  where tag_value>=12 and id in(select id as PhoneNumber from tags.tag_1202_arpu  where tag_value>=120)) b
+  on a.id = b.id and a.tag_value in ('北京北京')) d
+on c.id = d.id
+;
+
+
+
+
+ 
+文件包2：
+
+标签：同时满足以下4个标签
+
+1、集团V网
+
+2、性别：男性
+
+3、当月APRU：120元以上
+
+4、入网时长：12个月以上
+
+5、城市：一二线城市（如下表）
+
+号码量：2000
+
+ 
+
+文件包3：
+
+标签：同时满足以下4个标签
+
+1、信用卡用户：最近6个月，至少有一封信用卡账单
+
+2、性别：男性
+
+3、当月APRU：120元以上
+
+4、入网时长：12个月以上
+
+5、城市：一二线城市（如下表）
+
+号码量：2000 
+
+ 
+
+文件包4：
+
+标签：同时满足以下4个标签
+
+1、安装了至少1款贷款APP，且最近6个月使用2次以上
+
+2、性别：男性
+
+3、当月APRU：120元以上
+
+4、入网时长：12个月以上
+
+5、城市：一二线城市（如下表）
+
+号码量：2000
+
+ 
+
+文件包5：
+
+标签：同时满足以下5个标签
+
+1、信用卡用户：最近6个月，至少有一封信用卡账单
+
+2、集团V网
+
+3、入网时长：12个月以上
+
+4、当月APRU：10元以上
+
+5、城市：一二线城市（如下表）
+
+ 
+
+附：城市列表
+
+广州、惠州、深圳、中山、韶关、珠海、汕头、佛山、湛江、茂名、梅州、河源、阳江、清远、东莞、肇庆、江门、南京、南宁、无锡、常州、扬州、镇江、南通、淮安、徐州、苏州、湖州、嘉兴、福州、成都、眉山
+
+
+
+for city in ${ARPUPhoneNumberlist[@]}
+  do
+    #echo ${city}
+    ARPUPhoneNumberString=$ARPUPhoneNumberString$city","
+  done
+ARPUPhoneNumberString=${ARPUPhoneNumberString%?}
+
+NetLongPhoneNumberlist=`hive -e"select id from tags.tag_1102_netlong where tag_value>=12 and id in (${ARPUPhoneNumberString}) limit 20;"`
+#echo "select id from tags.tag_1102_netlong where tag_value>=12 and id in (${ARPUPhoneNumberString}) limit 20;"
+
+
+#citylist=`hive -e"select tag_value from tags.tag_1202_arpu limit 20"`
+
+strcity=""
+for city in ${ARPUPhoneNumberlist[@]}
+  do
+    #echo ${city}
+    strcity=$strcity$city","
+  done
+strcity=${strcity%?}
+echo $strcity
+  
+
+SerchPhoneNumber()
+{
+   PhoneNumberString=""
+   PhoneNumberlist= ${1[@]}  
+   
+   for PhoneNumber in ${PhoneNumberlist[@]}
+  do
+    PhoneNumberString=$PhoneNumberString$PhoneNumber","
+  done
+  echo $PhoneNumberString
+}
+
+#ARPUPhoneNumberlist=`hive -e"select id from tags.tag_1202_arpu where tag_value>=120 limit 20;"`
+#ARPUPhoneNumberString=$()
+#########################################################################
+ARPUPhoneNumberlist=`hive -e"select id from tags.tag_1202_arpu where tag_value>=120 limit 20;"`
+SerchPhoneNumber $ARPUPhoneNumberlist
+#ARPUPhoneNumberString= $(SerchPhoneNumber $ARPUPhoneNumberlist)
+#echo $ARPUPhoneNumberString
+
+
+
+SerchPhoneNumber()
+{
+   PhoneNumberString=""
+   PhoneNumberlist=$1
+   for PhoneNumber in ${ARPUPhoneNumberlist[*]}
+      do
+        PhoneNumberString=$PhoneNumberString$PhoneNumber","
+      done
+    PhoneNumberString=${PhoneNumberString%?}
+    
+    echo $PhoneNumberString
+}
+
+ARPUPhoneNumberlist=`hive -e"select id from tags.tag_1202_arpu where tag_value>=120 limit 20;"`
+echo ${ARPUPhoneNumberString}
+#ARPUPhoneNumberString= $(SerchPhoneNumber ${ARPUPhoneNumberlist[*]})
+
+#echo "select id from tags.tag_1102_netlong where tag_value>=12 and id in (${ARPUPhoneNumberString}) limit 20;"
+
+#NetLongPhoneNumberlist=`hive -e"select id from tags.tag_1102_netlong where tag_value>=12 and id in (${ARPUPhoneNumberString}) limit 20;"`
+
+#NetLongPhoneNumberString= $(SerchPhoneNumber ${NetLongPhoneNumberlist[*]})
+#echo $NetLongPhoneNumberString

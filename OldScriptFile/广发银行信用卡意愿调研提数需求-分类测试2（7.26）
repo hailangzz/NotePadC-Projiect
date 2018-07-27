@@ -1,0 +1,175 @@
+广发银行信用卡意愿调研提数需求-分类测试
+
+文件包1：
+
+标签：同时满足以下4个标签
+
+1、家庭V网
+
+2、性别：男性
+
+3、当月APRU：120元以上
+
+4、入网时长：12个月以上
+
+5、城市：一二线城市（如下表）
+
+号码量：2000 
+# 1、创建临时表最近6个月有使用非广发银行信用卡手机号记录表（temp.ZZNotUseGuangFaCreditCard0726）
+create table if not exists temp.ZZNotUseGuangFaCreditCard0726 as 
+select distinct mobile as PhoneNumber from dw_ods.base_a2p_creditcard_bill_info where cust_type<>2031 and year=2018 and month between 1 and 6;
+
+# 2、创建安装了至少1款贷款APP，且最近6个月使用2次以上手机号临时表（temp.ZZUse2TimesLoanAPP0726）
+create table if not exists temp.ZZUse2TimesLoanAPP0726 as 
+select Timei.id as PhoneNumber from 
+tags.tag_1101_imei Timei,
+(
+select t1.imei1,sum(t1.opencount) 
+from dw_ods.exter_terminal_application_new t1 join temp.daikuanapp t2 on(t1.appname=t2.appname)
+where t1.year=2018 and t1.month between 1 and 6 group by t1.imei1 having sum(t1.opencount)>=2
+) Timei2
+where (substring(Timei.tag_value,1,14)=substring(Timei2.imei1,1,14));
+
+
+
+HighLevelCityString="'北京北京','上海上海','广东广州','广东深圳','四川成都','浙江杭州','湖北武汉','重庆重庆','江苏南京','天津天津','江苏苏州','陕西西安','湖南长沙','辽宁沈阳','山东青岛','河南郑州','辽宁大连','广东东莞','浙江宁波'"
+
+create table if not exists temp.ZZ_0726_1 as
+select distinct t1.id as mobile ,substring(t6.tag_value,0,1) as name,
+case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as sex,t3.tag_value as city from
+tags.tag_1202_arpu t1,
+tags.tag_1101_sex t2,
+tags.tag_1102_owner_city t3,
+tags.tag_1102_family_client t4,
+tags.tag_1102_netlong t5,
+tags.tag_1101_name t6
+where t1.id=t2.id and t1.id =t3.id and t1.id=t4.id and t1.id=t5.id and t1.tag_value>120 and t2.tag_value='1' 
+      and t3.tag_value in (${HighLevelCityString}) and t5.tag_value>12;
+
+	  
+create table if not exists temp.ZZ_0726_2 as
+select distinct t1.id as mobile ,substring(t6.tag_value,0,1) as name,
+case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as sex,t3.tag_value as city from
+tags.tag_1202_arpu t1,
+tags.tag_1101_sex t2,
+tags.tag_1102_owner_city t3,
+tags.tag_1102_group_client t4,
+tags.tag_1102_netlong t5,
+tags.tag_1101_name t6
+where t1.id=t2.id and t1.id =t3.id and t1.id=t4.id and t1.id=t5.id and t1.tag_value>120 and t2.tag_value='1' 
+      and t3.tag_value in (${HighLevelCityString}) and t5.tag_value>12;
+
+	  
+create table if not exists temp.ZZ_0726_3 as
+select distinct t1.id as mobile ,substring(t6.tag_value,0,1) as name,
+case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as sex,t3.tag_value as city from
+tags.tag_1202_arpu t1,
+tags.tag_1101_sex t2,
+tags.tag_1102_owner_city t3,
+temp.ZZNotUseGuangFaCreditCard0726 t4,
+tags.tag_1102_netlong t5,
+tags.tag_1101_name t6
+where t1.id=t2.id and t1.id =t3.id and t1.id=t4.PhoneNumber and t1.id=t5.id and t1.tag_value>120 and t2.tag_value='1' 
+      and t3.tag_value in (${HighLevelCityString}) and t5.tag_value>12;
+
+create table if not exists temp.ZZ_0726_4 as
+select distinct t1.id as mobile ,substring(t6.tag_value,0,1) as name,
+case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as sex,t3.tag_value as city from
+tags.tag_1202_arpu t1,
+tags.tag_1101_sex t2,
+tags.tag_1102_owner_city t3,
+temp.ZZUse2TimesLoanAPP0726 t4,
+tags.tag_1102_netlong t5,
+tags.tag_1101_name t6
+where t1.id=t2.id and t1.id =t3.id and t1.id=t4.PhoneNumber and t1.id=t5.id and t1.tag_value>120 and t2.tag_value='1' 
+      and t3.tag_value in (${HighLevelCityString}) and t5.tag_value>12;
+
+
+create table if not exists temp.ZZ_0726_5 as
+select distinct t1.id as mobile ,substring(t6.tag_value,0,1) as name,
+case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as sex,t3.tag_value as city from
+tags.tag_1202_arpu t1,
+tags.tag_1101_sex t2,
+tags.tag_1102_owner_city t3,
+temp.ZZNotUseGuangFaCreditCard0726 t4,
+tags.tag_1102_netlong t5,
+tags.tag_1101_name t6,
+tags.tag_1102_group_client t7,
+where t1.id=t2.id and t1.id =t3.id and t1.id=t4.PhoneNumber and t1.id=t5.id and t1.id=t7.id and t1.tag_value>10  
+      and t3.tag_value in (${HighLevelCityString}) and t5.tag_value>12;
+	  
+ 
+文件包2：
+
+标签：同时满足以下4个标签
+
+1、集团V网
+
+2、性别：男性
+
+3、当月APRU：120元以上
+
+4、入网时长：12个月以上
+
+5、城市：一二线城市（如下表）
+
+号码量：2000
+
+ 
+
+文件包3：
+
+标签：同时满足以下4个标签
+
+1、信用卡用户：最近6个月，至少有一封信用卡账单
+
+2、性别：男性
+
+3、当月APRU：120元以上
+
+4、入网时长：12个月以上
+
+5、城市：一二线城市（如下表）
+
+号码量：2000 
+
+ 
+
+文件包4：
+
+标签：同时满足以下4个标签
+
+1、安装了至少1款贷款APP，且最近6个月使用2次以上
+
+2、性别：男性
+
+3、当月APRU：120元以上
+
+4、入网时长：12个月以上
+
+5、城市：一二线城市（如下表）
+
+号码量：2000
+
+ 
+
+文件包5：
+
+标签：同时满足以下5个标签
+
+1、信用卡用户：最近6个月，至少有一封信用卡账单
+
+2、集团V网
+
+3、入网时长：12个月以上
+
+4、当月APRU：10元以上
+
+5、城市：一二线城市（如下表）
+
+ 
+
+附：城市列表
+
+广州、惠州、深圳、中山、韶关、珠海、汕头、佛山、湛江、茂名、梅州、河源、阳江、清远、东莞、肇庆、江门、南京、南宁、无锡、常州、扬州、镇江、南通、淮安、徐州、苏州、湖州、嘉兴、福州、成都、眉山
+

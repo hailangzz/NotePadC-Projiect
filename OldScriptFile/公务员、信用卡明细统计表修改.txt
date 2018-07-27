@@ -1,0 +1,295 @@
+#!/bin/bash
+
+first_program()
+{
+#create table if not exists temp.5leiapphuizong(appname string,leibie string)
+#row format delimited fields terminated by ','
+#collection items terminated by ',';
+#LOAD DATA LOCAL INPATH '/home/qizhi_user/qianjiangchao/5leiapphuizong.txt' OVERWRITE INTO table temp.5leiapphuizong;
+
+#公务员提数需求
+#num1的条件：
+#全国地区、花费大于10、201712-201805、安装公务员指定app
+num1=$(hive -e"
+create table if not exists temp.allcity_install_civil_servant as 
+select distinct t1.id as mobile 
+from tags.tag_1101_imei t1,
+	 dw_ods.exter_terminal_application_new t2,
+	 temp.5leiapphuizong t3,
+	 tags.tag_1202_arpu t4
+where t1.id=t4.id and t2.appname=t3.appname and t3.leibie='公务员' and (substring(t1.tag_value,1,14)=substring(t2.imei1,1,14))
+   and t1.dt='2018-05' and t4.dated='2018-05' and t4.tag_value>10
+   and ((t2.year=2017 and month=12)or(t2.year=2018 and month between 1 and 5));
+select count(*) from temp.allcity_install_civil_servant;")
+#num2的条件：
+#全国地区、花费大于10、201712-201805、使用公务员指定app1次及以上
+num2=$(hive -e"
+create table if not exists temp.allcity_useonetime_civil_servant as
+select distinct a.id as mobile 
+from tags.tag_1101_imei a,
+    (select t1.imei1,sum(t1.opencount) 
+        from dw_ods.exter_terminal_application_new t1 join 
+	    temp.5leiapphuizong t2 on(t1.appname=t2.appname)
+        where t2.leibie='公务员'and((t1.year=2018 and t1.month between 1 and 5) or (t1.year=2017 and t1.month=12))
+              group by t1.imei1 having sum(t1.opencount)>=1) b,
+    tags.tag_1202_arpu c
+where (substring(a.tag_value,1,14)=substring(b.imei1,1,14)) and a.id=c.id
+      and a.dt='2018-05' and c.dated='2018-05' and c.tag_value>10;
+select count(*) from temp.allcity_useonetime_civil_servant;")
+#num3的条件：
+#一二线城市、花费大于10、201712-201805、安装公务员指定app
+num3=$(hive -e"
+create table if not exists temp.12partcity_install_civil_servant as
+select distinct a.mobile as mobile from 
+(select distinct t1.id as mobile from 
+     tags.tag_1101_imei t1,
+	 dw_ods.exter_terminal_application_new t2,
+	 temp.5leiapphuizong t3
+     where t2.appname=t3.appname and t3.leibie='公务员' and (substring(t1.tag_value,1,14)=substring(t2.imei1,1,14))
+           and t1.dt='2018-05' and ((t2.year=2017 and month=12)or(t2.year=2018 
+		   and month between 1 and 5)))a
+join 
+(select distinct t2.id as id  from 
+     tags.tag_1102_owner_city t2,
+     temp.cityrate t3,
+     tags.tag_1202_arpu t4
+     where t2.tag_value=t3.city and t2.id=t4.id  and t4.tag_value>10
+           and t2.dated='2018-05' and t4.dated='2018-05')b
+on (a.mobile=b.id);
+select count(*) from temp.12partcity_install_civil_servant;")
+#num4的条件：
+#一二线城市、花费大于10、201712-201805、使用公务员指定app1次及以上
+num4=$(hive -e"
+create table if not exists temp.12partcity_useonetime_civil_servant as 
+select distinct x.mobile as mobile from 
+(select distinct a.id as mobile from 
+        tags.tag_1101_imei a join
+       (select t1.imei1,sum(t1.opencount) 
+               from dw_ods.exter_terminal_application_new t1 join 
+	           temp.5leiapphuizong t2 on(t1.appname=t2.appname)
+               where t2.leibie='公务员'and((t1.year=2018 and t1.month between 1 and 5) or (t1.year=2017 and t1.month=12))
+                     group by t1.imei1 having sum(t1.opencount)>=1)b
+         on (substring(a.tag_value,1,14)=substring(b.imei1,1,14))
+               where a.dt='2018-05')x
+join
+(select distinct t2.id as id from 
+        tags.tag_1102_owner_city t2,
+		temp.cityrate t3,
+		tags.tag_1202_arpu t4
+		where t2.tag_value=t3.city and t2.id=t4.id and t4.tag_value>10
+			  and t2.dated='2018-05' and t4.dated='2018-05')y
+on (x.mobile=y.id);
+select count(*) from temp.12partcity_useonetime_civil_servant;")
+
+echo $num1
+echo $num2
+echo $num3
+echo $num4
+
+
+###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#信用卡提数需求
+#num5的条件：
+#全国地区、花费大于10、201712-201805、安装信用卡指定app
+num5=$(hive -e"
+create table if not exists temp.allcity_install_credit_card as 
+select distinct t1.id as mobile 
+from tags.tag_1101_imei t1,
+	 dw_ods.exter_terminal_application_new t2,
+	 temp.5leiapphuizong t3,
+	 tags.tag_1202_arpu t4
+where t1.id=t4.id and t2.appname=t3.appname and t3.leibie='信用卡' and (substring(t1.tag_value,1,14)=substring(t2.imei1,1,14))
+   and t1.dt='2018-05' and t4.dated='2018-05' and t4.tag_value>10
+   and ((t2.year=2017 and month=12)or(t2.year=2018 and month between 1 and 5));
+select count(*) from temp.allcity_install_credit_card;")
+#num6的条件：
+#全国地区、花费大于10、201712-201805、使用信用卡指定app1次及以上
+num6=$(hive -e"
+create table if not exists temp.allcity_useonetime_credit_card as
+select distinct a.id as mobile 
+from tags.tag_1101_imei a,
+    (select t1.imei1,sum(t1.opencount) 
+        from dw_ods.exter_terminal_application_new t1 join 
+	    temp.5leiapphuizong t2 on(t1.appname=t2.appname)
+        where t2.leibie='信用卡'and((t1.year=2018 and t1.month between 1 and 5) or (t1.year=2017 and t1.month=12))
+              group by t1.imei1 having sum(t1.opencount)>=1) b,
+    tags.tag_1202_arpu c
+where (substring(a.tag_value,1,14)=substring(b.imei1,1,14)) and a.id=c.id
+      and a.dt='2018-05' and c.dated='2018-05' and c.tag_value>10;
+select count(*) from temp.allcity_useonetime_credit_card;")
+#num7的条件：
+#一二线城市、花费大于10、201712-201805、安装信用卡指定app
+num7=$(hive -e"
+create table if not exists temp.12partcity_install_credit_card as
+select distinct a.mobile as mobile from 
+(select distinct t1.id as mobile from 
+     tags.tag_1101_imei t1,
+	 dw_ods.exter_terminal_application_new t2,
+	 temp.5leiapphuizong t3
+     where t2.appname=t3.appname and t3.leibie='信用卡' and (substring(t1.tag_value,1,14)=substring(t2.imei1,1,14))
+           and t1.dt='2018-05' and ((t2.year=2017 and month=12)or(t2.year=2018 
+		   and month between 1 and 5)))a
+join 
+(select distinct t2.id as id  from 
+     tags.tag_1102_owner_city t2,
+     temp.cityrate t3,
+     tags.tag_1202_arpu t4
+     where t2.tag_value=t3.city and t2.id=t4.id  and t4.tag_value>10
+           and t2.dated='2018-05' and t4.dated='2018-05')b
+on (a.mobile=b.id);
+select count(*) from temp.12partcity_install_credit_card;")
+#num8的条件：
+#一二线城市、花费大于10、201712-201805、使用信用卡指定app1次及以上
+num8=$(hive -e"
+create table if not exists temp.12partcity_useonetime_credit_card as 
+select distinct x.mobile as mobile from 
+(select distinct a.id as mobile from 
+        tags.tag_1101_imei a join
+       (select t1.imei1,sum(t1.opencount) 
+               from dw_ods.exter_terminal_application_new t1 join 
+	           temp.5leiapphuizong t2 on(t1.appname=t2.appname)
+               where t2.leibie='信用卡'and((t1.year=2018 and t1.month between 1 and 5) or (t1.year=2017 and t1.month=12))
+                     group by t1.imei1 having sum(t1.opencount)>=1)b
+         on (substring(a.tag_value,1,14)=substring(b.imei1,1,14))
+               where a.dt='2018-05')x
+join
+(select distinct t2.id as id from 
+        tags.tag_1102_owner_city t2,
+		temp.cityrate t3,
+		tags.tag_1202_arpu t4
+		where t2.tag_value=t3.city and t2.id=t4.id and t4.tag_value>10
+			  and t2.dated='2018-05' and t4.dated='2018-05')y
+on (x.mobile=y.id);
+select count(*) from temp.12partcity_useonetime_credit_card;")
+
+echo $num5
+echo $num6
+echo $num7
+echo $num8
+}
+
+####################################################  second__program  ###############################################################
+second_program()
+{
+#公务员提数需求
+#num1的条件：
+#全国地区、花费大于10、201712-201805、安装公务员指定app
+num1=$(hive -e"
+create table if not exists temp.allcity_install_civil_servant as 
+select distinct t1.id as mobile 
+from tags.tag_1101_imei t1,
+	 dw_ods.exter_terminal_application_new t2,
+	 temp.5leiapphuizong t3,
+	 tags.tag_1202_arpu t4
+where t1.id=t4.id and t2.appname=t3.appname and t3.leibie='公务员' and (substring(t1.tag_value,1,14)=substring(t2.imei1,1,14))
+   and t1.dt='2018-05' and t4.dated='2018-05' and t4.tag_value>10
+   and ((t2.year=2017 and month=12)or(t2.year=2018 and month between 1 and 5));
+select count(*) from temp.allcity_install_civil_servant;")
+#num2的条件：
+#全国地区、花费大于10、201712-201805、使用公务员指定app1次及以上
+num2=$(hive -e"
+create table if not exists temp.allcity_useonetime_civil_servant as
+select distinct a.id as mobile 
+from tags.tag_1101_imei a,
+    (select t1.imei1,sum(t1.opencount) 
+        from dw_ods.exter_terminal_application_new t1 join 
+	    temp.5leiapphuizong t2 on(t1.appname=t2.appname)
+        where t2.leibie='公务员'and((t1.year=2018 and t1.month between 1 and 5) or (t1.year=2017 and t1.month=12))
+              group by t1.imei1 having sum(t1.opencount)>=1) b,
+    tags.tag_1202_arpu c
+where (substring(a.tag_value,1,14)=substring(b.imei1,1,14)) and a.id=c.id
+      and a.dt='2018-05' and c.dated='2018-05' and c.tag_value>10;
+select count(*) from temp.allcity_useonetime_civil_servant;")
+#num3的条件：
+#一二线城市、花费大于10、201712-201805、安装公务员指定app
+num3=$(hive -e"
+create table if not exists temp.12partcity_install_civil_servant as
+select distinct a.mobile as mobile from 
+temp.allcity_install_civil_servant a,
+tags.tag_1102_owner_city b,
+temp.cityrate c
+where a.mobile=b.id and b.tag_value=c.city and b.dated='2018-05';
+select count(*) from temp.12partcity_install_civil_servant;")
+#num4的条件：
+#一二线城市、花费大于10、201712-201805、使用公务员指定app1次及以上
+num4=$(hive -e"
+create table if not exists temp.12partcity_useonetime_civil_servant as 
+select distinct x.mobile as mobile from 
+temp.allcity_useonetime_civil_servant x
+tags.tag_1102_owner_city y,
+temp.cityrate z
+where x.mobile=y.id and y.tag_value=z.city and y.dated='2018-05';
+select count(*) from temp.12partcity_useonetime_civil_servant;")
+
+echo $num1
+echo $num2
+echo $num3
+echo $num4
+
+
+###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#信用卡提数需求
+#num5的条件：
+#全国地区、花费大于10、201712-201805、安装信用卡指定app
+num5=$(hive -e"
+create table if not exists temp.allcity_install_credit_card as 
+select distinct t1.id as mobile 
+from tags.tag_1101_imei t1,
+	 dw_ods.exter_terminal_application_new t2,
+	 temp.5leiapphuizong t3,
+	 tags.tag_1202_arpu t4
+where t1.id=t4.id and t2.appname=t3.appname and t3.leibie='信用卡' and (substring(t1.tag_value,1,14)=substring(t2.imei1,1,14))
+   and t1.dt='2018-05' and t4.dated='2018-05' and t4.tag_value>10
+   and ((t2.year=2017 and month=12)or(t2.year=2018 and month between 1 and 5));
+select count(*) from temp.allcity_install_credit_card;")
+#num6的条件：
+#全国地区、花费大于10、201712-201805、使用信用卡指定app1次及以上
+num6=$(hive -e"
+create table if not exists temp.allcity_useonetime_credit_card as
+select distinct a.id as mobile 
+from tags.tag_1101_imei a,
+    (select t1.imei1,sum(t1.opencount) 
+        from dw_ods.exter_terminal_application_new t1 join 
+	    temp.5leiapphuizong t2 on(t1.appname=t2.appname)
+        where t2.leibie='信用卡'and((t1.year=2018 and t1.month between 1 and 5) or (t1.year=2017 and t1.month=12))
+              group by t1.imei1 having sum(t1.opencount)>=1) b,
+    tags.tag_1202_arpu c
+where (substring(a.tag_value,1,14)=substring(b.imei1,1,14)) and a.id=c.id
+      and a.dt='2018-05' and c.dated='2018-05' and c.tag_value>10;
+select count(*) from temp.allcity_useonetime_credit_card;")
+#num7的条件：
+#一二线城市、花费大于10、201712-201805、安装信用卡指定app
+num7=$(hive -e"
+create table if not exists temp.12partcity_install_credit_card as
+select distinct a.mobile as mobile from 
+temp.allcity_install_credit_card  a,
+tags.tag_1102_owner_city  b,
+temp.cityrate c 
+where a.mobile=b.id and b.tag_value=c.city and b.dated='2018-05';
+select count(*) from temp.12partcity_install_credit_card;")
+
+
+#num8的条件：
+#一二线城市、花费大于10、201712-201805、使用信用卡指定app1次及以上
+num8=$(hive -e"
+create table if not exists temp.12partcity_useonetime_credit_card as 
+select distinct x.mobile as mobile from 
+temp.allcity_useonetime_credit_card x,
+tags.tag_1102_owner_city y,
+temp.cityrate z
+where x.mobile=y.id and y.tag_value=z.city and y.dated='2018-05';
+select count(*) from temp.12partcity_useonetime_credit_card;")
+
+echo $num5
+echo $num6
+echo $num7
+echo $num8
+}
+
+second_program
+
+
+
+
+
+

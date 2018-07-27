@@ -1,0 +1,31 @@
+# create a temporary table of exter_terminal_application_new;
+
+1.create 2017-12~2018-5 civil_servant temporary table :
+Table Name : temp.civil_servant_zz1712_1805_temp 
+Desc Table : imei1	appname	opencount	usertime
+
+
+    1.Shell Command ： 
+	
+	create table if not exists temp.civil_servant_zz1712_1805_temp as 
+	select a.imei1,a.appname,a.opencount,a.usertime 
+		   from dw_ods.exter_terminal_application_new as a	         
+				where a.appname in (select b.appname from temp.5leiapphuizong as b
+										   where b.leibie='公务员')
+								and ((a.year=2017 and a.month=12)or(a.year=2018 and a.month between 1 and 5));
+					 
+
+
+2.create 2017-12~2018-5 credit_card temporary table :
+Table Name : temp.credit_card_zz1712_1805_temp
+Desc Table : imei1	appname	opencount	usertime
+
+
+	2.Shell Command ： 
+	
+		create table if not exists temp.credit_card_zz1712_1805_temp as 
+		select a.imei1,a.appname,a.opencount,a.usertime 
+			   from dw_ods.exter_terminal_application_new as a	         
+					where a.appname in (select b.appname from temp.5leiapphuizong as b
+											   where b.leibie='信用卡')
+									and ((a.year=2017 and a.month=12)or(a.year=2018 and a.month between 1 and 5));

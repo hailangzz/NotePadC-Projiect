@@ -1,0 +1,66 @@
+hive databse service zhangzhuo workspace path :/home/qizhi_user/zhangzhuo/statistics_registe_count/mail_usernumber_info_count.txt
+
+hive -e "
+
+select 
+count(case when usernumber not in('','null') then usernumber end) as usernumber_useful,
+count(case when usernumber !='' then usernumber end) as usernumber_isnull,
+count(usernumber) as usernumber_total_registe,
+
+count(case when card_type in(0,1,2,3,4) then card_type end) as card_type_useful,
+count(case when card_type not in ('','null') then card_type end) as card_type_isnull,
+count(card_type) as card_type_total_registe,
+
+count(case when Provcode not in('','null') then Provcode end) as Provcode_useful,
+count(case when Provcode !='' then Provcode end) as Provcode_isnull,
+count(Provcode) as Provcode_total_registe,
+
+count(case when area_code not in('','null') then area_code end) as area_code_useful,
+count(case when area_code !='' then area_code end) as area_code_isnull,
+count(area_code) as area_code_total_registe,
+
+count(case when last_action not in('','null') then last_action end) as last_action_useful,
+count(case when last_action !='' then last_action end) as last_action_isnull,
+count(last_action) as last_action_total_registe,
+
+count(case when Status  in('0','1','2','3') then Status end) as Status_useful,
+count(case when Status not in ('','null') then Status end) as Status_isnull,
+count(Status) as Status_total_registe,
+
+count(case when reason_id  in('0','1','2','3','4','5','6','7') then reason_id end) as reason_id_useful,
+count(case when reason_id not in ('','null') then reason_id end) as reason_id_isnull,
+count(reason_id) as reason_id_total_registe,
+
+count(case when register_type  in('1','2','3','4','5','6','7','8','9','10','11','12','13') then register_type end) as register_type_useful,
+count(case when register_type not in ('','null') then register_type end) as register_type_isnull,
+count(register_type) as register_type_total_registe,
+
+count(case when length(create_time)=21  then create_time end) as create_time_useful,
+count(case when create_time not in ('','null') then create_time end) as create_time_isnull,
+count(create_time) as create_time_total_registe,
+
+count(case when length(modify_time)=21  then modify_time end) as modify_time_useful,
+count(case when modify_time not in ('','null') then modify_time end) as modify_time_isnull,
+count(modify_time) as modify_time_total_registe,
+
+
+count(case when length(register_time)=21  then register_time end) as register_time_useful,
+count(case when register_time not in ('','null') then register_time end) as register_time_isnull,
+count(register_time) as register_time_total_registe,
+
+count(case when length(freeze_time)=21  then freeze_time end) as freeze_time_useful,
+count(case when freeze_time not in ('','null') then freeze_time end) as freeze_time_isnull,
+count(freeze_time) as freeze_time_total_registe,
+
+count(case when length(unfreeze_time)=21  then unfreeze_time end) as unfreeze_time_useful,
+count(case when unfreeze_time not in ('','null') then unfreeze_time end) as unfreeze_time_isnull,
+count(unfreeze_time) as unfreeze_time_total_registe,
+
+count(case when length(expire_time)=21  then expire_time end) as expire_time_useful,
+count(case when expire_time not in ('','null') then expire_time end) as expire_time_isnull,
+count(expire_time) as expire_time_total_registe
+
+from dw_ods.mail_usernumber_info where year=2018 and month=5 and day=1;
+"  > /home/qizhi_user/zhangzhuo/statistics_registe_count/mail_usernumber_info_count.txt
+
+

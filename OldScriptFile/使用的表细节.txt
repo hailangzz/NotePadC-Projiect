@@ -1,0 +1,45 @@
+#!/bin/bash
+
+table_list=("tags.tag_1101_imei" "dw_ods.exter_terminal_application_new" "temp.5leiapphuizong" "tags.tag_1102_owner_city" "temp.cityrate" "tags.tag_1202_arpu")
+
+mkdir_frequent_use_table()
+{
+   if [ ! -d "/home/qizhi_user/zhangzhuo/frequent_use_table"]
+   then
+     mkdir -p "/home/qizhi_user/zhangzhuo/frequent_use_table"
+   fi
+}
+
+read_table()
+{
+   desc_table $1
+   select_table $1 100
+}
+
+desc_table()
+{
+   if [ ! -e "/home/qizhi_user/zhangzhuo/frequent_use_table/desc_$1"]
+   then
+     touch  "/home/qizhi_user/zhangzhuo/frequent_use_table/desc_$1"
+	 chmod 777 "/home/qizhi_user/zhangzhuo/frequent_use_table/desc_$1"
+   fi
+   
+   hive -e "desc $1;" > /home/qizhi_user/zhangzhuo/frequent_use_table/desc_$1
+}
+
+select_table()
+{
+   if [ ! -e "/home/qizhi_user/zhangzhuo/frequent_use_table/registe_$1" ]
+   then
+     touch  "/home/qizhi_user/zhangzhuo/frequent_use_table/registe_$1"
+	 chmod 777 "/home/qizhi_user/zhangzhuo/frequent_use_table/registe_$1"
+   fi 
+   
+   hive -e "select * from $1 limit $2;" > /home/qizhi_user/zhangzhuo/frequent_use_table/registe_$1
+}
+
+for table in $table_list
+   do
+     read_table $table
+   done
+   

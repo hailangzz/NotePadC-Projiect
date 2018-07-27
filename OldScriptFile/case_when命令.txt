@@ -1,0 +1,6 @@
+
+select count(case when card_type in(0,1,2,3,4) then card_type end) as card_type_useful,
+count(case when card_type ='null' then card_type end) as card_type_isnull,
+count(case when 1=1 then card_type end) as card_type_registe,
+count(*) as total_registe
+from dw_ods.mail_usernumber_info where year=2017 and month=1;

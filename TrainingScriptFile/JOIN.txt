@@ -1,0 +1,10 @@
+select t1.a,t2.b from 
+test1 t1 join test2 t2 
+on (t1.a=t2.a)
+where t1.b='a';
+
+
+select t1.a,t2.b from 
+test1 t1 join test2 t2 
+on (t1.a=t2.a) AND t1.b='a' AND t2.b='a'
+;

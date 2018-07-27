@@ -1,0 +1,8 @@
+select a,count(a),sum(a) from dw_ods.test1 GROUP BY a;
+
+select count(t1.a) from (select DISTINCT a from dw_ods.test1) t1;
+
+
+# 去除重复的项目····
+delete from test1 where a in (select a from test2)
+delete from 表1 where exists (select 1 from 表2 where 表1.id=表2.id and 表1.name=表2.name);

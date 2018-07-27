@@ -1,0 +1,151 @@
+HighLevelCityString="'北京北京','上海上海','广东广州','广东深圳','四川成都','浙江杭州','湖北武汉','重庆重庆','江苏南京','天津天津','江苏苏州','陕西西安','湖南长沙','辽宁沈阳','山东青岛','河南郑州','辽宁大连','广东东莞','浙江宁波'"
+
+CreateTempTable()
+{
+      hive -e"
+      create table if not exists temp.ZZNotUseGuangFaCreditCard0726 as 
+      select distinct mobile as PhoneNumber from dw_ods.base_a2p_creditcard_bill_info where cust_type<>2031 and year=2018 and month between 1 and 6;
+
+      create table if not exists temp.ZZUse2TimesLoanAPP0726 as 
+      select Timei.id as PhoneNumber from 
+      tags.tag_1101_imei Timei,
+      (
+      select t1.imei1,sum(t1.opencount) 
+      from dw_ods.exter_terminal_application_new t1 join temp.daikuanapp t2 on(t1.appname=t2.appname)
+      where t1.year=2018 and t1.month between 1 and 6 group by t1.imei1 having sum(t1.opencount)>=2
+      ) Timei2
+      where (substring(Timei.tag_value,1,14)=substring(Timei2.imei1,1,14)) and Timei.dt='2018-06';
+
+
+      create table if not exists temp.ZZAPRUNetlongHighCity0726 as 
+      select T1.id as PhoneNumber ,T2.HighCity from 
+      tags.tag_1202_arpu T1,
+      (
+      select t2.id as PhoneNumber,t2.tag_value as HighCity 
+      from tags.tag_1102_owner_city t2 INNER JOIN tags.tag_1102_netlong t3
+      on t2.id=t3.id and t2.tag_value in (${HighLevelCityString}) and (t3.tag_value>=12 or t3.tag_value='NULL') and t2.dated='2018-06' and t3.dated='2018-06'
+      ) T2
+      where T1.id=T2.PhoneNumber and T1.tag_value>120 and T1.dated='2018-06';
+      "
+}
+
+
+StatisticsDatabase()
+{
+        hive -e"
+        create table if not exists temp.ZZ_0726_1 as
+        select distinct T1.PhoneNumber ,T2.SurName,
+               T1.Sex,T1.HighCity 
+        from
+        (
+          select t1.PhoneNumber,t1.HighCity, case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as Sex 
+          from
+                 temp.ZZAPRUNetlongHighCity0726 t1 INNER JOIN tags.tag_1101_sex t2
+                 ON t1.PhoneNumber=t2.id and t2.tag_value=1 and t2.dt='2018-06'		 
+        ) T1,
+        (
+          select t3.id as PhoneNumber ,substring(t4.tag_value,0,1) as SurName
+          from
+                 tags.tag_1102_family_client t3 INNER JOIN tags.tag_1101_name t4
+                 ON t3.id=t4.id and t3.tag_value=1 and t3.dated='201806' and t4.dt='2018-06'
+        ) T2
+        where
+            T1.PhoneNumber=T2.PhoneNumber ;
+
+
+
+        create table if not exists temp.ZZ_0726_2 as
+        select distinct T1.PhoneNumber ,T2.SurName,
+               T1.Sex,T1.HighCity 
+        from
+        (
+          select t1.PhoneNumber,t1.HighCity, case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as Sex 
+          from
+                 temp.ZZAPRUNetlongHighCity0726 t1 INNER JOIN tags.tag_1101_sex t2
+                 ON t1.PhoneNumber=t2.id and t2.tag_value=1 and t2.dt='2018-06'	 		 
+        ) T1,
+        (
+          select t3.id as PhoneNumber ,substring(t4.tag_value,0,1) as SurName
+          from
+                 tags.tag_1102_group_client t3 INNER JOIN tags.tag_1101_name t4
+                 ON t3.id=t4.id and t3.tag_value=1 and t3.dated='201806' and t4.dt='2018-06'
+        ) T2
+        where
+            T1.PhoneNumber=T2.PhoneNumber ;
+
+
+
+        create table if not exists temp.ZZ_0726_3 as
+        select distinct T1.PhoneNumber ,T2.SurName,
+               T1.Sex,T1.HighCity 
+        from
+        (
+          select t1.PhoneNumber,t1.HighCity, case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as Sex 
+          from
+                 temp.ZZAPRUNetlongHighCity0726 t1 INNER JOIN tags.tag_1101_sex t2
+                 ON t1.PhoneNumber=t2.id and t2.tag_value=1  and  t2.dt='2018-06'	 		 
+        ) T1,
+        (
+          select t3.PhoneNumber ,substring(t4.tag_value,0,1) as SurName
+          from
+                 temp.ZZNotUseGuangFaCreditCard0726 t3 INNER JOIN tags.tag_1101_name t4
+                 ON t3.PhoneNumber=t4.id  and  t4.dt='2018-06'
+        ) T2
+        where
+            T1.PhoneNumber=T2.PhoneNumber ;
+
+
+
+        create table if not exists temp.ZZ_0726_4 as
+        select distinct T1.PhoneNumber ,T2.SurName,
+               T1.Sex,T1.HighCity 
+        from
+        (
+          select t1.PhoneNumber,t1.HighCity, case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as Sex 
+          from
+                 temp.ZZAPRUNetlongHighCity0726 t1 INNER JOIN tags.tag_1101_sex t2
+                 ON t1.PhoneNumber=t2.id and t2.tag_value=1  and  t2.dt='2018-06'		 
+        ) T1,
+        (
+          select t3.PhoneNumber ,substring(t4.tag_value,0,1) as SurName
+          from
+                 temp.ZZUse2TimesLoanAPP0726 t3 INNER JOIN tags.tag_1101_name t4
+                 ON t3.PhoneNumber=t4.id and  t4.dt='2018-06'
+        ) T2
+        where
+            T1.PhoneNumber=T2.PhoneNumber ;	
+
+
+
+        create table if not exists temp.ZZ_0726_5 as
+        select distinct T1.PhoneNumber ,T2.SurName,
+               T1.Sex,T2.HighCity 
+        from
+        (
+            select t1.PhoneNumber, case when t2.tag_value='1' then '男' when t2.tag_value='0' then '女' else null end as Sex 
+            from
+                 temp.ZZNotUseGuangFaCreditCard0726 t1 INNER JOIN tags.tag_1101_sex t2
+                 ON t1.PhoneNumber=t2.id  and  t2.dt='2018-06'	
+        ) T1,
+
+        (
+            select t3.id as PhoneNumber, substring(t3.tag_value,0,1) as SurName,t4.tag_value as HighCity
+            from
+                 tags.tag_1101_name t3 INNER JOIN tags.tag_1102_owner_city t4
+                 ON t3.id=t4.id and t4.tag_value in (${HighLevelCityString}) and t3.dt='2018-06' and t4.dated='2018-06'
+        ) T2,
+
+        (
+            select t5.id as PhoneNumber,t5.tag_value as NetLong,t6.tag_value as ARPU
+            from
+                 tags.tag_1202_arpu t5 INNER JOIN tags.tag_1102_netlong t6
+                 ON t5.id=t6.id and t5.tag_value>10 and (t6.tag_value>12 or t6.tag_value='NULL') and t5.dated='2018-06' and t6.dated='2018-06'
+        ) T3,
+        tags.tag_1102_group_client T4
+        where 
+            T1.PhoneNumber=T2.PhoneNumber AND T1.PhoneNumber=T3.PhoneNumber and T1.PhoneNumber=T4.id and T4.tag_value=1 and T4.dated='201806';
+        " 
+}      
+
+CreateTempTable
+StatisticsDatabase

@@ -1,0 +1,47 @@
+# 此处创建阶梯型临时扩充手机号信息表以此来实现去除重复号码····
+# 表的大小排序（有大到小）：1、2、3、5、4
+create table if not exists temp.ZZ4StairTempTable0726 as 
+select TT.PhoneNumber 
+ from 
+ (
+    select T1.PhoneNumber from (select t2.PhoneNumber from temp.ZZ_0726_2 t2  UNION  select t3.PhoneNumber from temp.ZZ_0726_3 t3) T1  
+    UNION  
+    select T2.PhoneNumber from (select t5.PhoneNumber from temp.ZZ_0726_2 t5  UNION  select t4.PhoneNumber from temp.ZZ_0726_3 t4) T2
+  ) TT;
+  
+######3、5 、4
+create table if not exists temp.ZZ3StairTempTable0726 as 
+select TT.PhoneNumber 
+ from 
+ (
+    select T1.PhoneNumber from (select t3.PhoneNumber from temp.ZZ_0726_3 t3  UNION  select t5.PhoneNumber from temp.ZZ_0726_5 t5) T1  
+    UNION  
+    select t4.PhoneNumber from temp.ZZ_0726_4 t4
+  ) TT;
+  
+######5、4
+create table if not exists temp.ZZ2StairTempTable0726 as 
+select TT.PhoneNumber 
+ from 
+ (
+   select t5.PhoneNumber from temp.ZZ_0726_5 t5  UNION  select t4.PhoneNumber from temp.ZZ_0726_4 t4    
+  ) TT;
+  
+  
+
+create table if not exists temp.ZZ3StairTempTable0726 as 
+
+create table if not exists temp.ZZ2StairTempTable0726 as 
+
+create table if not exists temp.ZZ4StairTempTable0726 as 
+
+select t1.PhoneNumber, t1.SurName, t1.Sex, t1.HighCity from
+  
+ select TT.PhoneNumber 
+ from 
+ (
+    select T1.PhoneNumber from (select t2.PhoneNumber from temp.ZZ_0726_2 t2  UNION  select t3.PhoneNumber from temp.ZZ_0726_3 t3) T1  
+    UNION  
+    select T2.PhoneNumber from (select t5.PhoneNumber from temp.ZZ_0726_2 t5  UNION  select t4.PhoneNumber from temp.ZZ_0726_3 t4) T2
+  ) TT;
+  

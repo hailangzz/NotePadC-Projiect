@@ -1,0 +1,1 @@
+LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/AddAlreadyDialPhoneNumber0726.txt' INSERT INTO table temp.ZZGuangFaAlreadyDialPhoneNumber;

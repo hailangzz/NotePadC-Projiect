@@ -1,0 +1,4 @@
+hive -e"
+select count(T.imei1) from 
+( select distinct t1.imei1 from dw_ods.exter_terminal_application_new t1
+  where t1.appname in (select appname from temp.yinghang) and t1.opencount>=1 and t1.year=2018 and t1.month between 1 and 6) T;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0730_1;

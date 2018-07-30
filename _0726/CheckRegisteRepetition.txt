@@ -29,11 +29,12 @@ select TT.PhoneNumber
   
 
 ###############################################################################################################
-#创建广发银行已经拨打过的通话号码表：temp.GuangFaAlreadyDialPhoneNumber
+#创建广发银行已经拨打过的通话号码表：temp.ZZGuangFaAlreadyDialPhoneNumber
 hive -e"
-create table if not exists temp.GuangFaAlreadyDialPhoneNumber (PhoneNumber string,SurName string,Sex string,Condition string,Date string,HighCity string)
-row format delimited fields terminated by '\t';
-LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/GuangFaAlreadyDialPhoneNumber' OVERWRITE INTO table temp.GuangFaAlreadyDialPhoneNumber;"
+create table if not exists temp.ZZGuangFaAlreadyDialPhoneNumber (PhoneNumber string,SurName string,Sex string,Condition string,Datetime string,HighCity string)
+row format delimited fields terminated by '\t'
+LINES TERMINATED BY '\n';
+LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/ZZGuangFaAlreadyDialPhoneNumber' OVERWRITE INTO table temp.ZZGuangFaAlreadyDialPhoneNumber;"
 
   
 
@@ -48,24 +49,40 @@ LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/GuangFaAlreadyDial
 create table if not exists temp.ZZResult_0726_1 as 
 select T1.PhoneNumber,T1.SurName,T1.Sex,T1.HighCity 
 from temp.ZZ_0726_1 T1 
-where T1.PhoneNumber not in (select PhoneNumber from temp.ZZ4StairTempTable0726 ) and T1.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
+where T1.PhoneNumber 
+not in (select T.PhoneNumber from (select t4.PhoneNumber from temp.ZZ4StairTempTable0726 t4 UNION select TDial.PhoneNumber  from temp.ZZGuangFaAlreadyDialPhoneNumber TDial)T );
+
+select count(*) from temp.ZZResult_0726_1;
+select PhoneNumber,SurName,Sex,HighCity from temp.ZZResult_0726_1 limit 2000;>/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0726_1;
+
 
 create table if not exists temp.ZZResult_0726_2 as 
 select T2.PhoneNumber,T2.SurName,T2.Sex,T2.HighCity 
 from temp.ZZ_0726_2 T2 
-where T2.PhoneNumber not in (select PhoneNumber from temp.ZZ3StairTempTable0726 ) and T2.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
+where T2.PhoneNumber 
+not in (select T.PhoneNumber from (select t3.PhoneNumber from temp.ZZ3StairTempTable0726 t3 UNION select TDial.PhoneNumber  from temp.ZZGuangFaAlreadyDialPhoneNumber TDial)T );
+select count(*) from temp.ZZResult_0726_2;
+select PhoneNumber,SurName,Sex,HighCity from temp.ZZResult_0726_2 limit 2000;
 
 create table if not exists temp.ZZResult_0726_3 as 
 select T3.PhoneNumber,T3.SurName,T3.Sex,T3.HighCity 
 from temp.ZZ_0726_3 T3 
-where T3.PhoneNumber not in (select PhoneNumber from temp.ZZ2StairTempTable0726 ) and T3.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
+where T3.PhoneNumber 
+not in (select T.PhoneNumber from (select t2.PhoneNumber from temp.ZZ2StairTempTable0726 t2 UNION select TDial.PhoneNumber  from temp.ZZGuangFaAlreadyDialPhoneNumber TDial)T );
+select count(*) from temp.ZZResult_0726_3;
+select PhoneNumber,SurName,Sex,HighCity from temp.ZZResult_0726_3 limit 2000;
 
 create table if not exists temp.ZZResult_0726_5 as 
 select T5.PhoneNumber,T5.SurName,T5.Sex,T5.HighCity 
 from temp.ZZ_0726_5 T5 
-where T5.PhoneNumber not in (select PhoneNumber from temp.ZZ_0726_4 ) and T5.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
+where T5.PhoneNumber 
+not in (select T.PhoneNumber from (select t.PhoneNumber from temp.ZZ_0726_4 t UNION select TDial.PhoneNumber  from temp.ZZGuangFaAlreadyDialPhoneNumber TDial)T );
+select count(*) from temp.ZZResult_0726_5;
+select PhoneNumber,SurName,Sex,HighCity from temp.ZZResult_0726_5 limit 2000;
 
 create table if not exists temp.ZZResult_0726_4 as 
 select T4.PhoneNumber,T4.SurName,T4.Sex,T4.HighCity 
 from temp.ZZ_0726_4 T4 
-where T4.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
+where T4.PhoneNumber not in (select PhoneNumber from temp.ZZGuangFaAlreadyDialPhoneNumber);
+select count(*) from temp.ZZResult_0726_4;
+select PhoneNumber,SurName,Sex,HighCity from temp.ZZResult_0726_4 limit 2000;

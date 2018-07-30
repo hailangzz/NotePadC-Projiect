@@ -1,4 +1,4 @@
-# 此处创建阶梯型临时扩充手机号信息表以此来实现去除重复号码····
+# 此处创建阶梯型临时扩充手机号信息表以此来实现去除重复号码  （并且加上已经拨打的号码：）····
 # 表的大小排序（有大到小）：1、2、3、5、4
 create table if not exists temp.ZZ4StairTempTable0726 as 
 select TT.PhoneNumber 
@@ -6,7 +6,7 @@ select TT.PhoneNumber
  (
     select T1.PhoneNumber from (select t2.PhoneNumber from temp.ZZ_0726_2 t2  UNION  select t3.PhoneNumber from temp.ZZ_0726_3 t3) T1  
     UNION  
-    select T2.PhoneNumber from (select t5.PhoneNumber from temp.ZZ_0726_2 t5  UNION  select t4.PhoneNumber from temp.ZZ_0726_3 t4) T2
+    select T2.PhoneNumber from (select t5.PhoneNumber from temp.ZZ_0726_5 t5  UNION  select t4.PhoneNumber from temp.ZZ_0726_4 t4) T2
   ) TT;
   
 ######3、5 、4
@@ -27,21 +27,45 @@ select TT.PhoneNumber
    select t5.PhoneNumber from temp.ZZ_0726_5 t5  UNION  select t4.PhoneNumber from temp.ZZ_0726_4 t4    
   ) TT;
   
+
+###############################################################################################################
+#创建广发银行已经拨打过的通话号码表：temp.GuangFaAlreadyDialPhoneNumber
+hive -e"
+create table if not exists temp.GuangFaAlreadyDialPhoneNumber (PhoneNumber string,SurName string,Sex string,Condition string,Date string,HighCity string)
+row format delimited fields terminated by '\t';
+LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/GuangFaAlreadyDialPhoneNumber' OVERWRITE INTO table temp.GuangFaAlreadyDialPhoneNumber;"
+
   
 
-create table if not exists temp.ZZ3StairTempTable0726 as 
+###############################################################################################################
+#去重的输出结果脚本：
+# 1、temp.ZZResult_0726_1
+# 2、temp.ZZResult_0726_2
+# 3、temp.ZZResult_0726_3
+# 4、temp.ZZResult_0726_4
+# 5、temp.ZZResult_0726_5
 
-create table if not exists temp.ZZ2StairTempTable0726 as 
+create table if not exists temp.ZZResult_0726_1 as 
+select T1.PhoneNumber,T1.SurName,T1.Sex,T1.HighCity 
+from temp.ZZ_0726_1 T1 
+where T1.PhoneNumber not in (select PhoneNumber from temp.ZZ4StairTempTable0726 ) and T1.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
 
-create table if not exists temp.ZZ4StairTempTable0726 as 
+create table if not exists temp.ZZResult_0726_2 as 
+select T2.PhoneNumber,T2.SurName,T2.Sex,T2.HighCity 
+from temp.ZZ_0726_2 T2 
+where T2.PhoneNumber not in (select PhoneNumber from temp.ZZ3StairTempTable0726 ) and T2.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
 
-select t1.PhoneNumber, t1.SurName, t1.Sex, t1.HighCity from
-  
- select TT.PhoneNumber 
- from 
- (
-    select T1.PhoneNumber from (select t2.PhoneNumber from temp.ZZ_0726_2 t2  UNION  select t3.PhoneNumber from temp.ZZ_0726_3 t3) T1  
-    UNION  
-    select T2.PhoneNumber from (select t5.PhoneNumber from temp.ZZ_0726_2 t5  UNION  select t4.PhoneNumber from temp.ZZ_0726_3 t4) T2
-  ) TT;
-  
+create table if not exists temp.ZZResult_0726_3 as 
+select T3.PhoneNumber,T3.SurName,T3.Sex,T3.HighCity 
+from temp.ZZ_0726_3 T3 
+where T3.PhoneNumber not in (select PhoneNumber from temp.ZZ2StairTempTable0726 ) and T3.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
+
+create table if not exists temp.ZZResult_0726_5 as 
+select T5.PhoneNumber,T5.SurName,T5.Sex,T5.HighCity 
+from temp.ZZ_0726_5 T5 
+where T5.PhoneNumber not in (select PhoneNumber from temp.ZZ_0726_4 ) and T5.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);
+
+create table if not exists temp.ZZResult_0726_4 as 
+select T4.PhoneNumber,T4.SurName,T4.Sex,T4.HighCity 
+from temp.ZZ_0726_4 T4 
+where T4.PhoneNumber not in (select PhoneNumber from temp.GuangFaAlreadyDialPhoneNumber);

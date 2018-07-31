@@ -1,0 +1,20 @@
+﻿客户选择角色扮演类，请看一下近3个月，有过一次使用行为的有没有300万。
+
+如果可以加一个游戏：剑与家园。
+
+脚本文件：
+select count(T1.imei1) 
+from (
+select distinct t1.imei1 from dw_ods.exter_terminal_application_new t1
+where t1.appname in (select name from dw_ods.application_detail where cat_name='角色扮演')
+and t1.opencount>=1 and t1.year=2018 and t1.month between 4 and 6) T1;
+
+查看剑与家园游戏的信息····
+select * from dw_ods.application_detail where name='剑与家园';
+select count(*) from dw_ods.exter_terminal_application_new t1 where t1.appname='剑与家园' and t1.year=2018 and t1.month=6;
+
+select count(T1.imei1) 
+from (
+select distinct t1.imei1 from dw_ods.exter_terminal_application_new t1
+where t1.appname='剑与家园'
+and t1.opencount>=1 and t1.year=2018 and t1.month between 4 and 6) T1;

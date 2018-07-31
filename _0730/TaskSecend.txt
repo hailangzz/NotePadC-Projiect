@@ -18,3 +18,35 @@ from (
 select distinct t1.imei1 from dw_ods.exter_terminal_application_new t1
 where t1.appname='剑与家园'
 and t1.opencount>=1 and t1.year=2018 and t1.month between 4 and 6) T1;
+
+角色扮演类游戏的应用个数：
+select count(*) from dw_ods.application_detail where cat_name='角色扮演';  ->> 1982(个)
+##################################################################################################################################   使用用户给定的excel中的角色扮演类游戏列表进行筛选查询操作···
+
+
+#创建临时表（temp.ZZRolePlayingGame0730）
+hive -e "create table if not exists temp.ZZRolePlayingGame0730 (ID string,GameName string,GameClassify string,ClassifyDetail string ,Theme string,Style string)
+row format delimited fields terminated by '\t'
+LINES TERMINATED BY '\n';
+LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/ZZRolePlayingGame0730' OVERWRITE INTO table temp.ZZRolePlayingGame0730;
+"
+
+hive -e"
+select count(T1.imei1) 
+from (
+select distinct t1.imei1 from dw_ods.exter_terminal_application_new t1
+where t1.appname in (select GameName from temp.ZZRolePlayingGame0730)
+and t1.opencount>=1 and t1.year=2018 and t1.month between 4 and 6) T1;
+"  --》 1859920
+
+#只查看安装了角色扮演类app的手机号码···
+hive -e"
+select count(T1.imei1) 
+from (
+select distinct t1.imei1 from dw_ods.exter_terminal_application_new t1
+where t1.appname in (select GameName from temp.ZZRolePlayingGame0730)
+and t1.year=2018 and t1.month between 4 and 6) T1;
+" -》4913269
+
+1、使用1次及以上的IMEI个数：1859920
+2、去掉使用一次及以上条件，得到的IMEI个数：4913269

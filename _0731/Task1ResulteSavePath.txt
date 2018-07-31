@@ -1,0 +1,5 @@
+1、Result_0731_1,保存300万条银行类APP，3个月内，使用1次及以上，IMEI码；
+   保存路径为：/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0731_1
+
+2、Result_0731_2,保存300万条角色扮演类APP，6个月内，使用1次及以上，IMEI码。
+   保存路径为：/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0731_2

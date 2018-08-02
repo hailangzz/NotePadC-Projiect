@@ -1,0 +1,20 @@
+1、统计一下最近3个月有使用过1次以上银行、贷款APP（这是另外一个广告平台，APP名称不一样）的IMEI有多少总量。
+2、数据量需要300万，如果不够，就放宽时间限制改为6个月。
+
+hive -e"
+select count(*) from 
+(
+   select distinct Imei1 from dw_ods.exter_terminal_application_new 
+          where appname in (select appname from temp.ZZBankApplication0802)
+                and opencount>=1 and year=2018 and month between 4 and 6
+ ) T;
+"
+
+hive -e"
+select count(*) from 
+(
+   select distinct Imei1 from dw_ods.exter_terminal_application_new 
+          where appname in (select appname from temp.ZZLoanApplication0802)
+                and opencount>=1 and year=2018 and month between 4 and 6
+ ) T;
+"

@@ -1,0 +1,22 @@
+select * from dw_ods.exter_terminal_application_new where appname='Sit_清镇兴邦村镇银行' and year=2018 and month between 4 and 6;
+
+#需要创建两个临时表···
+1、客户要求的银行类APP表（temp.ZZBankApplication0802）
+2、客户要求的贷款类APP表（temp.ZZLoanApplication0802）
+
+1.
+hive -e"
+create table if not exists temp.ZZBankApplication0802(AppName string)
+row format delimited fields terminated by '\t'
+LINES TERMINATED BY '\n';
+LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/ZZBankApplication0802' OVERWRITE INTO table temp.ZZBankApplication0802;
+"
+
+2.
+hive -e"
+create table if not exists temp.ZZLoanApplication0802(AppName string)
+row format delimited fields terminated by '\t'
+LINES TERMINATED BY '\n';
+LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/ZZLoanApplication0802' OVERWRITE INTO table temp.ZZLoanApplication0802;
+"
+

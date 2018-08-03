@@ -18,3 +18,42 @@ select count(*) from
                 and opencount>=1 and year=2018 and month between 4 and 6
  ) T;
 "
+hive -e"
+select count(*) from 
+(
+   select distinct Imei1 from dw_ods.exter_terminal_application_new 
+          where appname in (select appname from temp.ZZLoanApplication0802)
+                and opencount>=1 and year=2018 and month between 4 and 6
+ ) T;
+"
+
+hive -e"
+create table if not exists temp.ZZ0802_1 as 
+select T1.Imei1, concat_ws(',',collect_set(T1.appname)) as AppNameList from
+(
+select distinct imei1,appname from dw_ods.exter_terminal_application_new 
+where appname in(select appname from temp.ZZBankApplication0802) 
+and opencount>=1 and year=2018 and month between 4 and 6                 
+)T1 group by T1.Imei1;
+"
+hive -e" select distinct t1.Imei1,t1.AppNameList from temp.ZZ0802_1 t1 limit 3000000;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0802_1 
+
+
+hive -e"
+create table if not exists temp.ZZ0802_2 as 
+select T2.Imei1, concat_ws(',',collect_set(T2.appname)) as AppNameList from
+(
+select distinct imei1,appname from dw_ods.exter_terminal_application_new 
+where appname in(select appname from temp.ZZLoanApplication0802) 
+and opencount>=1 and year=2018 and month between 4 and 6                 
+)T2 group by T2.Imei1;
+"
+hive -e" select distinct t1.Imei1,t1.AppNameList from temp.ZZ0802_2 t1 limit 3000000;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0802_2 
+
+
+1、最近3个月有使用过1次以上银行类APP的用户IMEI1码、银行类APP列表，300万条数据路径：
+   /home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0802_1 
+
+2、最近3个月有使用过1次以上贷款类APP的用户IMEI1码、贷款类APP列表，300万条数据路径：
+   /home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0802_2 
+

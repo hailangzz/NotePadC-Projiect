@@ -1,0 +1,22 @@
+#银行类app表为：temp.yinhang_new
+#角色扮演类的表为：temp.ZZRolePlayingGame0730
+
+将结果表中，相同IMEI的不同appname列的值合并存储：
+
+hive -e"
+create table if not exists temp.ZZ0731_1_1 as 
+select Imei1,group_concat(appname) from temp.ZZ0731_1 group by Imei1;
+"  ---->----测试不通过
+
+
+hive -e"
+create table if not exists temp.ZZ0731_1_1 as 
+select Imei1,concat_ws(',',collect_set(appname)) as AppNameList from temp.ZZ0731_1 group by Imei1;
+"
+hive -e"
+create table if not exists temp.ZZ0731_2_1 as 
+select Imei1,concat_ws(',',collect_set(appname)) as AppNameList from temp.ZZ0731_2 group by Imei1;
+"
+
+hive -e" select distinct t1.Imei1,t1.AppNameList from temp.ZZ0731_1_1 t1 limit 3000000;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0731_1 
+hive -e" select distinct t2.Imei1,t2.AppNameList from temp.ZZ0731_2_1 t2 limit 3000000;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0731_2 

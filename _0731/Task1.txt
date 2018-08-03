@@ -15,11 +15,22 @@ select T1.Imei1 from
 )T1 limit 3000000;
 " >/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0731_1;
 
+#创建临时表1   (temp.ZZ0731_1 )
+hive -e"
+create table if not exists temp.ZZ0731_1 as 
+select T1.Imei1 from
+(
+  select distinct imei1 from dw_ods.exter_terminal_application_new 
+         where appname in(select appname from temp.yinhang_new) 
+         and opencount>=1 and year=2018 and month between 4 and 6                 
+)T1;
+"
 
 2、
 
           -------->>>>>>>>>---------'测试脚本'
 hive -e"
+
 select count(*) from
 (
    select T2.Imei1 from
@@ -34,6 +45,7 @@ select count(*) from
 
 
           -------->>>>>>>>>---------'运行脚本'
+#输出300万条结果到路径中
 hive -e"
 select T2.Imei1 from
       (
@@ -44,3 +56,15 @@ select T2.Imei1 from
        )T2 limit 3000000;
 " >/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0731_2;
 
+
+#创建临时表2   (temp.ZZ0731_2 )
+hive -e"
+create table if not exists temp.ZZ0731_2 as 
+select T2.Imei1 from
+      (
+         select distinct imei1 
+                from dw_ods.exter_terminal_application_new 
+                where appname in (select GameName from temp.ZZRolePlayingGame0730)
+                and opencount>=1 and year=2018 and month between 1 and 6                           
+       )T2;
+" 

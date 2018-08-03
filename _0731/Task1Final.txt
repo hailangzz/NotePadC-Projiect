@@ -1,0 +1,24 @@
+hive -e"
+create table if not exists temp.ZZ0731_1 as 
+select T1.Imei1, T1.appname from
+(
+select distinct imei1,appname from dw_ods.exter_terminal_application_new 
+where appname in(select appname from temp.yinhang_new) 
+and opencount>=1 and year=2018 and month between 4 and 6                 
+)T1;
+"
+
+
+hive -e"
+create table if not exists temp.ZZ0731_2 as 
+select T2.Imei1, T2.appname from
+(
+select distinct imei1,appname
+from dw_ods.exter_terminal_application_new 
+where appname in (select GameName from temp.ZZRolePlayingGame0730)
+and opencount>=1 and year=2018 and month between 1 and 6                           
+)T2;
+" 
+
+hive -e" select distinct t1.Imei1,t1.appname from temp.ZZ0731_1 t1 limit 3000000;" >/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0731_1
+hive -e" select distinct t2.Imei1,t2.appname from temp.ZZ0731_2 t2 limit 3000000;" >/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0731_2

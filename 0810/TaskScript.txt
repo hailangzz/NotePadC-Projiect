@@ -1,0 +1,67 @@
+已有可用的临时表：
+
+·temp.bailing_useonetime_6month
+·temp.guangfacredit_city
+
+
+需要创建的临时表：
+·12个月内有广发信用卡账单的用户表：
+hive -e"create table if not exists temp.ZZ0808_UseGuangFaCreditCard as 
+select distinct mobile as PhoneNumber from dw_ods.base_a2p_creditcard_bill_info
+where cust_type=2031 and ((year=2017 and month between 07 and 12) or (year=2018 and month between 01 and 06));"
+
+Task1:
+
+标签：同时满足以下4个标签
+1、城市：属于下列可发卡城市（附可发卡城市）
+2、排除：12个月内有广发信用卡账单用户
+3、话费：Apru 120元以上
+4、APP：最近1个月，至少使用1个白领APP 1次以上（附白领APP列表）
+
+数量：5000个号码
+
+hive -e"
+    SELECT COUNT(*) from 
+    (
+    SELECT TT1.PhoneNumber FROM
+    (select t1.id as PhoneNumber from tags.tag_1102_owner_city t1,temp.guangfacredit_city t2
+	      where t1.tag_value=t2.city and t1.dated='2018-06') TT1 
+    INNER JOIN
+    (
+      select t3.id as PhoneNumber from tags.tag_1202_arpu t3,temp.bailing_useonetime_6month tt1
+            where  t3.id = tt1.mobile and t3.tag_value>120 and t3.dated='2018-06'
+	) TT2
+	ON TT1.PhoneNumber=TT2.PhoneNumber
+	)TOK
+     where PhoneNumber not in(select tb.PhoneNumber from temp.ZZ0808_UseGuangFaCreditCard tb);        
+"            
+-------------------->>>>--------------------------500575
+    
+
+Task2:
+
+第二批：
+标签：同时满足以下4个标签
+1、城市：属于下列可发卡城市（附可发卡城市）
+2、排除：12个月内有广发信用卡账单用户
+3、话费：Apru 120元以上
+4、最近12个月，至少有一封信用卡账单
+
+数量：5000个号码
+
+hive -e"
+    SELECT COUNT(distinct TOK.PhoneNumber) from 
+    (
+    SELECT TT1.PhoneNumber FROM
+    (select t1.id as PhoneNumber from tags.tag_1102_owner_city t1,temp.guangfacredit_city t2
+	      where t1.tag_value=t2.city and t1.dated='2018-06') TT1 
+    INNER JOIN
+    (
+      select t3.id as PhoneNumber from tags.tag_1202_arpu t3,dw_ods.base_a2p_creditcard_bill_info tt1
+            where  t3.id = tt1.mobile and t3.tag_value>120 and ((year=2017 and month between 07 and 12) or (year=2018 and month between 01 and 06)) and t3.dated='2018-06'
+	) TT2
+	ON TT1.PhoneNumber=TT2.PhoneNumber
+	)TOK 
+     where TOK.PhoneNumber not in(select tb.PhoneNumber from temp.ZZ0808_UseGuangFaCreditCard tb);        
+"
+-------------------->>>>--------------------------1012073

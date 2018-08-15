@@ -1,0 +1,172 @@
+hive -e"
+create table if not exists temp.ZZ0806_1 as 
+select distinct t1.usernumber as PhoneNumber from dw_ods.bill_basic_info t1 ,dw_dm.bill_data_std_data_573901 t2 
+where t1.usernumber=t2.id and t1.arpu>8 and t1.ym='201806';
+"
+
+####################################################################################
+#将总话费及通话时长集成到临时表（temp.ZZ0806_2）
+hive -e"
+create table if not exists temp.ZZ0806_2 as 
+select t1.usernumber as PhoneNumber ,SUM(t1.arpu) AS ARPU ,SUM(t3.dtime) AS DurationDial 
+from dw_ods.bill_basic_info t1 ,temp.ZZ0806_1 t2 ,dw_dm.bill_data_std_data_573901 t3 
+where t1.usernumber=t2.PhoneNumber and t1.usernumber=t3.id and t1.ym='201806' group by t1.usernumber ;
+"
+
+
+#######################################################################################
+#将保险账单花费集成到临时表（temp.ZZ0806_3）： ====考虑到如果集成起来的话会导致表记录缩减因此建立单个表··
+hive -e"
+create table if not exists temp.ZZ0806_3 as 
+select t1.PhoneNumber ,t1.ARPU ,t3.DurationDial ,SUM(t2.fee)
+from temp.ZZ0806_2
+"
+
+####################################################################################
+#将广东有境外通话的用户，保险信息临时表中（temp.ZZ0806_2_Insurance2018）
+
+hive -e"
+create table if not exists temp.ZZ0806_2_Insurance2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfInsurance ,SUM(t1.fee)  as FeeOfInsurance
+from dw_ods.a2p_assurance_info t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber  and t1.year=2018 and t1.month not between 5 and 6 group by t1.mobile;
+"
+hive -e"
+create table if not exists temp.ZZ0806_2_Insurance2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfInsurance ,SUM(t1.fee)  as FeeOfInsurance
+from dw_ods.a2p_assurance_info t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber  and t1.year>=2017  group by t1.mobile;
+"
+
+#将广东有境外通话的用户，旅游信息临时表中（temp.ZZ0806_2_Travel2018）
+
+hive -e"
+create table if not exists temp.ZZ0806_2_Travel2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfTravel ,SUM(t1.price)  as FeeOfTravel
+from dw_ods.a2p_travel_info t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber and t1.price>0 and t1.year=2018 and (t1.month=2 or t1.month=3 or t1.month=4 ) group by t1.mobile;
+"
+
+hive -e"
+create table if not exists temp.ZZ0806_2_Travel2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfTravel ,SUM(t1.price)  as FeeOfTravel
+from dw_ods.a2p_travel_info t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber and t1.price>0 and t1.year=2018 and (t1.month=2 or t1.month=3 or t1.month=4 ) group by t1.mobile;
+"
+
+hive -e"
+create table if not exists temp.ZZ0806_2_Travel2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfTravel ,SUM(t1.price)  as FeeOfTravel
+from dw_ods.a2p_travel_info t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber and t1.price>0 and ((t1.year=2018 and (t1.month=2 or t1.month=3 or t1.month=4 )) or t1.year=2017 ) group by t1.mobile;
+"
+
+#将广东有境外通话的用户，住宿信息临时表中（temp.ZZ0806_2_Hotel2018）
+
+hive -e"
+create table if not exists temp.ZZ0806_2_Hotel2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfHotel, SUM(t1.price)  as FeeOfHotel
+from dw_ods.a2p_hotel_info t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber and t1.price>0 and t1.year=2018 and t1.month not in('5','6') group by t1.mobile;
+"
+hive -e"
+create table if not exists temp.ZZ0806_2_Hotel2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfHotel, SUM(t1.price)  as FeeOfHotel
+from dw_ods.a2p_hotel_info t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber and t1.price>0 and t1.year=2018 and  (t1.month=1 or t1.month=2 or t1.month=3 or t1.month=4 )group by t1.mobile;
+"
+
+hive -e"
+create table if not exists temp.ZZ0806_2_Hotel2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfHotel, SUM(t1.price)  as FeeOfHotel
+from dw_ods.a2p_hotel_info t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber and t1.price>0 and ((t1.year=2018 and (t1.month=1 or t1.month=2 or t1.month=3 or t1.month=4 )) or t1.year=2017) group by t1.mobile;
+"
+
+
+#将广东有境外通话的用户，交易信息临时表中（temp.ZZ0806_2_CreditcardBill2018）
+hive -e"
+create table if not exists temp.ZZ0806_2_CreditcardBill2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfCreditcardBill, SUM(t1.Amount)  as FeeOfCreditcardBill
+from dw_ods.base_a2p_creditcard_bill_detail t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber and t1.Amount>0 and  t1.year=2018 and ( t1.month=2 or t1.month=6 or t1.month=7 ) group by t1.mobile;
+"
+
+hive -e"
+create table if not exists temp.ZZ0806_2_CreditcardBill2018 as 
+select t1.mobile as PhoneNumber ,COUNT(t1.mobile) as NumberOfCreditcardBill, SUM(t1.Amount)  as FeeOfCreditcardBill
+from dw_ods.base_a2p_creditcard_bill_detail t1 ,
+     temp.ZZ0806_1 t2
+where t1.mobile=t2.PhoneNumber and t1.Amount>0 and  t1.year=2018 and ((t1.year=2018 and (t1.month=2 or t1.month=6 or t1.month=7 )) or t1.year=2017) group by t1.mobile;
+"
+
+#将广东有境外通话的用户，年龄信息临时表中（temp.ZZ0806_2_Age2018）
+hive -e"
+create table if not exists temp.ZZ0806_2_Age2018 as 
+select t1.id as PhoneNumber ,t1.tag_value as Age 
+from tags.tag_1101_age t1 ,
+     temp.ZZ0806_1 t2
+where t1.id =t2.PhoneNumber and t1.tag_value>0 and  t1.dt='2018-06';
+"
+
+#将广东有境外通话的用户，性别信息临时表中（temp.ZZ0806_2_Sex2018）
+hive -e"
+create table if not exists temp.ZZ0806_2_Sex2018 as 
+select t1.id as PhoneNumber ,t1.tag_value as Sex 
+from tags.tag_1101_Sex t1 ,
+     temp.ZZ0806_1 t2
+where t1.id =t2.PhoneNumber and t1.tag_value>0 and  t1.dt='2018-06';
+"
+
+#将广东有境外通话的用户，在网时长信息临时表中（temp.ZZ0806_2_NetLong2018）
+hive -e"
+create table if not exists temp.ZZ0806_2_NetLong2018 as 
+select t1.id as PhoneNumber ,t1.tag_value as NetLong 
+from tags.tag_1102_netlong t1 ,
+     temp.ZZ0806_1 t2
+where t1.id =t2.PhoneNumber and t1.tag_value>0 and  t1.dated='2018-06';
+"
+
+#将广东有境外通话的用户，平均话费信息临时表中（temp.ZZ0806_2_ARPU2018）  ####没有数据···
+hive -e"
+create table if not exists temp.ZZ0806_2_ARPU2018 as 
+select t1.id as PhoneNumber ,t1.tag_value as ARPU 
+from tags.tag_1202_arpu t1 ,
+     temp.ZZ0806_1 t2
+where t1.id =t2.PhoneNumber and t1.tag_value>0 and  t1.dated='2018-06';
+"
+
+#将广东有境外通话的用户，平均话费信息临时表中（temp.ZZ0806_2_PriceHouse2018）  ####没有数据···
+hive -e"
+create table if not exists temp.ZZ0806_2_PriceHouse2018 as 
+select t1.id as PhoneNumber ,t1.tag_value as PriceHouse 
+from tags.tag_1104_user_building_cost t1 ,
+     temp.ZZ0806_1 t2
+where t1.id =t2.PhoneNumber and t1.tag_value>0 and  t1.dt='2018-06';
+"
+#########################################################################################################################
+hive -e"select t1.mobile as PhoneNumber ,t1.price,t1.year,t1.month,t1.day from dw_ods.a2p_travel_info t1 where t1.price>0 and t1.year=2018 and t1.month =5;"
+hive -e"select SUM(t1.Amount)from dw_ods.base_a2p_creditcard_bill_detail t1 where  t1.year=2017 ;"
+
+#hive计算分位数····
+#将总话费及通话时长集成到临时表（temp.ZZ0806_2）
+
+hive -e"
+create table if not exists temp.ZZ0806_2 as 
+select t1.usernumber as PhoneNumber ,SUM(t1.arpu) AS ARPU ,SUM(t3.dtime) AS DurationDial 
+from dw_ods.bill_basic_info t1 ,temp.ZZ0806_1 t2 ,dw_dm.bill_data_std_data_573901 t3 
+where t1.usernumber=t2.PhoneNumber and t1.usernumber=t3.id and t1.ym='201806' group by t1.usernumber ;
+"
+
+hive -e" select percentile_approx(ARPU,array(0.05,0.5,0.95)) from temp.ZZ0806_2;"
+select percentile_approx(ARPU,array(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9)) from temp.ZZ0806_2;
+---->> [43.6,73.2,100.1,127.2,159.6,196.3,238.7,298.6,403.0] 总人数为：1197510

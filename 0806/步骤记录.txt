@@ -1,0 +1,10 @@
+将表temp.ZZ0806_2的数据导出到linux文件中;
+
+hive -e"select * from temp.ZZ0806_2;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0807_1
+hive -e"select * from temp.ZZ0806_2_Insurance2018;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0807_2
+hive -e"select * from temp.ZZ0806_2_Travel2018;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0807_3
+hive -e"select * from temp.ZZ0806_2_Hotel2018;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0807_4
+hive -e"select * from temp.ZZ0806_2_CreditcardBill2018;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0807_5
+hive -e"select * from temp.ZZ0806_2_Age2018;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0807_6
+hive -e"select * from temp.ZZ0806_2_Sex2018;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0807_7
+hive -e"select * from temp.ZZ0806_2_NetLong2018;">/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0807_8

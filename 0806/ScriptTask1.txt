@@ -1,0 +1,59 @@
+﻿hive -e"
+create table if not exists temp.ZZ0806_1 as 
+
+select T1.PhoneNumber 
+     from (select distinct t1.id as PhoneNumber from tags.tag_1104_user_building_province t1 where t1.tag_value='广东省' and t1.dt='2018-06') T1
+	 INNER JOIN 
+     (
+    	 select  t2.id from tags.tag_1202_arpu t2 
+		 INNER JOIN 
+		 tags.tag_1202_myth_fee t3 
+         on t2.id=t3.id  where t2.tag_value>8 and t3.tag_value>0 and t2.dated='2018-06' and t3.dated='2018-06'
+	  ) T2
+      ON T1.PhoneNumber=T2.id ;
+"
+
+select distinct t1.id as PhoneNumber from tags.tag_1104_user_building_province t1 where t1.tag_value='广东省' and t1.dt='2018-05';
+
+###################################################################################################################################################
+已经给有国际通话的手机号码临时表：（dw_dm.bill_data_std_data_573901   字段：ID string ，DTime string ）
+select count(id) from dw_dm.bill_data_std_data_573901;            ----->1212924
+select count(distinct id) from dw_dm.bill_data_std_data_573901;   ----->1211767
+
+任务，查询表中，国际漫游费用大于0的手机号码；
+hive -e"
+create table if not exists temp.ZZ0806_1 as 
+select t1.id as PhoneNumber from tags.tag_1202_arpu t1 
+INNER JOIN dw_dm.bill_data_std_data_573901 t2 
+ON t1.id=t2.id and t1.tag_value>8 and t1.dated='2018-06';
+"
+
+hive -e"
+create table if not exists temp.ZZ0806_1 as 
+select distinct t1.usernumber as PhoneNumber from dw_ods.bill_basic_info t1 ,dw_dm.bill_data_std_data_573901 t2 
+where t1.usernumber=t2.id and t1.arpu>8 and t1.ym='201806';
+"
+
+hive -e"select t1.id ,t1.tag_value from tags.tag_1202_arpu t1 where t1.tag_value>8 and t1.dated='2018-06';"
+hive -e"select count(*) from tags.tag_1202_arpu t1 where t1.tag_value>8 and t1.dated='2018-06';"
+
+select ym from dw_ods.bill_basic_info limit 10;
+
+################################################################################################################
+#创建更复杂的临时信息表；temp.ZZ0806_2 (字段： PhoneNumber string,ARPU string,DurationDial sting）
+hive -e"
+create table if not exists temp.ZZ0806_2 as 
+select t2.PhoneNumber ,SUM(t2.arpu) AS ARPU from temp.ZZ0806_1 t1 ,dw_dm.bill_data_std_data_573901 t2 
+where t1.PhoneNumber=t2.id  and t2.ym='201806' group by t2.PhoneNumber ORDER BY t2.PhoneNumber DESC;
+"
+
+hive -e"
+create table if not exists temp.ZZ0806_2 as 
+select t1.usernumber as PhoneNumber ,SUM(t1.arpu) AS ARPU ,SUM(t3.dtime) AS DurationDial 
+from dw_ods.bill_basic_info t1 ,temp.ZZ0806_1 t2 ,dw_dm.bill_data_std_data_573901 t3 
+where t1.usernumber=t2.PhoneNumber and t1.usernumber=t3.id and t1.ym='201806' group by t1.usernumber ;
+"
+#####################################################
+检测数据：（正确）
+select t1.id,sum(t1.dtime) from dw_dm.bill_data_std_data_573901 t1 where t1.id=13422181587 group by t1.id ;                                ----->13422181587      545.0
+select t1.usernumber,sum(t1.arpu) from dw_ods.bill_basic_info t1 where t1.usernumber=13422181587 and t1.ym='201806' group by t1.usernumber ; --->13422181587     7586.27

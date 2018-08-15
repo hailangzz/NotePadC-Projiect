@@ -1,0 +1,13 @@
+1、temp.zz0808_shenzhenuser 深圳用户的基础信息表 (字段：PhoneNumber,Sex,Age,UserCity)
+2、temp.zz0808_shenzhenuserphonebrand 深圳用户的手机品牌信息表(最近6个月) (字段：PhoneNumber,Sex,Age,PhoneBrand)
+3、temp.ZZ0808_ShenZhenUserTelePhoneCharge 深圳用户的话费账单信息表(最近6个月) (字段：PhoneNumber,Sex,Age,ARPU)
+4、temp.ZZ0808_ShenZhenUserCreditCardBill 深圳用户的信用卡账单信息表(最近6个月) (字段：PhoneNumber,Sex,Age,CreditCardFee) 02 06 07
+   测试：select SUM(t2.amount) as CreditCardFee from dw_ods.base_a2p_creditcard_bill_detail t2 where t2.year=2017 and t2.month=06 and t2.amount>0;
+
+hive -e"select * from temp.zz0808_shenzhenuser;" >/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0808_shenzhenuser 
+
+hive -e"select * from temp.zz0808_shenzhenuserphonebrand;" >/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0808_shenzhenuserphonebrand 
+
+hive -e"select * from temp.ZZ0808_ShenZhenUserTelePhoneCharge;" >/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0808_ShenZhenUserTelePhoneCharge 
+
+hive -e"select * from temp.ZZ0808_ShenZhenUserCreditCardBill;" >/home/qizhi_user/zhangzhuo/SaveSerchDataDir/Result_0808_ShenZhenUserCreditCardBill 

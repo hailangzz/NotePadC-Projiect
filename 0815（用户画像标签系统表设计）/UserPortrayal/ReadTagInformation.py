@@ -22,8 +22,5 @@ def ReadTagInformation(TafFilePath):
     #print(TagData.columns)
     #print(TagData.values)
 
-
-
-
 TafFilePath=r"./数据库map表初始化源文件.xlsx"
 ReadTagInformation(TafFilePath)

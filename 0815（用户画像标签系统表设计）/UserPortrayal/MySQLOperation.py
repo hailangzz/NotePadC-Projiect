@@ -1,5 +1,7 @@
 import pymysql
 import datetime
+import GlobalVariable as GV
+import copy
 
 class Mysql:
     _MysqlHost = {"host": '', "port": 0, "user": '', "password": ''}
@@ -230,6 +232,7 @@ class Mysql:
                 ClassifyValueList.append(TagClassifyValueList)
             else:
                 ClassifyValueList=list(TagClassifyValueList)
+
             if type(ClassifyValueList) is not list or len(ClassifyValueList)==0:
                 print("输入的标签种类值不是列表类型···")
                 return
@@ -265,24 +268,30 @@ class Mysql:
 
             # 先将所有的ClassifyValue表中存在的，标签名称映射和标签值名称统一存储到内存数组中，一遍做插入前的校验···（防止插入非法记录）
             ExistClassifyValueComplexAll = []
-            ClassifyValueComplexSingle = []
-            SelectTagClassifyCommand = "select TagClassifyMap,ClassifyValue from %s.ClassifyValue;" % (
-                self._UseDatabase)
+            ClassifyValueComplexSingle = [0, 0]
+            SelectTagClassifyCommand = "select TagClassifyMap,ClassifyValue from %s.ClassifyValue;" % (self._UseDatabase)
             self._MysqlCursor.execute(SelectTagClassifyCommand)
             ExistTagClassifyTupleList = self._MysqlCursor.fetchall()
+
             for TagClassifyTuple in ExistTagClassifyTupleList:
+
+                #print(TagClassifyTuple)
+                #print(ClassifyValueComplexSingle)
+                #print(TagClassifyTuple[0],TagClassifyTuple[1])
                 ClassifyValueComplexSingle[0] = TagClassifyTuple[0]
                 ClassifyValueComplexSingle[1] = TagClassifyTuple[1]
+                #print(ClassifyValueComplexSingle)
                 ExistClassifyValueComplexAll.append(ClassifyValueComplexSingle)
+            #print(ExistClassifyValueComplexAll)
 
             #将每一个标签种类值列表（ClassifyValueList），中的标签种类值，计入标签种类值字典结构中（ClassifyValueDict）···
             for ClassifyValue in ClassifyValueList:
-                if type(ClassifyValue) is str:
-                    print("标签种类的值列表中，有标签值类型不符（%s）···") % ClassifyValue
+                if type(ClassifyValue) is not str:
+                    print("标签种类的值列表中，有标签值类型不符（%s）···" % ClassifyValue)
                     return
 
                 ClassifyValueDict['ClassifyValue']=ClassifyValue
-                if ClassifyValueDict["ClassifyValueFlag"]=='Range':
+                if ClassifyValueDict["ClassifyValueFlag"]=='Range':        #当标签值的运算标志为，区间运算时·····
                     ClassifyValueComplex=ClassifyValue.split('-')
                     if len(ClassifyValueComplex)==2:     #当范围型标签值可分出最大及最小值时···
                         ClassifyValueDict['ValueMin'] = int(ClassifyValueComplex[0])
@@ -294,41 +303,121 @@ class Mysql:
                         else:
                             ClassifyValueDict['ValueMin'] = int(ClassifyValueComplex[0])
                             ClassifyValueDict['ValueMin'] = int(ClassifyValueComplex[0])
+                    # 此时将准备好的标签字段值字典数据结构写入到，标签值映射表中（ClassifyValue）···
+                    # 1.检索ClassifyValue表中记录，防止插入重复的，标签映射和标签映射值组合的情况发生···
+                    CheckClassifyValueComplex = [ClassifyValueDict["TagClassifyMap"],
+                                                 ClassifyValueDict["ClassifyValue"]]
+                    if CheckClassifyValueComplex in ExistClassifyValueComplexAll:
+                        print("%s,记录已经存在，在标签值映射表中···") % str(CheckClassifyValueComplex)
+                        continue  # 当标签映射及标签值组合已经存在时，跳过并继续循环···
 
-                #此时将准备好的标签字段值字典数据结构写入到，标签值映射表中（ClassifyValue）···
-                # 1.检索ClassifyValue表中记录，防止插入重复的，标签映射和标签映射值组合的情况发生···
-                CheckClassifyValueComplex=[ClassifyValueDict["TagClassifyMap"],ClassifyValueDict["ClassifyValue"]]
-                if CheckClassifyValueComplex in ExistClassifyValueComplexAll:
-                    print("%s,记录已经存在，在标签值映射表中···") % str(CheckClassifyValueComplex)
-                    continue                   #当标签映射及标签值组合已经存在时，跳过并继续循环···
+                    # 此时执行插入操作,(插入标签值字典结构字段记录)···
+                    else:
+                        InsertTagClassifyCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,ClassifyValueFlag,ValueMin,ValueMax)  " \
+                                                   "values (%d,'%s','%s',%d,%d);" % (
+                                                   self._UseDatabase, ClassifyValueDict["TagClassifyMap"],
+                                                   ClassifyValueDict["ClassifyValue"],
+                                                   ClassifyValueDict["ClassifyValueFlag"],
+                                                   ClassifyValueDict["ValueMin"], ClassifyValueDict["ValueMax"])
+                        self._MysqlCursor.execute(InsertTagClassifyCommand)
+                        self._MysqlDatabase.commit()
 
-                #此时执行插入操作,(插入标签值字典结构字段记录)···
-                else:
-                    InsertTagClassifyCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,ClassifyValueFlag,ValueMin,ValueMax)  " \
-                                               "values (%d,'%s','%s',%d,%d);" % (self._UseDatabase, ClassifyValueDict["TagClassifyMap"],ClassifyValueDict["ClassifyValue"],
-                                                                                 ClassifyValueDict["ClassifyValueFlag"],ClassifyValueDict["ValueMin"],ClassifyValueDict["ValueMax"])
-                    self._MysqlCursor.execute(InsertTagClassifyCommand)
-                    self._MysqlDatabase.commit()
+                else:   #当 ClassifyValueDict["ClassifyValueFlag"]='Equal'时;
 
-            # for TagClassifyTuple in ExistTagClassifyTupleList:
-            #     ExistTagClassifyList.append(TagClassifyTuple[0])
-            #
-            # # 判断，当将要插入的新标签种类不存在于标签映射表中时，执行在新增标签的插入操作···
-            # if TagClassifyDict["TagClassifyName"] not in ExistTagClassifyList:
+                    #此时将准备好的标签字段值字典数据结构写入到，标签值映射表中（ClassifyValue）···
+                    # 1.检索ClassifyValue表中记录，防止插入重复的，标签映射和标签映射值组合的情况发生···
+                    CheckClassifyValueComplex=[ClassifyValueDict["TagClassifyMap"],ClassifyValueDict["ClassifyValue"]]
+                    if CheckClassifyValueComplex in ExistClassifyValueComplexAll:
+                        print("%s,记录已经存在，在标签值映射表中···") % str(CheckClassifyValueComplex)
+                        continue                   #当标签映射及标签值组合已经存在时，跳过并继续循环···
 
-
+                    #此时执行插入操作,(插入标签值字典结构字段记录)···
+                    else:
+                        InsertTagClassifyCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,ClassifyValueFlag)  " \
+                                                   "values (%d,'%s','%s');" % (self._UseDatabase, ClassifyValueDict["TagClassifyMap"],ClassifyValueDict["ClassifyValue"],
+                                                                                     ClassifyValueDict["ClassifyValueFlag"])
+                        self._MysqlCursor.execute(InsertTagClassifyCommand)
+                        self._MysqlDatabase.commit()
         except Exception as result:
             print("插入标签种类记录错误！ %s" % result)
 
+    def SelectBatchMap(self):
+        try:
+            SelectTagClassifyCommand = "select CompanyMap  from %s.CooperationCompany Where CompanyName='%s';" % (self._UseDatabase,GV.FinalResultRegisterDict["CommpanyName"])
+            self._MysqlCursor.execute(SelectTagClassifyCommand)
+            ExistCompanyTupleList = self._MysqlCursor.fetchone()
+            #print(ExistTagClassifyTupleList)
+            if not ExistCompanyTupleList:
+                print('插入数据的公司名称不存在···')
+                return
+            else:
+                GV.FinalResultRegisterDict["CommpanyMap"]=int(ExistCompanyTupleList[0])
+
+                # 紧接着，查询批次的映射值信息（BatchMap）
+                SelectTagClassifyCommand = "select BatchMap  from %s.DataExtractBatch Where CompanyMap=%d and BatchDate='%s';" % (
+                self._UseDatabase, GV.FinalResultRegisterDict["CommpanyMap"],GV.FinalResultRegisterDict["BatchDate"])
+                #print(SelectTagClassifyCommand)
+                self._MysqlCursor.execute(SelectTagClassifyCommand)
+                ExistExtractBatchTupleList = self._MysqlCursor.fetchone()
+                #print(ExistTagClassifyTupleList)
+                if  not ExistExtractBatchTupleList:
+                    print('插入批次映射不存在···')
+                    return
+                else:
+                    GV.FinalResultRegisterDict["BatchMap"] = int(ExistExtractBatchTupleList[0])
+        except Exception as result:
+            print("插入数据批次映射查询错误！ %s" % result)
+
+    def SelectClassifyValueMap(self):
+        try:
+            SelectTagClassifyCommand = "select TagClassifyName,TagClassifyMap  from %s.TagClassify;" % (self._UseDatabase)
+            self._MysqlCursor.execute(SelectTagClassifyCommand)
+            ExistTagClassifyTupleList = self._MysqlCursor.fetchall()
+            #print(ExistTagClassifyTupleList)
+            if not ExistTagClassifyTupleList:
+                print('用户画像标签种类映射表为空···')
+                return
+
+            else:
+                for EachClassifyMapTuple in ExistTagClassifyTupleList:
+                    if EachClassifyMapTuple[0] not in GV.FinalResultRegisterDict["ResultRegisterDict"]:
+                        GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]=copy.deepcopy(GV.ClassifyMapDict)
+                        GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["TagClassifyMap"]=EachClassifyMapTuple[1]
+                        # 查询标签种类映射值及对应标签值的，标签值映射信息····
+                        SelectTagClassifyCommand = "select ClassifyValueMap  from %s.ClassifyValue Where TagClassifyMap=%d and ClassifyValue='%s';" % (
+                            self._UseDatabase, GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["TagClassifyMap"],
+                            GV.FinalResultRegisterDict["BatchDate"])
+                        #print(SelectTagClassifyCommand)
+                        self._MysqlCursor.execute(SelectTagClassifyCommand)
+                        ExistClassifyValueTupleList = self._MysqlCursor.fetchone()
+                        #print(ExistTagClassifyTupleList)
+                        if not ExistClassifyValueTupleList:
+                            print('插入标签值的映射不存在:%s···' % EachClassifyMapTuple)
+                            return
+                        else:
+                            GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["ClassifyValueDict"] = {int(ExistClassifyValueTupleList[0]):{"PersonNumber":0}}
+
+        except Exception as result:
+            print("插入数据前映射信息检索错误！ %s" % result)
 
 
+
+    def InsertResultRegister(self,CommpanyName,BatchDate):  #插入最终的结果数据之前，首先将合作公司映射表、批次映射、标签映射表、标签值映射表、等信息加载到内存中，以便最终的结果插入···
+        GV.FinalResultRegisterDict["CommpanyName"]=CommpanyName
+        GV.FinalResultRegisterDict["BatchDate"] = BatchDate
+        self.SelectBatchMap()
+        self.SelectClassifyValueMap()
+
+    def DatabaseClose(self):
+        self._MysqlDatabase.close()
 
 
 testa=Mysql('127.0.0.1',3306,'root','mysql')
 
 #testa.InsertCompanyRegister(('PPmoney',2312))
-#testa.InsertBatchRegister(('广发银行信用卡'))
-testa.InsertTagClassifyRegister('性别__')
-testa.InsertClassifyValueRegister('性别__',['12','23'])
+#testa.InsertBatchRegister(('PPmoney'))
+#testa.InsertTagClassifyRegister('性别__')
+#testa.InsertClassifyValueRegister('性别__Range',['12-15'])
+#testa.InsertResultRegister('PPmoney','2018-8-20')
 #testa.CreateDatabase('Usertag')
 #testa.CreateTable('Usertag')

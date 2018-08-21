@@ -38,7 +38,7 @@ class Mysql:
         try:
             MysqlCommand="use %s;" % DatabaseName
             CreateCooperationCompany="create table if not exists CooperationCompany(ID int auto_increment unique,CompanyName Varchar(50)  not null unique, CompanyMap  Char(20),PRIMARY KEY(CompanyMap ));"
-            CreateDataExtractBatch="create table if not exists DataExtractBatch (CompanyMap  Char(20) not null, BatchDate date not null , BatchMap int auto_increment,PRIMARY KEY(BatchMap),unique KEY complex_unique(CompanyMap  , BatchDate),FOREIGN KEY (CompanyMap) REFERENCES CooperationCompany (CompanyMap));"
+            CreateDataExtractBatch="create table if not exists DataExtractBatch (CompanyMap  Char(20) not null, BatchDate datetime not null , BatchMap int auto_increment,PRIMARY KEY(BatchMap),unique KEY complex_unique(CompanyMap  , BatchDate),FOREIGN KEY (CompanyMap) REFERENCES CooperationCompany (CompanyMap));"
             CreateTagClassify="create table if not exists TagClassify ( TagClassifyName Varchar(50)  not null unique,TagClassifyFlag char(20)  not null default 'mainclass', TagClassifyMap  int auto_increment,PRIMARY KEY(TagClassifyMap ));"
             CreateClassifyValue="create table if not exists ClassifyValue (TagClassifyMap int, ClassifyValue Varchar(50) not null ,ClassifyValueFlag char(20) not null default 'Equal',ValueMin int ,ValueMax int, ClassifyValueMap  int auto_increment,PRIMARY KEY(ClassifyValueMap),unique KEY complex_unique(TagClassifyMap ,ClassifyValue),FOREIGN KEY (TagClassifyMap) REFERENCES TagClassify (TagClassifyMap));"
             CreateResultPersonNumber="create table ResultPersonNumber (ID bigint primary key auto_increment, BatchMap int  not null, ClassifyValueMap int not null , TotalPopulation  bigint not null,unique KEY complex_unique(BatchMap  , ClassifyValueMap),FOREIGN KEY (BatchMap) REFERENCES DataExtractBatch (BatchMap),FOREIGN KEY (ClassifyValueMap) REFERENCES ClassifyValue (ClassifyValueMap));"
@@ -120,7 +120,7 @@ class Mysql:
             # 检索批次信息表，防止插入非法批次记录信息···
             BatchTuple = (BatchDataDict['CompanyMap'],BatchDataDict['BatchDateString'])
             BatchDateList = []
-            MysqlCommand = "select CompanyMap,DATE_FORMAT(BatchDate,'%%Y-%%m-%%d') from %s.DataExtractBatch;" % self._UseDatabase
+            MysqlCommand = "select CompanyMap,DATE_FORMAT(BatchDate,'%%Y-%%m-%%d %%H:%%M:%%S') from %s.DataExtractBatch;" % self._UseDatabase
             # print(MysqlCommand)
             self._MysqlCursor.execute(MysqlCommand)
             BatchRegisterTupleList = self._MysqlCursor.fetchall()
@@ -158,7 +158,7 @@ class Mysql:
                 # 检索批次信息表，防止插入非法批次记录信息···
                 BatchTuple = tuple(BatchTuple)
                 BatchDateList = []
-                MysqlCommand = "select CompanyMap,DATE_FORMAT(BatchDate,'%%Y-%%m-%%d') from %s.DataExtractBatch;" % self._UseDatabase
+                MysqlCommand = "select CompanyMap,DATE_FORMAT(BatchDate,'%%Y-%%m-%%d %%H:%%M:%%S') from %s.DataExtractBatch;" % self._UseDatabase
                 # print(MysqlCommand)
                 self._MysqlCursor.execute(MysqlCommand)
                 BatchRegisterTupleList = self._MysqlCursor.fetchall()
@@ -177,13 +177,14 @@ class Mysql:
                     print("无法插入批次记录，批次重复···")
 
             else:  # 当用户没有输入日期字段信息时，默认读取当前的日期信息插入记录···
-                #nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在，获取当前时间的字符串信息
-                nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
+                #NowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在，获取当前时间的字符串信息
+                #NowTime = datetime.datetime.now().strftime('%Y-%m-%d')
+                NowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 #print(nowTime)
                 #print(BatchTuple,type(BatchTuple))
                 BatchDataDict={'CompanyName':'','BatchDateString':'','CompanyMap':''}
                 BatchDataDict['CompanyName']=BatchTuple
-                BatchDataDict['BatchDateString'] = nowTime
+                BatchDataDict['BatchDateString'] = NowTime
                 self.InsertBatchAction(BatchDataDict)
                 #print(BatchDataDict)
         except Exception as result:
@@ -373,6 +374,7 @@ class Mysql:
 
     def SelectClassifyValueMap(self):
         try:
+            GV.FinalResultRegisterDict["ResultRegisterDict"]={}       #每次插入操作前，更新初始化，种类标签及其标签值对应的信息····
             SelectTagClassifyCommand = "select TagClassifyName,TagClassifyMap  from %s.TagClassify;" % (self._UseDatabase)
             self._MysqlCursor.execute(SelectTagClassifyCommand)
             ExistTagClassifyTupleList = self._MysqlCursor.fetchall()
@@ -407,7 +409,6 @@ class Mysql:
             print("插入数据前映射信息检索错误！ %s" % result)
 
 
-
     def InsertResultRegister(self,CommpanyName,BatchDate):  #插入最终的结果数据之前，首先将合作公司映射表、批次映射、标签映射表、标签值映射表、等信息加载到内存中，以便最终的结果插入···
         GV.FinalResultRegisterDict["CompanyName"]=CommpanyName
         GV.FinalResultRegisterDict["BatchDate"] = BatchDate
@@ -428,13 +429,13 @@ class Mysql:
         self._MysqlDatabase.close()
 
 
-testa=Mysql('127.0.0.1',3306,'root','mysql')
+#testa=Mysql('127.0.0.1',3306,'root','mysql')
 #testa.InsertTagClassifyRegister('手机品牌_mainclass_')
 #testa.InsertClassifyValueRegister('手机品牌_mainclass_',['汇总值'])
-testa.InsertCompanyRegister(('PPmoney',2312))
-testa.InsertBatchRegister(('PPmoney'))
+#testa.InsertCompanyRegister(('PPmoney',2312))
+#testa.InsertBatchRegister(('PPmoney'))
 
-testa.InsertResultRegister('PPmoney','2018-8-20')
+#testa.InsertResultRegister('PPmoney','2018-8-20')
 #testa.InsertCompanyRegister(('PPmoney',2312))
 #testa.InsertBatchRegister(('PPmoney'))
 #testa.InsertTagClassifyRegister('性别__')

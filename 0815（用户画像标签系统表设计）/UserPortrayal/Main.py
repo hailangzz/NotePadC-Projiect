@@ -8,9 +8,11 @@ def main():
     TagFilePath = r"./数据库map表初始化源文件.xlsx"
     RTI.ReadTagInformation(TagFilePath)
     #print(GV.UserTagClassifyDict)
-    DMPUserTagDatabase=MSQLO.Mysql('127.0.0.1',3306,'root','mysql')
+    #DMPUserTagDatabase=MSQLO.Mysql('192.168.7.31',3306,'ngoss_dim','ngoss_dim')
+    DMPUserTagDatabase = MSQLO.Mysql('127.0.0.1',3306,'root','mysql')
     #DMPUserTagDatabase.CheckDatabase()
-    #DMPUserTagDatabase.InitAllMapTable()
+    DMPUserTagDatabase.InitAllMapTable()
+    #DMPUserTagDatabase.DropTables()
     #DMPUserTagDatabase.InsertCompanyRegister(('PPmoney',2312))
     #DMPUserTagDatabase.InsertBatchRegister(('PPmoney'))
 

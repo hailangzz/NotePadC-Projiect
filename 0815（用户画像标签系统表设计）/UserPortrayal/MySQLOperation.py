@@ -402,6 +402,7 @@ class Mysql:
         except Exception as result:
             print("插入数据批次映射查询错误！ %s" % result)
 
+
     def SelectClassifyValueMap(self,ClassifyName='',ClassifyValueList=[]):
         try:
             GV.FinalResultRegisterDict["ResultRegisterDict"]={}       #每次插入操作前，更新初始化，种类标签及其标签值对应的信息····
@@ -464,6 +465,98 @@ class Mysql:
             print("插入数据前映射信息检索错误！ %s" % result)
 
 
+    def FillResultRegisterDictNumber(self):
+        GV.FinalResultRegisterDict["ResultRegisterDict"] = {}  # 每次插入操作前，更新初始化，种类标签及其标签值对应的信息····
+        for ResultClassifyName in GV.ResultInsertClassifyDict:
+            if ResultClassifyName not in GV.ResultTagClassifyDict:
+                GV.ResultTagClassifyDict[ResultClassifyName]=[]
+            if ResultClassifyName not in GV.FinalResultRegisterDict["ResultRegisterDict"]:
+                GV.FinalResultRegisterDict["ResultRegisterDict"][ResultClassifyName] = copy.deepcopy(GV.ClassifyMapDict)
+                for ClassifyValueName in GV.ResultInsertClassifyDict[ResultClassifyName]:
+                    if ClassifyValueName not in GV.ResultTagClassifyDict[ResultClassifyName]:
+                        GV.ResultTagClassifyDict[ResultClassifyName].append(ClassifyValueName)
+
+                    if ClassifyValueName not in GV.FinalResultRegisterDict["ResultRegisterDict"][ResultClassifyName]["ClassifyValueDict"]:
+                        GV.FinalResultRegisterDict["ResultRegisterDict"][ResultClassifyName]["ClassifyValueDict"][ClassifyValueName] = {"ClassifyValueMap": '',"PersonNumber": GV.ResultInsertClassifyDict[ResultClassifyName][ClassifyValueName]}
+
+
+    def SelectTagClassifyMap(self):
+        # 首先检索待插入的数据结构，看是否有新的标签种类或者标签值录入···
+        for TagClassifyName in GV.ResultTagClassifyDict:
+            InsertClassifyValueRegister(self, str(TagClassifyName)+"__", TagClassifyValueList)
+
+        # 检索并写入所有的 GV.FinalResultRegisterDict 结构的 TagClassifyMap 映射值···
+        for TagClassifyName in GV.FinalResultRegisterDict["ResultRegisterDict"]:
+            SelectTagClassifyCommand = "select TagClassifyMap  from %s.TagClassify where TagClassifyName='%s';" % (self._UseDatabase,TagClassifyName)
+            self._MysqlCursor.execute(SelectTagClassifyCommand)
+            ExistTagClassifyTuple = self._MysqlCursor.fetchone()
+            GV.FinalResultRegisterDict["ResultRegisterDict"][TagClassifyName]["TagClassifyMap"]=ExistTagClassifyTuple[0]
+
+
+
+
+    def SelectClassifyValueMap(self):
+        try:
+            SelectTagClassifyCommand = "select TagClassifyName,TagClassifyMap  from %s.TagClassify;" % (self._UseDatabase)
+            self._MysqlCursor.execute(SelectTagClassifyCommand)
+            ExistTagClassifyTupleList = self._MysqlCursor.fetchall()
+            #print(ExistTagClassifyTupleList)
+            if not ExistTagClassifyTupleList:
+                print('用户画像标签种类映射表为空···')
+                #return
+                #此时自动插入用户画像标签种类···
+                if ClassifyName!='':
+                    self.InsertTagClassifyRegister(str(ClassifyName)+'__')
+
+                    if len(ClassifyValueList)!=0:
+                        # 与此同时将标签种类及其种类对应的列表值信息插入到种类值映射表中···
+                        self.InsertClassifyValueRegister(str(ClassifyName)+'__',ClassifyValueList)
+                        #当所有信息都插入完成后，再回调一下此函数···
+                        self.SelectClassifyValueMap(ClassifyName,ClassifyValueList)
+
+            else:
+                for EachClassifyMapTuple in ExistTagClassifyTupleList:
+                    #print(EachClassifyMapTuple)
+                    if EachClassifyMapTuple[0] not in GV.FinalResultRegisterDict["ResultRegisterDict"]:
+                        GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]=copy.deepcopy(GV.ClassifyMapDict)
+                        GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["TagClassifyMap"]=EachClassifyMapTuple[1]
+
+                        # 查询标签种类映射值及对应标签值的，标签值映射信息····
+                        SelectTagClassifyCommand = "select ClassifyValue,ClassifyValueMap  from %s.ClassifyValue Where TagClassifyMap=%d ;" % (
+                            self._UseDatabase, GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["TagClassifyMap"])
+                        #print(SelectTagClassifyCommand)
+                        self._MysqlCursor.execute(SelectTagClassifyCommand)
+                        ExistClassifyValueTupleList = self._MysqlCursor.fetchall()
+                        #print(ExistTagClassifyTupleList)
+                        if not ExistClassifyValueTupleList:
+                            print('插入标签值的映射不存在:%s···' % EachClassifyMapTuple)
+                            #此时将标签种类值列表插入到映射表中···
+                            if len(ClassifyValueList)!=0:
+                                self.InsertClassifyValueRegister(str(ClassifyName) + '__', ClassifyValueList)
+                                # 当所有信息都插入完成后，再回调一下此函数···
+                                self.SelectClassifyValueMap(ClassifyName, ClassifyValueList)
+                            #return
+                        else:###此是的情况是，待查询的标签种类存在，且带查询的标签值因为存在，但是不能保证存在的标签值列表，同需要插入结果记录的标签值是否一致···，因此需要特殊处理···
+                            SelectExistClassifyValueList=[]
+                            SelectNoExistClassifyValueList=[]
+                            for ClassifyValueTuple in ExistClassifyValueTupleList:
+                                SelectExistClassifyValueList.append(ClassifyValueTuple[0])
+                            for InsertResultClassifyValue in ClassifyValueList:
+                                if InsertResultClassifyValue not in SelectExistClassifyValueList:
+                                    SelectNoExistClassifyValueList.append(InsertResultClassifyValue)
+                            if len(SelectNoExistClassifyValueList!=0):
+                                self.self.InsertClassifyValueRegister(str(ClassifyName) + '__', SelectNoExistClassifyValueList)
+                                self.SelectClassifyValueMap(ClassifyName, ClassifyValueList)
+
+
+                            for ClassifyValueTuple in ExistClassifyValueTupleList:
+                                if ClassifyValueTuple[0] in ClassifyValueList and ClassifyValueTuple[0] not in GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["ClassifyValueDict"]:
+                                    GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["ClassifyValueDict"][ClassifyValueTuple[0]] = {"ClassifyValueMap":int(ClassifyValueTuple[1]),"PersonNumber":0}
+
+        except Exception as result:
+            print("插入数据前映射信息检索错误！ %s" % result)
+
+
     def InsertResultRegister(self,CommpanyName,BatchDate,ClassifyName='',ClassifyValueList=[]):  #插入最终的结果数据之前，首先将合作公司映射表、批次映射、标签映射表、标签值映射表、等信息加载到内存中，以便最终的结果插入···
         GV.FinalResultRegisterDict["CompanyName"]=CommpanyName
         GV.FinalResultRegisterDict["BatchDate"] = BatchDate
@@ -471,6 +564,18 @@ class Mysql:
         self.SelectBatchMap()
         #print(GV.FinalResultRegisterDict)
         self.SelectClassifyValueMap(ClassifyName,ClassifyValueList)
+        print(GV.FinalResultRegisterDict)
+        #print(GV.FinalResultRegisterDict["ResultRegisterDict"].keys())
+        #print( GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["ClassifyValueDict"].keys())
+
+    def InsertResultRegister(self,CommpanyName,BatchDate):  #插入最终的结果数据之前，首先将合作公司映射表、批次映射、标签映射表、标签值映射表、等信息加载到内存中，以便最终的结果插入···
+        GV.FinalResultRegisterDict["CompanyName"]=CommpanyName
+        GV.FinalResultRegisterDict["BatchDate"] = BatchDate
+        #print(GV.FinalResultRegisterDict)
+        self.SelectBatchMap()
+
+        #print(GV.FinalResultRegisterDict)
+        self.SelectClassifyValueMap(GV.ResultInsertClassifyDict)
         print(GV.FinalResultRegisterDict)
         #print(GV.FinalResultRegisterDict["ResultRegisterDict"].keys())
         #print( GV.FinalResultRegisterDict["ResultRegisterDict"][EachClassifyMapTuple[0]]["ClassifyValueDict"].keys())
@@ -494,7 +599,7 @@ class Mysql:
 
 
 #testa=Mysql('192.168.7.31',3306,'ngoss_dim','ngoss_dim')
-testa=Mysql('127.0.0.1',3306,'root','mysql')
+#testa=Mysql('127.0.0.1',3306,'root','mysql')
 #testa.InsertTagClassifyRegister('手机品牌_mainclass_')
 #testa.InsertClassifyValueRegister('手机品牌_mainclass_',['汇总值'])
 #testa.InsertCompanyRegister(('PPmoney',2312))

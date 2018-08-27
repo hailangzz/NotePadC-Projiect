@@ -19,8 +19,8 @@
       <file leaf-file-name="InitFinalResultRegisterDict.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InitFinalResultRegisterDict.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="38" column="234" selection-start-line="38" selection-start-column="218" selection-end-line="38" selection-end-column="234" />
+            <state relative-caret-position="121">
+              <caret line="11" column="44" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -34,11 +34,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InsertResultPersonNumber.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InsertResultPersonNumber.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InsertResultPersonNumber.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+            <state relative-caret-position="95">
+              <caret line="23" column="42" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OperateClassifyValue.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OperateClassifyValue.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="132" column="57" selection-start-line="132" selection-start-column="57" selection-end-line="132" selection-end-column="57" />
+              <folding>
+                <element signature="e#96#1007#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OperateTagClassify.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/OperateTagClassify.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-482">
+              <caret line="61" column="76" lean-forward="true" selection-start-line="61" selection-start-column="76" selection-end-line="61" selection-end-column="76" />
+              <folding>
+                <marker date="1535355289980" expanded="false" signature="169:948" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -68,15 +92,15 @@
         <option value="$PROJECT_DIR$/MySQLOperation.py" />
         <option value="$PROJECT_DIR$/GlobalVariable.py" />
         <option value="$PROJECT_DIR$/FillTagClassifyMap.py" />
-        <option value="$PROJECT_DIR$/OperateTagClassify.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/FillClassifyValueMap.py" />
         <option value="$PROJECT_DIR$/OperateCooperationCompany.py" />
         <option value="$PROJECT_DIR$/OperateDataExtractBatch.py" />
         <option value="$PROJECT_DIR$/FillDataExtractBatch.py" />
-        <option value="$PROJECT_DIR$/InitFinalResultRegisterDict.py" />
         <option value="$PROJECT_DIR$/OperateClassifyValue.py" />
         <option value="$PROJECT_DIR$/InsertResultPersonNumber.py" />
+        <option value="$PROJECT_DIR$/InitFinalResultRegisterDict.py" />
+        <option value="$PROJECT_DIR$/OperateTagClassify.py" />
       </list>
     </option>
   </component>
@@ -92,7 +116,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="68" />
     <option name="y" value="19" />
-    <option name="width" value="1160" />
+    <option name="width" value="1275" />
     <option name="height" value="669" />
   </component>
   <component name="ProjectView">
@@ -222,7 +246,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="68" y="19" width="1160" height="669" extended-state="0" />
+    <frame x="68" y="19" width="1275" height="669" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -232,7 +256,7 @@
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.029173419" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20818181" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23209876" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -256,25 +280,35 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="10" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/InitFinalResultRegisterDict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="38" column="234" selection-start-line="38" selection-start-column="218" selection-end-line="38" selection-end-column="234" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="91" lean-forward="true" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InsertResultPersonNumber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MySQLOperation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#307#721#0" />
-            <element signature="e#789#1249#0" />
-            <element signature="e#1319#1529#0" />
-            <element signature="e#1705#2692#0" />
-            <element signature="e#2776#3301#0" />
-            <element signature="e#3382#4014#0" />
-            <element signature="e#3399#3918#0" />
-            <element signature="e#4090#4644#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -290,8 +324,7 @@
         <state relative-caret-position="190">
           <caret line="46" selection-start-line="46" selection-end-line="47" />
           <folding>
-            <element signature="e#1014#2589#0" />
-            <marker date="1535090453208" expanded="false" signature="169:948" ph="..." />
+            <marker date="1535355289980" expanded="false" signature="169:948" ph="..." />
           </folding>
         </state>
       </provider>
@@ -300,9 +333,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -331,29 +361,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FillClassifyValueMap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <marker date="1535337063049" expanded="false" signature="107:5189" ph="..." />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/MySQLOperation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1596">
           <caret line="87" column="12" lean-forward="true" selection-start-line="87" selection-start-column="12" selection-end-line="87" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#307#721#0" />
-            <element signature="e#789#1249#0" />
-            <element signature="e#1319#1529#0" />
-            <element signature="e#1705#2692#0" />
-            <element signature="e#2776#3301#0" />
-            <element signature="e#3382#4014#0" />
-            <element signature="e#3399#3918#0" />
-            <element signature="e#4090#4644#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -390,17 +403,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#307#721#0" />
-            <element signature="e#789#1249#0" />
-            <element signature="e#1319#1529#0" />
-            <element signature="e#1705#2692#0" />
-            <element signature="e#2776#3301#0" />
-            <element signature="e#3382#4014#0" />
-            <element signature="e#3399#3918#0" />
-            <element signature="e#4090#4644#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -408,9 +410,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-column="27" />
-          <folding>
-            <marker date="1535337063049" expanded="false" signature="107:5189" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -418,16 +417,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="8" column="98" lean-forward="true" selection-start-line="8" selection-start-column="98" selection-end-line="8" selection-end-column="98" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="91" lean-forward="true" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="91" />
         </state>
       </provider>
     </entry>
@@ -435,20 +424,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="9" column="64" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="9" selection-end-column="64" />
-          <folding>
-            <element signature="e#712#1397#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OperateTagClassify.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
-          <folding>
-            <element signature="e#1014#2589#0" />
-            <marker date="1535090453208" expanded="false" signature="169:948" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -463,35 +438,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="51" />
-          <folding>
-            <element signature="e#592#1117#0" />
-            <element signature="e#605#1044#0" />
-            <marker date="1535338008693" expanded="true" signature="82:522" ph="..." />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="91" lean-forward="true" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InsertResultPersonNumber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="23" column="42" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InitFinalResultRegisterDict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="11" column="44" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OperateClassifyValue.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1235">
-          <caret line="138" column="88" lean-forward="true" selection-start-line="138" selection-start-column="88" selection-end-line="138" selection-end-column="88" />
+        <state relative-caret-position="354">
+          <caret line="132" column="57" selection-start-line="132" selection-start-column="57" selection-end-line="132" selection-end-column="57" />
           <folding>
             <element signature="e#96#1007#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InitFinalResultRegisterDict.py">
+    <entry file="file://$PROJECT_DIR$/OperateTagClassify.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="38" column="234" selection-start-line="38" selection-start-column="218" selection-end-line="38" selection-end-column="234" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/InsertResultPersonNumber.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="-482">
+          <caret line="61" column="76" lean-forward="true" selection-start-line="61" selection-start-column="76" selection-end-line="61" selection-end-column="76" />
+          <folding>
+            <marker date="1535355289980" expanded="false" signature="169:948" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

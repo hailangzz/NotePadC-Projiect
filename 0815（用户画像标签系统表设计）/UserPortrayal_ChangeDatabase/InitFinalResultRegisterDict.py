@@ -47,6 +47,7 @@ def InitFinalResultRegisterDict():
                 elif FirstFloorKey=='MainClassTotal':
                     for SecondFloorKey in ReceiveStandardData[FirstFloorKey].keys():
                         if SecondFloorKey not in GV.FinalResultRegisterDict["ResultRegisterDict"]['MainClassTotal']:
+                            SecondFloorKey=SecondFloorKey.split('汇总')[0] #应客户端开发人员要求，去掉结尾的“汇总”字段···
                             SecondFloorKey=SecondFloorKey+'_Total_Equal'
                             PersonNumber=ReceiveStandardData[FirstFloorKey][SecondFloorKey]
                             GV.FinalResultRegisterDict["ResultRegisterDict"]['MainClassTotal'][SecondFloorKey]=copy.deepcopy(GV.ClassifyMapDict)

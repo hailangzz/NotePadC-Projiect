@@ -47,7 +47,7 @@ def InsertClassifyValueRegister(MysqlObject):
 
                             if ClassifyValueDict["ClassifyValueFlag"]=='Equal':
                                 InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
-                                                           "values (%d,'%s','%s','%d','%s');" % (MysqlObject._UseDatabase,ResultRegisterClassifyValueList[0],ResultRegisterClassifyValueList[1],
+                                                           "values (%d,'%s','%s',%d,'%s');" % (MysqlObject._UseDatabase,ResultRegisterClassifyValueList[0],ResultRegisterClassifyValueList[1],
                                                                                                  ResultRegisterClassifyValueList[2],ClassifyValueDict['TagGradeFlag'],ClassifyValueDict['ClassifyValueFlag'])
                                 MysqlObject._MysqlCursor.execute(InsertClassifyValueCommand)
                                 MysqlObject._MysqlDatabase.commit()
@@ -65,7 +65,7 @@ def InsertClassifyValueRegister(MysqlObject):
                                         ClassifyValueDict['ValueMin'] = int(ClassifyValueComplex[0])
                                         ClassifyValueDict['ValueMax'] = int(ClassifyValueComplex[0])
                                 InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag,ValueMin,ValueMax)  " \
-                                                           "values (%d,'%s','%s','%d','%s',%d,%d);" % (
+                                                           "values (%d,'%s','%s',%d,'%s',%d,%d);" % (
                                                                MysqlObject._UseDatabase,
                                                                ResultRegisterClassifyValueList[1],
                                                                ResultRegisterClassifyValueList[2],
@@ -91,7 +91,7 @@ def InsertClassifyValueRegister(MysqlObject):
                                     ClassifyValueDict["TagGradeFlag"]=2
                                     ClassifyValueDict["ClassifyValueFlag"] = 'Equal'
                                     InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
-                                                                 "values (%d,'%s','%s','%d','%s');" % (
+                                                                 "values (%d,'%s','%s',%d,'%s');" % (
                                                                  MysqlObject._UseDatabase,
                                                                  ResultRegisterClassifyValueList[0],
                                                                  ResultRegisterClassifyValueList[1],
@@ -112,7 +112,7 @@ def InsertClassifyValueRegister(MysqlObject):
                                         ClassifyValueDict["TagGradeFlag"] = 3
                                         ClassifyValueDict["ClassifyValueFlag"] = 'Equal'
                                         InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
-                                                                     "values (%d,'%s','%s','%d','%s');" % (
+                                                                     "values (%d,'%s','%s',%d,'%s');" % (
                                                                          MysqlObject._UseDatabase,
                                                                          ResultRegisterClassifyValueList[0],
                                                                          ResultRegisterClassifyValueList[1],
@@ -133,7 +133,7 @@ def InsertClassifyValueRegister(MysqlObject):
                     ClassifyValueDict["TagGradeFlag"] = 1
                     ClassifyValueDict["ClassifyValueFlag"] = 'Equal'
                     InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
-                                                 "values (%d,'%s','%s','%d','%s');" % (
+                                                 "values (%d,'%s','%s',%d,'%s');" % (
                                                      MysqlObject._UseDatabase,
                                                      ResultRegisterClassifyValueList[0],
                                                      ResultRegisterClassifyValueList[1],

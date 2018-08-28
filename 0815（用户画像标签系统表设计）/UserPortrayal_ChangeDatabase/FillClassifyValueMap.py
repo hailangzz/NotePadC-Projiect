@@ -1,5 +1,6 @@
 import GlobalVariable as GV
 import OperateClassifyValue as OCV
+import copy
 
 def FillClassifyValueMap(MysqlObject):
     ExistClassifyValueInfoDict = copy.deepcopy(OCV.GetExistClassifyValueInfoDict(MysqlObject))
@@ -19,9 +20,9 @@ def FillClassifyValueMap(MysqlObject):
                         GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict']["主标签汇总值"]["ClassifyValueMap"]=ExistClassifyValueMap
         elif FirstFloorKey=='MainClass':
             for SecondFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey].keys():
-                for ThirdlyFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey].keys():
+                for ThirdlyFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict'].keys():
                     if ThirdlyFloorKey == 'ClassifyValue':
-                        for FourthlyFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey][ThirdlyFloorKey].keys():
+                        for FourthlyFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict'][ThirdlyFloorKey].keys():
                             ResultRegisterClassifyValueList[0] = GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['TagClassifyMap']
                             ResultRegisterClassifyValueList[1] = FourthlyFloorKey
                             ResultRegisterClassifyValueList[2] = GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['TagClassifyName']
@@ -30,8 +31,8 @@ def FillClassifyValueMap(MysqlObject):
                                     GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict'][ThirdlyFloorKey][FourthlyFloorKey]["ClassifyValueMap"] = ExistClassifyValueMap
 
                     elif ThirdlyFloorKey == 'ChildClass':
-                        for FourthlyFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey][ThirdlyFloorKey].keys():
-                            for FifthFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey][ThirdlyFloorKey][FourthlyFloorKey].keys():
+                        for FourthlyFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict'][ThirdlyFloorKey].keys():
+                            for FifthFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict'][ThirdlyFloorKey][FourthlyFloorKey].keys():
                                 if FifthFloorKey=='ChildClassTotal':
                                     ResultRegisterClassifyValueList[0] = GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['TagClassifyMap']
                                     ResultRegisterClassifyValueList[1] = FourthlyFloorKey
@@ -40,7 +41,7 @@ def FillClassifyValueMap(MysqlObject):
                                         if ExistClassifyValueInfoDict[ExistClassifyValueMap] == ResultRegisterClassifyValueList:
                                             GV.FinalResultRegisterDict["ResultRegisterDict"]['MainClass'][SecondFloorKey]["ClassifyValueDict"][ThirdlyFloorKey][FourthlyFloorKey][FifthFloorKey]['ClassifyValueMap']=ExistClassifyValueMap
                                 elif FifthFloorKey=='ClassifyValue':
-                                    for SixthFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey][ThirdlyFloorKey][FourthlyFloorKey][FifthFloorKey]:
+                                    for SixthFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict'][ThirdlyFloorKey][FourthlyFloorKey][FifthFloorKey]:
                                         ResultRegisterClassifyValueList[0] = GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['TagClassifyMap']
                                         ResultRegisterClassifyValueList[1] = SixthFloorKey
                                         ResultRegisterClassifyValueList[2] = FourthlyFloorKey

@@ -1,4 +1,5 @@
 import GlobalVariable as GV
+import copy
 # 说明:用来操作 TagClassify 标签种类表：
 
 # 获得现有数据库中，标签种类的映射值···，并写入 GV.FinalResultRegisterDict 结构中去···
@@ -12,7 +13,7 @@ def GetExistTagClassifyInfoDict(MysqlObject):
         if ExistTagClassifyTupleList:
             for ExistTagClassifyTuple in ExistTagClassifyTupleList:
                 if ExistTagClassifyTuple[0] not in ExistTagClassifyInfoDict:
-                    ExistTagClassifyInfoDict[ExistTagClassifyTuple[0]]=ExistTagClassifyTuple[1]
+                    ExistTagClassifyInfoDict[ExistTagClassifyTuple[0]]=int(ExistTagClassifyTuple[1])
         return ExistTagClassifyInfoDict
     except Exception as result:
         print("获取 TagClassify 表记录错误！ %s" % result)
@@ -47,7 +48,7 @@ def InsertTagClassifyRegister(TagClassifyName,MysqlObject):
 def InsertTagClassifyRegister(MysqlObject):
     try:
         ExistTagClassifyInfoDict = copy.deepcopy(GetExistTagClassifyInfoDict(MysqlObject))
-
+        #print(ExistTagClassifyInfoDict)
         for FirstFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"]:
             if FirstFloorKey == 'MainClassTotal':
                 for SecondFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey]:
@@ -71,8 +72,8 @@ def InsertTagClassifyRegister(MysqlObject):
                             InsertTagClassifyCommand = "insert into %s.TagClassify (TagClassifyName,TagClassifyFlag)  values ('%s','%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"],TagClassifyDict["TagClassifyFlag"])
                             MysqlObject._MysqlCursor.execute(InsertTagClassifyCommand)
                             MysqlObject._MysqlDatabase.commit()
-                    else:
-                        print("标签种类插入失败，标签种类重复···")
+                    # else:
+                    #     print("标签种类插入失败，标签种类重复···")
 
             elif FirstFloorKey == 'MainClass':
                 for SecondFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey]:
@@ -98,10 +99,25 @@ def InsertTagClassifyRegister(MysqlObject):
                             TagClassifyDict["TagClassifyFlag"])
                             MysqlObject._MysqlCursor.execute(InsertTagClassifyCommand)
                             MysqlObject._MysqlDatabase.commit()
-                    else:
-                        print("标签种类插入失败，标签种类重复···")
+                    # else:
+                    #     print("标签种类插入失败，标签种类重复···")
 
     except Exception as result:
         print("插入 TagClassify 表记录错误！ %s" % result)
 
 
+def GetExistTagClassifyInfoList(MysqlObject):
+    # 获取已经存在的 TagClassify 表记录信息
+    try:
+        ExistTagClassifyInfoList=[]  # 例如：ExistTagClassifyInfoDict{'性别':1}
+        ExistTagClassifyInfo=['TagClassifyName','TagClassifyMap']
+        SelectTagClassifyCommand = "select TagClassifyName,TagClassifyMap  from %s.TagClassify;" % (MysqlObject._UseDatabase)
+        MysqlObject._MysqlCursor.execute(SelectTagClassifyCommand)
+        ExistTagClassifyTupleList = MysqlObject._MysqlCursor.fetchall()
+        if ExistTagClassifyTupleList:
+            for ExistTagClassifyTuple in ExistTagClassifyTupleList:
+                ExistTagClassifyInfo[0]=ExistTagClassifyTuple[0]
+                ExistTagClassifyInfo[1] = ExistTagClassifyTuple[1]
+        return ExistTagClassifyInfoList
+    except Exception as result:
+        print("获取 TagClassify 表记录错误！ %s" % result)

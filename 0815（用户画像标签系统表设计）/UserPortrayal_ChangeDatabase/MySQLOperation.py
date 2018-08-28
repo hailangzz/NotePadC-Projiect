@@ -17,6 +17,7 @@ class Mysql:
         self._UseDatabase=DatabaseName.lower()
         self._TableList=['CooperationCompany','DataExtractBatch','TagClassify','ClassifyValue','ResultPersonNumber']
         self.ConnectMysql()  # 先获取数据库连接
+        #self.DropTables()
         self.CheckDatabase(self._UseDatabase)  #再检索创建数据库及数据表结构
 
     def CheckDatabase(self,DatabaseName='label_support'):
@@ -63,7 +64,9 @@ class Mysql:
     def CreateCooperationCompanyTable(self,DatabaseName="label_support"):
         try:
             MysqlCommand="use %s;" % DatabaseName
-            CreateCooperationCompany="create table if not exists CooperationCompany(ID int auto_increment unique comment '公司名称映射表索引',CompanyName Varchar(50)  not null unique comment '公司名称', CompanyMap  Char(20) comment '公司名称映射值',PRIMARY KEY(CompanyMap ));"
+            #CreateCooperationCompany="create table if not exists CooperationCompany(ID int auto_increment unique comment '公司名称映射表索引',CompanyName Varchar(50)  not null unique comment '公司名称', CompanyMap  Char(20) comment '公司名称映射值',PRIMARY KEY(CompanyMap ));"
+            #(0827 修改···)
+            CreateCooperationCompany = "create table if not exists CooperationCompany(CompanyName Varchar(50)  not null unique comment '公司名称', CompanyMap  int auto_increment comment '公司名称映射值',PRIMARY KEY(CompanyMap ));"
             self._MysqlCursor.execute(MysqlCommand)
             self._MysqlCursor.execute(CreateCooperationCompany)
         except Exception as result:
@@ -71,7 +74,8 @@ class Mysql:
     def CreateDataExtractBatchTable(self,DatabaseName="label_support"):
         try:
             MysqlCommand="use %s;" % DatabaseName
-            CreateDataExtractBatch="create table if not exists DataExtractBatch (CompanyMap  Char(20) not null comment '公司名称映射值', BatchDate datetime not null comment '数据提取日期', BatchMap int auto_increment comment '数据提取批次映射值',PRIMARY KEY(BatchMap),unique KEY complex_unique(CompanyMap  , BatchDate),FOREIGN KEY (CompanyMap) REFERENCES CooperationCompany (CompanyMap));"
+            #CreateDataExtractBatch="create table if not exists DataExtractBatch (CompanyMap  Char(20) not null comment '公司名称映射值', BatchDate datetime not null comment '数据提取日期', BatchMap int auto_increment comment '数据提取批次映射值',PRIMARY KEY(BatchMap),unique KEY complex_unique(CompanyMap  , BatchDate),FOREIGN KEY (CompanyMap) REFERENCES CooperationCompany (CompanyMap));"
+            CreateDataExtractBatch = "create table if not exists DataExtractBatch (CompanyMap  int not null comment '公司名称映射值', BatchDate datetime not null comment '数据提取日期', BatchMap int auto_increment comment '数据提取批次映射值',PRIMARY KEY(BatchMap),unique KEY complex_unique(CompanyMap  , BatchDate),FOREIGN KEY (CompanyMap) REFERENCES CooperationCompany (CompanyMap));"
             self._MysqlCursor.execute(MysqlCommand)
             self._MysqlCursor.execute(CreateDataExtractBatch)
         except Exception as result:
@@ -108,6 +112,13 @@ class Mysql:
         except Exception as result:
             print("连接数据库错误！ %s" % result)   # 连接数据库，成员函数···
 
+    def DropTables(self):
+        #RequisiteTableList = ['CooperationCompany', 'DataExtractBatch', 'TagClassify', 'ClassifyValue','ResultPersonNumber']
+        #必须按照顺序删除表····有外键约束··
+        RequisiteTableList = ['ResultPersonNumber', 'ClassifyValue', 'TagClassify', 'DataExtractBatch', 'CooperationCompany']
+        for Table in RequisiteTableList:
+            MysqlDropCommand="drop table %s.%s;" % (self._UseDatabase,Table)
+            #print(MysqlDropCommand)
+            self._MysqlCursor.execute(MysqlDropCommand)
 
-
-testa=Mysql('127.0.0.1',3306,'root','mysql')
+#testa=Mysql('127.0.0.1',3306,'root','mysql')

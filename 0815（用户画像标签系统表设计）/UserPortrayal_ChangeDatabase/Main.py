@@ -10,6 +10,7 @@ import FillTagClassifyMap as FTCM
 import FillClassifyValueMap as FCVM
 import FillDataExtractBatch as FDEB
 import InsertResultPersonNumber as IRPN
+import ExtractPublicTaskInfo as EPTI
 import copy
 import gc
 
@@ -37,7 +38,8 @@ def main():
     FDEB.FillDataExtractBatch(MysqlObject,'广发银行信用卡','2018-08-27 08:23:45')
     #print(GV.FinalResultRegisterDict)
     IRPN.InsertResultPersonNumber(MysqlObject)
-
+    EPTI.ExtractPublicTaskInfo(MysqlObject)
+    #print(GV.ExtractPublicTaskInfoDict)
 
 
 

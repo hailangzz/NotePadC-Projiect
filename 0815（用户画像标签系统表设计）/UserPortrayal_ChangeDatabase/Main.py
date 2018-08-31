@@ -76,7 +76,8 @@ def main0831():
     else:
         print('没有新的数据统计分析任务···')
 
-def main1():
+#实现自动化，但未优化···
+def main0831_2():
     MysqlObject=MSQLO.Mysql('192.168.7.31',3306,'ngoss_dim','ngoss_dim')
     #MysqlObject = MSQLO.Mysql('127.0.0.1', 3306, 'root', 'mysql')
     # print(MysqlObject._UseDatabase)
@@ -114,6 +115,15 @@ def main1():
                         IRPN.InsertResultPersonNumber(MysqlObject)
         else:
             print('没有新的数据统计分析任务···')
+
+def main():
+    MysqlObject=MSQLO.Mysql('192.168.7.31',3306,'ngoss_dim','ngoss_dim')
+    #MysqlObject = MSQLO.Mysql('127.0.0.1', 3306, 'root', 'mysql')
+    # print(MysqlObject._UseDatabase)
+    #OriginDataPath = r'./QJC_Single/test10000.txt'
+    EPTI.ExtractPublicTaskInfo(MysqlObject)
+    if len(GV.ExtractPublicTaskInfoDict['ExtractTaskID'])!=0:
+        EBGO.EachBatchGroupOperation(MysqlObject)
 
 if __name__ == '__main__':
     main()

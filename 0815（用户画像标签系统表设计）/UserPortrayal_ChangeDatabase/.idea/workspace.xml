@@ -14,13 +14,15 @@
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$OriginDataStatistics.coverage" NAME="OriginDataStatistics Coverage Results" MODIFIED="1535356585796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QJC" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$BaseInfoAnalysis.coverage" NAME="BaseInfoAnalysis Coverage Results" MODIFIED="1535683906676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QJC0831" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$InitFinalResultRegisterDict.coverage" NAME="InitFinalResultRegisterDict Coverage Results" MODIFIED="1535358013581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$EachBatchGroupOperation.coverage" NAME="EachBatchGroupOperation Coverage Results" MODIFIED="1535701906653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase_$test.coverage" NAME="test Coverage Results" MODIFIED="1535091020289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase_$OperateClassifyValue.coverage" NAME="OperateClassifyValue Coverage Results" MODIFIED="1535097507044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$OperateTagClassify.coverage" NAME="OperateTagClassify Coverage Results" MODIFIED="1535360261547" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$Main__1_.coverage" NAME="Main (1) Coverage Results" MODIFIED="1535678109122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QJC0831" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$Main.coverage" NAME="Main Coverage Results" MODIFIED="1535693841375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase_$MySQLOperation.coverage" NAME="MySQLOperation Coverage Results" MODIFIED="1535015752408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$test.coverage" NAME="test Coverage Results" MODIFIED="1535441431463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$UpdateLabelGroupPersonas.coverage" NAME="UpdateLabelGroupPersonas Coverage Results" MODIFIED="1535705122598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$test.coverage" NAME="test Coverage Results" MODIFIED="1535702363484" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$MySQLOperation.coverage" NAME="MySQLOperation Coverage Results" MODIFIED="1535438956249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$InsertResultPersonNumber.coverage" NAME="InsertResultPersonNumber Coverage Results" MODIFIED="1535442448056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$OperateClassifyValue.coverage" NAME="OperateClassifyValue Coverage Results" MODIFIED="1535363086071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -33,8 +35,8 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="119" column="16" lean-forward="true" selection-start-line="119" selection-start-column="16" selection-end-line="119" selection-end-column="16" />
+            <state relative-caret-position="262">
+              <caret line="125" column="48" selection-start-line="125" selection-start-column="37" selection-end-line="125" selection-end-column="48" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
                 <element signature="e#569#1730#0" />
@@ -45,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppInfoAnalysis.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/QJC0831/AppInfoAnalysis.py">
+      <file leaf-file-name="UpdateLabelGroupPersonas.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/UpdateLabelGroupPersonas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="209">
+              <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -57,11 +59,23 @@
       <file leaf-file-name="ExtractPublicTaskInfo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ExtractPublicTaskInfo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+            <state relative-caret-position="19">
+              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="27" />
               <folding>
                 <element signature="e#105#404#0" />
                 <element signature="e#450#2051#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="18" column="33" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,7 +85,7 @@
         <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
-              <caret line="9" column="72" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="72" />
+              <caret line="9" column="42" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -80,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/EachBatchGroupOperation.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="57">
-              <caret line="3" column="31" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="31" />
+              <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -101,12 +115,12 @@
       <find>ReceiveStandardData</find>
       <find>ExistClassifyValueInfoDict</find>
       <find>畅玩5X</find>
-      <find />
-      <find />
-      <find />
-      <find />
+      <find>[1, '']</find>
+      <find>红米Note 4X</find>
+      <find>'ClassifyValueMap': ''</find>
+      <find>Galaxy Note</find>
       <find>232</find>
-      <find />
+      <find>iPhone 7 Plus</find>
       <find>print</find>
       <find>sftp_down_file</find>
       <find>getfilename</find>
@@ -131,22 +145,23 @@
         <option value="$PROJECT_DIR$/OperateDataExtractBatch.py" />
         <option value="$PROJECT_DIR$/QJC/OriginDataStatistics.py" />
         <option value="$PROJECT_DIR$/OperateCooperationCompany.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/MySQLOperation.py" />
         <option value="$PROJECT_DIR$/InsertResultPersonNumber.py" />
-        <option value="$PROJECT_DIR$/EachBatchGroupOperation.py" />
         <option value="$PROJECT_DIR$/QJC0831/Main.py" />
         <option value="$PROJECT_DIR$/QJC0831/AppInfo.py" />
         <option value="$PROJECT_DIR$/QJC0831/BaseInfo.py" />
         <option value="$PROJECT_DIR$/QJC0831/ServiceInfo.py" />
         <option value="$PROJECT_DIR$/QJC0831/BaseInfoAnalysis.py" />
-        <option value="$PROJECT_DIR$/ExtractPublicTaskInfo.py" />
         <option value="$PROJECT_DIR$/OperateClassifyValue.py" />
         <option value="$PROJECT_DIR$/QJC0831/QJCMain.py" />
         <option value="$PROJECT_DIR$/InitFinalResultRegisterDict.py" />
         <option value="$PROJECT_DIR$/GlobalVariable.py" />
-        <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/QJC0831/AppInfoAnalysis.py" />
+        <option value="$PROJECT_DIR$/Main.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/EachBatchGroupOperation.py" />
+        <option value="$PROJECT_DIR$/ExtractPublicTaskInfo.py" />
+        <option value="$PROJECT_DIR$/UpdateLabelGroupPersonas.py" />
       </list>
     </option>
   </component>
@@ -159,7 +174,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="256" />
     <option name="y" value="39" />
     <option name="width" value="1116" />
@@ -177,11 +192,6 @@
             <path>
               <item name="UserPortrayal_ChangeDatabase" type="b2602c69:ProjectViewProjectNode" />
               <item name="UserPortrayal_ChangeDatabase" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UserPortrayal_ChangeDatabase" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UserPortrayal_ChangeDatabase" type="462c0819:PsiDirectoryNode" />
-              <item name="QJC0831" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -214,7 +224,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Main">
+  <component name="RunManager" selected="Python.UpdateLabelGroupPersonas">
     <configuration name="BaseInfoAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UserPortrayal(ChangeDatabase)" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -234,7 +244,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="GetNewFilePath" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="EachBatchGroupOperation" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UserPortrayal(ChangeDatabase)" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -242,31 +252,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/QJC0831" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/QJC0831/GetNewFilePath.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="Main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="UserPortrayal(ChangeDatabase)" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/QJC0831" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="E:\GitLocalRepository\NotePadC++Projiect\0815（用户画像标签系统表设计）\UserPortrayal_ChangeDatabase\QJC0831\QJCMain.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EachBatchGroupOperation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -291,7 +282,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="QJCMain" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="UpdateLabelGroupPersonas" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UserPortrayal(ChangeDatabase)" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -299,12 +290,31 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/QJC0831" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/QJC0831/QJCMain.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/UpdateLabelGroupPersonas.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="UserPortrayal(ChangeDatabase)" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -312,18 +322,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.Main" />
-      <item itemvalue="Python.Main (1)" />
-      <item itemvalue="Python.GetNewFilePath" />
-      <item itemvalue="Python.QJCMain" />
       <item itemvalue="Python.BaseInfoAnalysis" />
+      <item itemvalue="Python.EachBatchGroupOperation" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.UpdateLabelGroupPersonas" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.UpdateLabelGroupPersonas" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.EachBatchGroupOperation" />
         <item itemvalue="Python.Main" />
         <item itemvalue="Python.BaseInfoAnalysis" />
-        <item itemvalue="Python.QJCMain" />
-        <item itemvalue="Python.Main (1)" />
-        <item itemvalue="Python.GetNewFilePath" />
       </list>
     </recent_temporary>
   </component>
@@ -351,16 +361,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32901135" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.184765" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2560778" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30937973" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.100605145" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32901135" />
@@ -411,13 +420,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/OperateClassifyValue.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="39" column="165" selection-start-line="39" selection-start-column="165" selection-end-line="39" selection-end-column="165" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -555,13 +557,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
           <caret line="219" selection-start-line="219" selection-end-line="219" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -825,35 +820,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/QJC0831/AppInfoAnalysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="18" column="33" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/EachBatchGroupOperation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
-          <caret line="3" column="31" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="72" selection-start-line="9" selection-start-column="62" selection-end-line="9" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ExtractPublicTaskInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
-          <folding>
-            <element signature="e#105#404#0" />
-            <element signature="e#450#2051#0" />
-          </folding>
+          <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="119" column="16" lean-forward="true" selection-start-line="119" selection-start-column="16" selection-end-line="119" selection-end-column="16" />
+        <state relative-caret-position="262">
+          <caret line="125" column="48" selection-start-line="125" selection-start-column="37" selection-end-line="125" selection-end-column="48" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
             <element signature="e#569#1730#0" />
@@ -863,10 +857,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QJC0831/AppInfoAnalysis.py">
+    <entry file="file://$PROJECT_DIR$/ExtractPublicTaskInfo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="19">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="27" />
+          <folding>
+            <element signature="e#105#404#0" />
+            <element signature="e#450#2051#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="42" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UpdateLabelGroupPersonas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
         </state>
       </provider>
     </entry>

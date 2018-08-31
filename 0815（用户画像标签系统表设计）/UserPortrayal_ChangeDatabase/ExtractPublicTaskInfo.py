@@ -12,7 +12,7 @@ def GetTodayDateTime():
 
 def ExtractPublicTaskInfo(MysqlObject):
     try:
-        MysqlCommand = "select labelname,status,DATE_FORMAT(createtime,'%%Y-%%m-%%d %%H:%%i:%%S'),DATE_FORMAT(endtime,'%%Y-%%m-%%d %%H:%%i:%%S') from %s.label_group_personas where createtime>'2018-05-13';" % MysqlObject._UseDatabase
+        MysqlCommand = "select labelname,status,DATE_FORMAT(createtime,'%%Y-%%m-%%d %%H:%%i:%%S'),DATE_FORMAT(endtime,'%%Y-%%m-%%d %%H:%%i:%%S') from %s.label_group_personas where createtime>'2018-05-13' and status=5;" % MysqlObject._UseDatabase
         MysqlObject._MysqlCursor.execute(MysqlCommand)
         PublicBatchInfoTupleList = MysqlObject._MysqlCursor.fetchall()
         #print(PublicBatchInfoTupleList)

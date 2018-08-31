@@ -5,13 +5,14 @@ class AppAnalysis():
         self.data=pd.read_table(self.datapath, delimiter='|', encoding='utf-8',
                            na_values='null', low_memory=False)
         self.data.columns=['mobile','appname','classifyname']
+
     def get_appname(self):
-        data_appname=self.data.appname.value_counts()
-        counts=data_appname.sum()
-        result={}
+        data_appname = self.data.appname.value_counts()
+        counts = self.data['mobile'].drop_duplicates().count()
+        result = {}
         result['MainClass'] = {'APP名称_MainClass_Equal': {'ClassifyValue': dict(data_appname)}}
         result['MainClassTotal'] = {'APP名称汇总': counts}
-        return result
+
     def get_classifyname(self):
         data_classifyname=self.data[self.data.classifyname.notnull()]
         classifyname=list(set(list(data_classifyname.classifyname.values)))

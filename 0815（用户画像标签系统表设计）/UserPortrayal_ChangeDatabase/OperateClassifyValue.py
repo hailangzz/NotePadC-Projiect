@@ -63,8 +63,12 @@ def InsertClassifyValueRegister(MysqlObject):
                                         InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
                                                                    "values (%d,'%s','%s',%d,'%s');" % (MysqlObject._UseDatabase,ResultRegisterClassifyValueList[0],ResultRegisterClassifyValueList[1],
                                                                                                          ResultRegisterClassifyValueList[2],ClassifyValueDict['TagGradeFlag'],ClassifyValueDict['ClassifyValueFlag'])
-                                        MysqlObject._MysqlCursor.execute(InsertClassifyValueCommand)
-                                        MysqlObject._MysqlDatabase.commit()
+
+                                        try:
+                                            MysqlObject._MysqlCursor.execute(InsertClassifyValueCommand)
+                                            MysqlObject._MysqlDatabase.commit()
+                                        except:
+                                            continue
 
                                     if ClassifyValueDict["ClassifyValueFlag"]=='Range':
                                         ClassifyValueComplex = FourthlyFloorKey.split('-')
@@ -88,8 +92,11 @@ def InsertClassifyValueRegister(MysqlObject):
                                                                        ClassifyValueDict["ClassifyValueFlag"],
                                                                        ClassifyValueDict["ValueMin"],
                                                                        ClassifyValueDict["ValueMax"])
-                                        MysqlObject._MysqlCursor.execute(InsertClassifyValueCommand)
-                                        MysqlObject._MysqlDatabase.commit()
+                                        try:
+                                            MysqlObject._MysqlCursor.execute(InsertClassifyValueCommand)
+                                            MysqlObject._MysqlDatabase.commit()
+                                        except:
+                                            continue
 
                         elif ThirdlyFloorKey=='ChildClass':
                             for FourthlyFloorKey in GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict']['ChildClass']:
@@ -162,8 +169,11 @@ def InsertClassifyValueRegister(MysqlObject):
                                                          ClassifyValueDict['TagGradeFlag'],
                                                          ClassifyValueDict['ClassifyValueFlag'])
                         #print(InsertClassifyValueCommand)
-                        MysqlObject._MysqlCursor.execute(InsertClassifyValueCommand)
-                        MysqlObject._MysqlDatabase.commit()
+                        try:
+                            MysqlObject._MysqlCursor.execute(InsertClassifyValueCommand)
+                            MysqlObject._MysqlDatabase.commit()
+                        except:
+                            continue
 
     except Exception as result:
         print(" ClassifyValue 表记录插入错误！ %s" % result)

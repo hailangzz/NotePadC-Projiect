@@ -2,7 +2,7 @@ import GlobalVariable as GV
 import copy
 # 说明：用于初始化，最终的覆盖人数记录插入，所需要的存储数据结果：
 
-def InitFinalResultRegisterDict1(): # 适合原始的一个批次一次只有，单个数据文件要求的状况···
+def InitFinalResultRegisterDict0831(): # 适合原始的一个批次一次只有，单个数据文件要求的状况···
     if len(GV.ReceiveStandardDataList)==0:
         print("标准化结果数据列表为空")
         return

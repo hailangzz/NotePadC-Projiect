@@ -44,6 +44,7 @@ def EachBatchGroupOperation(MysqlObject):
                     GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['status']=5
                     Today=datetime.datetime.now()
                     GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['endtime'] = datetime.datetime.strftime(Today, '%Y-%m-%d %H:%M:%S')
+
     else:
         print('没有新的数据统计分析任务···')
 

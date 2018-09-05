@@ -15,6 +15,7 @@ import ExtractPublicTaskInfo as EPTI
 import copy
 import gc
 import EachBatchGroupOperation as EBGO
+import UpdateLabelGroupPersonas as ULGP
 
 #最简单的数据插入版本···
 def main0826():
@@ -124,6 +125,7 @@ def main():
     EPTI.ExtractPublicTaskInfo(MysqlObject)
     if len(GV.ExtractPublicTaskInfoDict['ExtractTaskID'])!=0:
         EBGO.EachBatchGroupOperation(MysqlObject)
+    ULGP.UpdateLabelGroupPersonas(MysqlObject)
 
 if __name__ == '__main__':
     main()

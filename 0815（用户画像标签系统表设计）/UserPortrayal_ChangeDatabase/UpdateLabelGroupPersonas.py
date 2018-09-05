@@ -1,6 +1,10 @@
 # 说明：操作完成后，更新公用数据查询批次表的状态码信息····
 import GlobalVariable as GV
 
+def InitExtractPublicTaskInfo():
+    GV.ExtractPublicTaskInfoDict={'ExtractTaskID':{}}
+    GV.ExtractTaskInfo={'labelname':'' ,'filename':'', 'status':'' ,'createtime':'' ,'endtime':''}
+
 def UpdateLabelGroupPersonas(MysqlObject):
     try:
         for ExtractTaskID in GV.ExtractPublicTaskInfoDict['ExtractTaskID']:
@@ -10,5 +14,8 @@ def UpdateLabelGroupPersonas(MysqlObject):
                                                                                                             )
             MysqlObject._MysqlCursor.execute(MysqlCommand)
             MysqlObject._MysqlCursor.commit()
+
+        #将数据提取批次任务列表初始化归零···
+        InitExtractPublicTaskInfo()
     except Exception as result:
         print("更新公用数据查询批次表信息失败！ %s" % result)

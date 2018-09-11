@@ -6,7 +6,7 @@ def GetExistClassifyValueInfoDict(MysqlObject):
     # 获取已经存在的 ClassifyValue 表详细记录信息
     try:
         ExistClassifyValueInfoDict = {}  # 例如：ExistClassifyValueInfoDict{2:[1,'男','性别']}
-        SelectClassifyValueCommand = "select ClassifyValueMap,TagClassifyMap,ClassifyValue,FatherTagName  from %s.ClassifyValue;" % (MysqlObject._UseDatabase)
+        SelectClassifyValueCommand = "select ClassifyValueMap,TagClassifyMap,ClassifyValue,FatherTagName  from %s.UserPortrait_ClassifyValue;" % (MysqlObject._UseDatabase)
         MysqlObject._MysqlCursor.execute(SelectClassifyValueCommand)
         ExistClassifyValueTupleList = MysqlObject._MysqlCursor.fetchall()
         if ExistClassifyValueTupleList:
@@ -60,7 +60,7 @@ def InsertClassifyValueRegister(MysqlObject):
                                         ClassifyValueDict["ClassifyValueFlag"] = TagClassifyComboName[2]
 
                                     if ClassifyValueDict["ClassifyValueFlag"]=='Equal':
-                                        InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
+                                        InsertClassifyValueCommand = "insert into %s.UserPortrait_ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
                                                                    "values (%d,'%s','%s',%d,'%s');" % (MysqlObject._UseDatabase,ResultRegisterClassifyValueList[0],ResultRegisterClassifyValueList[1],
                                                                                                          ResultRegisterClassifyValueList[2],ClassifyValueDict['TagGradeFlag'],ClassifyValueDict['ClassifyValueFlag'])
 
@@ -82,7 +82,7 @@ def InsertClassifyValueRegister(MysqlObject):
                                             else:
                                                 ClassifyValueDict['ValueMin'] = int(ClassifyValueComplex[0])
                                                 ClassifyValueDict['ValueMax'] = int(ClassifyValueComplex[0])
-                                        InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag,ValueMin,ValueMax)  " \
+                                        InsertClassifyValueCommand = "insert into %s.UserPortrait_ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag,ValueMin,ValueMax)  " \
                                                                    "values (%d,'%s','%s',%d,'%s',%d,%d);" % (
                                                                        MysqlObject._UseDatabase,
                                                                        ResultRegisterClassifyValueList[0],
@@ -112,7 +112,7 @@ def InsertClassifyValueRegister(MysqlObject):
                                             ClassifyValueDict["TagGradeFlag"]=2
                                             ClassifyValueDict["ClassifyValueFlag"] = 'Equal'
                                             try:
-                                                InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
+                                                InsertClassifyValueCommand = "insert into %s.UserPortrait_ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
                                                                              "values (%d,'%s','%s',%d,'%s');" % (
                                                                              MysqlObject._UseDatabase,
                                                                              ResultRegisterClassifyValueList[0],
@@ -136,7 +136,7 @@ def InsertClassifyValueRegister(MysqlObject):
                                                 ClassifyValueDict = {"TagGradeFlag": '', "ClassifyValueFlag": '',"ValueMin": '', "ValueMax": ''}
                                                 ClassifyValueDict["TagGradeFlag"] = 3
                                                 ClassifyValueDict["ClassifyValueFlag"] = 'Equal'
-                                                InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
+                                                InsertClassifyValueCommand = "insert into %s.UserPortrait_ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
                                                                              "values (%d,'%s','%s',%d,'%s');" % (
                                                                                  MysqlObject._UseDatabase,
                                                                                  ResultRegisterClassifyValueList[0],
@@ -160,7 +160,7 @@ def InsertClassifyValueRegister(MysqlObject):
                         ClassifyValueDict = {"TagGradeFlag": '', "ClassifyValueFlag": '', "ValueMin": '', "ValueMax": ''}
                         ClassifyValueDict["TagGradeFlag"] = 1
                         ClassifyValueDict["ClassifyValueFlag"] = 'Equal'
-                        InsertClassifyValueCommand = "insert into %s.ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
+                        InsertClassifyValueCommand = "insert into %s.UserPortrait_ClassifyValue (TagClassifyMap,ClassifyValue,FatherTagName,TagGradeFlag,ClassifyValueFlag)  " \
                                                      "values (%d,'%s','%s',%d,'%s');" % (
                                                          MysqlObject._UseDatabase,
                                                          ResultRegisterClassifyValueList[0],

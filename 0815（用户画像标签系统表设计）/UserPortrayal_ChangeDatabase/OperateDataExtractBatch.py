@@ -4,7 +4,7 @@ import OperateCooperationCompany as OCC
 
 def GetExistBatchInfoDict(MysqlObject):
     BatchInfoDict={}
-    MysqlCommand = "select BatchMap,CompanyMap,DATE_FORMAT(BatchDate,'%%Y-%%m-%%d %%H:%%i:%%S') from %s.DataExtractBatch;" % MysqlObject._UseDatabase
+    MysqlCommand = "select BatchMap,CompanyMap,DATE_FORMAT(BatchDate,'%%Y-%%m-%%d %%H:%%i:%%S') from %s.UserPortrait_DataExtractBatch;" % MysqlObject._UseDatabase
     MysqlObject._MysqlCursor.execute(MysqlCommand)
     BatchRegisterTupleList = MysqlObject._MysqlCursor.fetchall()
     for BatchRegisterTuple in BatchRegisterTupleList:
@@ -22,7 +22,7 @@ def InsertBatchRegister(MysqlObject,BatchTuple):
     InsertCompanyMap=CompanyInfoDict[BatchTuple[0]]
     InsertBatchInfo=[InsertCompanyMap,BatchTuple[1]]
     if InsertBatchInfo not in ExistBatchInfoList:
-        MysqlCommand = "insert into %s.DataExtractBatch (CompanyMap,BatchDate) Values('%s','%s')" % (MysqlObject._UseDatabase, InsertCompanyMap, BatchTuple[1])
+        MysqlCommand = "insert into %s.UserPortrait_DataExtractBatch (CompanyMap,BatchDate) Values('%s','%s')" % (MysqlObject._UseDatabase, InsertCompanyMap, BatchTuple[1])
         MysqlObject._MysqlCursor.execute(MysqlCommand)
         MysqlObject._MysqlDatabase.commit()
 

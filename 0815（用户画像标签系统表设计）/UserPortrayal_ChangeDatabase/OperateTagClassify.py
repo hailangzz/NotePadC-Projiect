@@ -7,7 +7,7 @@ def GetExistTagClassifyInfoDict(MysqlObject):
     # 获取已经存在的 TagClassify 表记录信息
     try:
         ExistTagClassifyInfoDict={}  # 例如：ExistTagClassifyInfoDict{'性别':1}
-        SelectTagClassifyCommand = "select TagClassifyName,TagClassifyMap  from %s.TagClassify;" % (MysqlObject._UseDatabase)
+        SelectTagClassifyCommand = "select TagClassifyName,TagClassifyMap  from %s.UserPortrait_TagClassify;" % (MysqlObject._UseDatabase)
         MysqlObject._MysqlCursor.execute(SelectTagClassifyCommand)
         ExistTagClassifyTupleList = MysqlObject._MysqlCursor.fetchall()
         if ExistTagClassifyTupleList:
@@ -32,11 +32,11 @@ def InsertTagClassifyRegister(TagClassifyName,MysqlObject):
         ExistTagClassifyInfoDict=copy.deepcopy(GetExistTagClassifyInfoDict(MysqlObject))
         if TagClassifyDict["TagClassifyName"] not in ExistTagClassifyInfoDict:
             if TagClassifyDict["TagClassifyFlag"] =='':     # 插入默认标签种类标志（MainClass）··
-                InsertTagClassifyCommand = "insert into %s.TagClassify (TagClassifyName)  values ('%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"])
+                InsertTagClassifyCommand = "insert into %s.UserPortrait_TagClassify (TagClassifyName)  values ('%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"])
                 MysqlObject._MysqlCursor.execute(InsertTagClassifyCommand)
                 MysqlObject._MysqlDatabase.commit()
             else:
-                InsertTagClassifyCommand = "insert into %s.TagClassify (TagClassifyName,TagClassifyFlag)  values ('%s','%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"],TagClassifyDict["TagClassifyFlag"])
+                InsertTagClassifyCommand = "insert into %s.UserPortrait_TagClassify (TagClassifyName,TagClassifyFlag)  values ('%s','%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"],TagClassifyDict["TagClassifyFlag"])
                 MysqlObject._MysqlCursor.execute(InsertTagClassifyCommand)
                 MysqlObject._MysqlDatabase.commit()
         else:
@@ -65,11 +65,11 @@ def InsertTagClassifyRegister(MysqlObject):
 
                     if TagClassifyDict["TagClassifyName"] not in ExistTagClassifyInfoDict:
                         if TagClassifyDict["TagClassifyFlag"] =='':     # 插入默认标签种类标志（MainClass）··
-                            InsertTagClassifyCommand = "insert into %s.TagClassify (TagClassifyName)  values ('%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"])
+                            InsertTagClassifyCommand = "insert into %s.UserPortrait_TagClassify (TagClassifyName)  values ('%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"])
                             MysqlObject._MysqlCursor.execute(InsertTagClassifyCommand)
                             MysqlObject._MysqlDatabase.commit()
                         else:
-                            InsertTagClassifyCommand = "insert into %s.TagClassify (TagClassifyName,TagClassifyFlag)  values ('%s','%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"],TagClassifyDict["TagClassifyFlag"])
+                            InsertTagClassifyCommand = "insert into %s.UserPortrait_TagClassify (TagClassifyName,TagClassifyFlag)  values ('%s','%s');" % (MysqlObject._UseDatabase,TagClassifyDict["TagClassifyName"],TagClassifyDict["TagClassifyFlag"])
                             MysqlObject._MysqlCursor.execute(InsertTagClassifyCommand)
                             MysqlObject._MysqlDatabase.commit()
                     # else:
@@ -89,12 +89,12 @@ def InsertTagClassifyRegister(MysqlObject):
 
                     if TagClassifyDict["TagClassifyName"] not in ExistTagClassifyInfoDict:
                         if TagClassifyDict["TagClassifyFlag"] == '':  # 插入默认标签种类标志（MainClass）··
-                            InsertTagClassifyCommand = "insert into %s.TagClassify (TagClassifyName)  values ('%s');" % (
+                            InsertTagClassifyCommand = "insert into %s.UserPortrait_TagClassify (TagClassifyName)  values ('%s');" % (
                             MysqlObject._UseDatabase, TagClassifyDict["TagClassifyName"])
                             MysqlObject._MysqlCursor.execute(InsertTagClassifyCommand)
                             MysqlObject._MysqlDatabase.commit()
                         else:
-                            InsertTagClassifyCommand = "insert into %s.TagClassify (TagClassifyName,TagClassifyFlag)  values ('%s','%s');" % (
+                            InsertTagClassifyCommand = "insert into %s.UserPortrait_TagClassify (TagClassifyName,TagClassifyFlag)  values ('%s','%s');" % (
                             MysqlObject._UseDatabase, TagClassifyDict["TagClassifyName"],
                             TagClassifyDict["TagClassifyFlag"])
                             MysqlObject._MysqlCursor.execute(InsertTagClassifyCommand)
@@ -111,7 +111,7 @@ def GetExistTagClassifyInfoList(MysqlObject):
     try:
         ExistTagClassifyInfoList=[]  # 例如：ExistTagClassifyInfoDict{'性别':1}
         ExistTagClassifyInfo=['TagClassifyName','TagClassifyMap']
-        SelectTagClassifyCommand = "select TagClassifyName,TagClassifyMap  from %s.TagClassify;" % (MysqlObject._UseDatabase)
+        SelectTagClassifyCommand = "select TagClassifyName,TagClassifyMap  from %s.UserPortrait_TagClassify;" % (MysqlObject._UseDatabase)
         MysqlObject._MysqlCursor.execute(SelectTagClassifyCommand)
         ExistTagClassifyTupleList = MysqlObject._MysqlCursor.fetchall()
         if ExistTagClassifyTupleList:

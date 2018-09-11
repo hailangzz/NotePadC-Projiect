@@ -15,7 +15,7 @@ class Mysql:
         self._MysqlHost["user"]=user
         self._MysqlHost["password"]=password
         self._UseDatabase=DatabaseName.lower()
-        self._TableList=['CooperationCompany','DataExtractBatch','TagClassify','ClassifyValue','ResultPersonNumber']
+        self._TableList=['UserPortrait_CooperationCompany','UserPortrait_DataExtractBatch','UserPortrait_TagClassify','UserPortrait_ClassifyValue','UserPortrait_ResultPersonNumber']
         self.ConnectMysql()  # 先获取数据库连接
         #self.DropTables()
         self.CheckDatabase(self._UseDatabase)  #再检索创建数据库及数据表结构
@@ -40,7 +40,7 @@ class Mysql:
         except Exception as result:
             print("新建数据库错误！ %s" % result)
 
-    def CheckUserTagTable(self, DatabaseName="label_support",TableList=['CooperationCompany','DataExtractBatch','TagClassify','ClassifyValue','ResultPersonNumber']):
+    def CheckUserTagTable(self, DatabaseName="label_support",TableList=['UserPortrait_CooperationCompany','UserPortrait_DataExtractBatch','UserPortrait_TagClassify','UserPortrait_ClassifyValue','UserPortrait_ResultPersonNumber']):
         DatabaseExistTableTuple = ()
         DatabaseExistTableList = []
         MysqlCommand = "use %s;" % DatabaseName
@@ -50,15 +50,15 @@ class Mysql:
         DatabaseExistTableTuple = self._MysqlCursor.fetchall()
         for TupleList in DatabaseExistTableTuple:
             DatabaseExistTableList.append(TupleList[0])
-        if 'CooperationCompany'.lower() not in DatabaseExistTableList:
+        if 'UserPortrait_CooperationCompany'.lower() not in DatabaseExistTableList:
             self.CreateCooperationCompanyTable()
-        if 'DataExtractBatch'.lower() not in DatabaseExistTableList:
+        if 'UserPortrait_DataExtractBatch'.lower() not in DatabaseExistTableList:
             self.CreateDataExtractBatchTable()
-        if 'TagClassify'.lower() not in DatabaseExistTableList:
+        if 'UserPortrait_TagClassify'.lower() not in DatabaseExistTableList:
             self.CreateTagClassifyTable()
-        if 'ClassifyValue'.lower() not in DatabaseExistTableList:
+        if 'UserPortrait_ClassifyValue'.lower() not in DatabaseExistTableList:
             self.CreateClassifyValueTable()
-        if 'ResultPersonNumber'.lower() not in DatabaseExistTableList:
+        if 'UserPortrait_ResultPersonNumber'.lower() not in DatabaseExistTableList:
             self.CreateResultPersonNumberTable()
 
     def CreateCooperationCompanyTable(self,DatabaseName="label_support"):
@@ -66,44 +66,44 @@ class Mysql:
             MysqlCommand="use %s;" % DatabaseName
             #CreateCooperationCompany="create table if not exists CooperationCompany(ID int auto_increment unique comment '公司名称映射表索引',CompanyName Varchar(50)  not null unique comment '公司名称', CompanyMap  Char(20) comment '公司名称映射值',PRIMARY KEY(CompanyMap ));"
             #(0827 修改···)
-            CreateCooperationCompany = "create table if not exists CooperationCompany(CompanyName Varchar(50)  not null unique comment '公司名称', CompanyMap  int auto_increment comment '公司名称映射值',PRIMARY KEY(CompanyMap ));"
+            CreateCooperationCompany = "create table if not exists UserPortrait_CooperationCompany(CompanyName Varchar(50)  not null unique comment '公司名称', CompanyMap  int auto_increment comment '公司名称映射值',PRIMARY KEY(CompanyMap ));"
             self._MysqlCursor.execute(MysqlCommand)
             self._MysqlCursor.execute(CreateCooperationCompany)
         except Exception as result:
-            print("新建 CooperationCompany 数据表错误！ %s" % result)
+            print("新建 UserPortrait_CooperationCompany 数据表错误！ %s" % result)
     def CreateDataExtractBatchTable(self,DatabaseName="label_support"):
         try:
             MysqlCommand="use %s;" % DatabaseName
             #CreateDataExtractBatch="create table if not exists DataExtractBatch (CompanyMap  Char(20) not null comment '公司名称映射值', BatchDate datetime not null comment '数据提取日期', BatchMap int auto_increment comment '数据提取批次映射值',PRIMARY KEY(BatchMap),unique KEY complex_unique(CompanyMap  , BatchDate),FOREIGN KEY (CompanyMap) REFERENCES CooperationCompany (CompanyMap));"
-            CreateDataExtractBatch = "create table if not exists DataExtractBatch (CompanyMap  int not null comment '公司名称映射值', BatchDate datetime not null comment '数据提取日期', BatchMap int auto_increment comment '数据提取批次映射值',PRIMARY KEY(BatchMap),unique KEY complex_unique(CompanyMap  , BatchDate),FOREIGN KEY (CompanyMap) REFERENCES CooperationCompany (CompanyMap));"
+            CreateDataExtractBatch = "create table if not exists UserPortrait_DataExtractBatch (CompanyMap  int not null comment '公司名称映射值', BatchDate datetime not null comment '数据提取日期', BatchMap int auto_increment comment '数据提取批次映射值',PRIMARY KEY(BatchMap),unique KEY complex_unique(CompanyMap  , BatchDate),FOREIGN KEY (CompanyMap) REFERENCES CooperationCompany (CompanyMap));"
             self._MysqlCursor.execute(MysqlCommand)
             self._MysqlCursor.execute(CreateDataExtractBatch)
         except Exception as result:
-            print("新建 DataExtractBatch 数据表错误！ %s" % result)
+            print("新建 UserPortrait_DataExtractBatch 数据表错误！ %s" % result)
     def CreateTagClassifyTable(self,DatabaseName="label_support"):
         try:
             MysqlCommand="use %s;" % DatabaseName
-            CreateTagClassify="create table if not exists TagClassify ( TagClassifyName Varchar(50)  not null unique comment '用户画像标签种类名称',TagClassifyFlag char(20)  not null default 'MainClass' comment '标签分类标志', TagClassifyMap  int auto_increment comment '用户画像标签种类映射值',PRIMARY KEY(TagClassifyMap ));"
+            CreateTagClassify="create table if not exists UserPortrait_TagClassify ( TagClassifyName Varchar(50)  not null unique comment '用户画像标签种类名称',TagClassifyFlag char(20)  not null default 'MainClass' comment '标签分类标志', TagClassifyMap  int auto_increment comment '用户画像标签种类映射值',PRIMARY KEY(TagClassifyMap ));"
             self._MysqlCursor.execute(MysqlCommand)
             self._MysqlCursor.execute(CreateTagClassify)
         except Exception as result:
-            print("新建 TagClassify 数据表错误！ %s" % result)
+            print("新建 UserPortrait_TagClassify 数据表错误！ %s" % result)
     def CreateClassifyValueTable(self,DatabaseName="label_support"):
         try:
             MysqlCommand="use %s;" % DatabaseName
-            CreateClassifyValue="create table if not exists ClassifyValue (TagClassifyMap int comment '用户画像标签种类映射值', ClassifyValue Varchar(50) not null comment '标签值描述' ,FatherTagName Varchar(50) not null comment '父标签名称',TagGradeFlag smallint not null comment '标签登记标志', ClassifyValueFlag char(20) not null default 'Equal' comment '标签值运算规则',ValueMin int comment '最小值',ValueMax int comment '最大值', ClassifyValueMap  int auto_increment comment '标签值映射',PRIMARY KEY(ClassifyValueMap),unique KEY complex_unique(TagClassifyMap ,ClassifyValue,FatherTagName),FOREIGN KEY (TagClassifyMap) REFERENCES TagClassify (TagClassifyMap));"
+            CreateClassifyValue="create table if not exists UserPortrait_ClassifyValue (TagClassifyMap int comment '用户画像标签种类映射值', ClassifyValue Varchar(50) not null comment '标签值描述' ,FatherTagName Varchar(50) not null comment '父标签名称',TagGradeFlag smallint not null comment '标签登记标志', ClassifyValueFlag char(20) not null default 'Equal' comment '标签值运算规则',ValueMin int comment '最小值',ValueMax int comment '最大值', ClassifyValueMap  int auto_increment comment '标签值映射',PRIMARY KEY(ClassifyValueMap),unique KEY complex_unique(TagClassifyMap ,ClassifyValue,FatherTagName),FOREIGN KEY (TagClassifyMap) REFERENCES TagClassify (TagClassifyMap));"
             self._MysqlCursor.execute(MysqlCommand)
             self._MysqlCursor.execute(CreateClassifyValue)
         except Exception as result:
-            print("新建 ClassifyValue 数据表错误！ %s" % result)
+            print("新建 UserPortrait_ClassifyValue 数据表错误！ %s" % result)
     def CreateResultPersonNumberTable(self,DatabaseName="label_support"):
         try:
             MysqlCommand="use %s;" % DatabaseName
-            CreateResultPersonNumber="create table ResultPersonNumber (ID bigint primary key auto_increment comment '用户覆盖数结果记录索引', BatchMap int  not null comment '数据提取批次映射值', ClassifyValueMap int not null comment '标签值映射', TotalPopulation  bigint not null comment '标签覆盖人数',unique KEY complex_unique(BatchMap  , ClassifyValueMap),FOREIGN KEY (BatchMap) REFERENCES DataExtractBatch (BatchMap),FOREIGN KEY (ClassifyValueMap) REFERENCES ClassifyValue (ClassifyValueMap));"
+            CreateResultPersonNumber="create table UserPortrait_ResultPersonNumber (ID bigint primary key auto_increment comment '用户覆盖数结果记录索引', BatchMap int  not null comment '数据提取批次映射值', ClassifyValueMap int not null comment '标签值映射', TotalPopulation  bigint not null comment '标签覆盖人数',unique KEY complex_unique(BatchMap  , ClassifyValueMap),FOREIGN KEY (BatchMap) REFERENCES DataExtractBatch (BatchMap),FOREIGN KEY (ClassifyValueMap) REFERENCES ClassifyValue (ClassifyValueMap));"
             self._MysqlCursor.execute(MysqlCommand)
             self._MysqlCursor.execute(CreateResultPersonNumber)
         except Exception as result:
-            print("新建 ResultPersonNumber 数据表错误！ %s" % result)
+            print("新建 UserPortrait_ResultPersonNumber 数据表错误！ %s" % result)
 
     def ConnectMysql(self):
         try:
@@ -115,7 +115,7 @@ class Mysql:
     def DropTables(self):
         #RequisiteTableList = ['CooperationCompany', 'DataExtractBatch', 'TagClassify', 'ClassifyValue','ResultPersonNumber']
         #必须按照顺序删除表····有外键约束··
-        RequisiteTableList = ['ResultPersonNumber', 'ClassifyValue', 'TagClassify', 'DataExtractBatch', 'CooperationCompany']
+        RequisiteTableList = ['UserPortrait_ResultPersonNumber', 'UserPortrait_ClassifyValue', 'UserPortrait_TagClassify', 'UserPortrait_DataExtractBatch', 'UserPortrait_CooperationCompany']
         for Table in RequisiteTableList:
             MysqlDropCommand="drop table %s.%s;" % (self._UseDatabase,Table)
             #print(MysqlDropCommand)

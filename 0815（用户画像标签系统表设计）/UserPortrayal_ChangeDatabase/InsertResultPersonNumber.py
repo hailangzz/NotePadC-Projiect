@@ -5,7 +5,7 @@ import copy
 def GetResultBatchAndValueMap(MysqlObject):
     BatchAndValueMapList=[]
     BatchAndValueMap=['BatchMap','ClassifyValueMap']
-    MysqlCommand = "select BatchMap,ClassifyValueMap from %s.ResultPersonNumber;" % MysqlObject._UseDatabase
+    MysqlCommand = "select BatchMap,ClassifyValueMap from %s.UserPortrait_ResultPersonNumber;" % MysqlObject._UseDatabase
     #print(MysqlObject._MysqlHost)
     #print(MysqlCommand)
     MysqlObject._MysqlCursor.execute(MysqlCommand)
@@ -31,7 +31,7 @@ def InsertResultPersonNumber1(MysqlObject):
                 if InsertBatchAndValueMap not in ExistBatchAndValueMapList:
                     # 此时插入结果覆盖人数记录···
                     TotalPopulation=GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]['ClassifyValueDict']['主标签汇总值']["PersonNumber"]
-                    InsertClassifyValueCommand = "insert into %s.ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
+                    InsertClassifyValueCommand = "insert into %s.UserPortrait_ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
                                                  "values (%d,%d,%d);" % (
                                                  MysqlObject._UseDatabase,
                                                  InsertBatchAndValueMap[0],
@@ -48,7 +48,7 @@ def InsertResultPersonNumber1(MysqlObject):
                             InsertBatchAndValueMap[1] =GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]["ClassifyValueDict"][ThirdlyFloorKey][FourthlyFloorKey]['ClassifyValueMap']
                             if InsertBatchAndValueMap not in ExistBatchAndValueMapList:
                                 TotalPopulation =GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]["ClassifyValueDict"][ThirdlyFloorKey][FourthlyFloorKey]['PersonNumber']
-                                InsertClassifyValueCommand = "insert into %s.ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
+                                InsertClassifyValueCommand = "insert into %s.UserPortrait_ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
                                                              "values (%d,%d,%d);" % (
                                                                  MysqlObject._UseDatabase,
                                                                  InsertBatchAndValueMap[0],
@@ -64,7 +64,7 @@ def InsertResultPersonNumber1(MysqlObject):
                                     InsertBatchAndValueMap[1] =GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]["ClassifyValueDict"][ThirdlyFloorKey][FourthlyFloorKey][FifthFloorKey]['ClassifyValueMap']
                                     if InsertBatchAndValueMap not in ExistBatchAndValueMapList:
                                         TotalPopulation =GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]["ClassifyValueDict"][ThirdlyFloorKey][FourthlyFloorKey][FifthFloorKey]['PersonNumber']
-                                        InsertClassifyValueCommand = "insert into %s.ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
+                                        InsertClassifyValueCommand = "insert into %s.UserPortrait_ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
                                                                      "values (%d,%d,%d);" % (
                                                                          MysqlObject._UseDatabase,
                                                                          InsertBatchAndValueMap[0],
@@ -77,7 +77,7 @@ def InsertResultPersonNumber1(MysqlObject):
                                         InsertBatchAndValueMap[1]=GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]["ClassifyValueDict"][ThirdlyFloorKey][FourthlyFloorKey][FifthFloorKey][SixthFloorKey]['ClassifyValueMap']
                                         if InsertBatchAndValueMap not in ExistBatchAndValueMapList:
                                             TotalPopulation =GV.FinalResultRegisterDict["ResultRegisterDict"][FirstFloorKey][SecondFloorKey]["ClassifyValueDict"][ThirdlyFloorKey][FourthlyFloorKey][FifthFloorKey][SixthFloorKey]['PersonNumber']
-                                            InsertClassifyValueCommand = "insert into %s.ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
+                                            InsertClassifyValueCommand = "insert into %s.UserPortrait_ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
                                                                          "values (%d,%d,%d);" % (
                                                                              MysqlObject._UseDatabase,
                                                                              InsertBatchAndValueMap[0],
@@ -161,7 +161,7 @@ def InsertResultRegisterAction(MysqlObject):
             #print(InsertAllResultRegisterString)
         for SingleResultRegisterString in InsertAllResultRegisterString:
 
-            InsertClassifyValueCommand = "insert into %s.ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
+            InsertClassifyValueCommand = "insert into %s.UserPortrait_ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
                                          "values %s;" % (
                                              MysqlObject._UseDatabase,SingleResultRegisterString)
             #print(InsertClassifyValueCommand)
@@ -187,7 +187,7 @@ def InsertResultRegisterAction1(MysqlObject):
             #     InsertAllResultRegisterString += InsertSingleResultRegisterString
         #print(InsertAllResultRegisterString)
 
-        InsertClassifyValueCommand = "insert into %s.ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
+        InsertClassifyValueCommand = "insert into %s.UserPortrait_ResultPersonNumber (BatchMap,ClassifyValueMap,TotalPopulation)  " \
                                      "values %s;" % (
                                          MysqlObject._UseDatabase,InsertAllResultRegisterString)
         #print(InsertClassifyValueCommand)

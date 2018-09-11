@@ -12,6 +12,7 @@ class AppAnalysis():
         result = {}
         result['MainClass'] = {'APP名称_MainClass_Equal': {'ClassifyValue': dict(data_appname)}}
         result['MainClassTotal'] = {'APP名称汇总': counts}
+        return result
 
     def get_classifyname(self):
         data_classifyname=self.data[self.data.classifyname.notnull()]

@@ -12,17 +12,17 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$GetNewFilePath.coverage" NAME="GetNewFilePath Coverage Results" MODIFIED="1535677374263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QJC0831" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$OriginDataStatistics.coverage" NAME="OriginDataStatistics Coverage Results" MODIFIED="1535356585796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QJC" />
-    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$BaseInfoAnalysis.coverage" NAME="BaseInfoAnalysis Coverage Results" MODIFIED="1535683906676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QJC0831" />
+    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$BaseInfoAnalysis.coverage" NAME="BaseInfoAnalysis Coverage Results" MODIFIED="1536573786170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QJC0831" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$InitFinalResultRegisterDict.coverage" NAME="InitFinalResultRegisterDict Coverage Results" MODIFIED="1535358013581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$EachBatchGroupOperation.coverage" NAME="EachBatchGroupOperation Coverage Results" MODIFIED="1535701906653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$EachBatchGroupOperation.coverage" NAME="EachBatchGroupOperation Coverage Results" MODIFIED="1536573874784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase_$test.coverage" NAME="test Coverage Results" MODIFIED="1535091020289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase_$OperateClassifyValue.coverage" NAME="OperateClassifyValue Coverage Results" MODIFIED="1535097507044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$OperateTagClassify.coverage" NAME="OperateTagClassify Coverage Results" MODIFIED="1535360261547" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$Main__1_.coverage" NAME="Main (1) Coverage Results" MODIFIED="1535678109122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/QJC0831" />
-    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$Main.coverage" NAME="Main Coverage Results" MODIFIED="1535693841375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$Main.coverage" NAME="Main Coverage Results" MODIFIED="1536626283880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase_$MySQLOperation.coverage" NAME="MySQLOperation Coverage Results" MODIFIED="1535015752408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$UpdateLabelGroupPersonas.coverage" NAME="UpdateLabelGroupPersonas Coverage Results" MODIFIED="1535705122598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$test.coverage" NAME="test Coverage Results" MODIFIED="1535702363484" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$UpdateLabelGroupPersonas.coverage" NAME="UpdateLabelGroupPersonas Coverage Results" MODIFIED="1536581730773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$test.coverage" NAME="test Coverage Results" MODIFIED="1536116745677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$MySQLOperation.coverage" NAME="MySQLOperation Coverage Results" MODIFIED="1535438956249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$InsertResultPersonNumber.coverage" NAME="InsertResultPersonNumber Coverage Results" MODIFIED="1535442448056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UserPortrayal_ChangeDatabase$OperateClassifyValue.coverage" NAME="OperateClassifyValue Coverage Results" MODIFIED="1535363086071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -35,10 +35,12 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="128" selection-start-line="128" selection-end-line="128" />
+            <state relative-caret-position="358">
+              <caret line="135" column="26" lean-forward="true" selection-start-line="135" selection-start-column="26" selection-end-line="135" selection-end-column="26" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
+                <element signature="e#648#1809#0" />
+                <element signature="e#3383#5917#0" />
               </folding>
             </state>
           </provider>
@@ -47,8 +49,8 @@
       <file leaf-file-name="MySQLOperation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MySQLOperation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+            <state relative-caret-position="420">
+              <caret line="124" column="35" lean-forward="true" selection-start-line="124" selection-start-column="35" selection-end-line="124" selection-end-column="35" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#307#748#0" />
@@ -70,49 +72,8 @@
       <file leaf-file-name="GlobalVariable.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="91" lean-forward="true" selection-start-line="9" selection-end-line="9" selection-end-column="91" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InitFinalResultRegisterDict.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/InitFinalResultRegisterDict.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InsertResultPersonNumber.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/InsertResultPersonNumber.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-              <folding>
-                <element signature="e#23#50#0" expanded="true" />
-                <element signature="e#112#967#0" />
-                <element signature="e#1017#7835#0" />
-                <element signature="e#7884#13182#0" />
-                <element signature="e#13233#15141#0" />
-                <element signature="e#15193#16973#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EachBatchGroupOperation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/EachBatchGroupOperation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-              <folding>
-                <element signature="e#32#59#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="152">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -120,41 +81,72 @@
       <file leaf-file-name="UpdateLabelGroupPersonas.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UpdateLabelGroupPersonas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+            <state relative-caret-position="323">
+              <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FillClassifyValueMap.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FillClassifyValueMap.py">
+      <file leaf-file-name="ExtractPublicTaskInfo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ExtractPublicTaskInfo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="10" column="54" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FillDataExtractBatch.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FillDataExtractBatch.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="6" column="61" selection-start-line="6" selection-start-column="61" selection-end-line="6" selection-end-column="61" />
+            <state relative-caret-position="209">
+              <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
               <folding>
-                <element signature="e#206#719#0" />
+                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#105#404#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FillTagClassifyMap.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FillTagClassifyMap.py">
+      <file leaf-file-name="QJCMain.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/QJC0831/QJCMain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="3" column="35" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="35" />
+            <state relative-caret-position="1336">
+              <caret line="145" column="8" selection-start-line="145" selection-start-column="8" selection-end-line="145" selection-end-column="8" />
               <folding>
-                <element signature="e#103#1032#0" />
+                <element signature="e#327#4129#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppInfo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/QJC0831/AppInfo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="16" column="49" lean-forward="true" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EachBatchGroupOperation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/EachBatchGroupOperation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
+              <folding>
+                <element signature="e#32#59#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OperateCooperationCompany.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OperateCooperationCompany.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseInfoAnalysis.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/QJC0831/BaseInfoAnalysis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1292">
+              <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -175,18 +167,20 @@
       <find>ReceiveStandardData</find>
       <find>ExistClassifyValueInfoDict</find>
       <find>畅玩5X</find>
-      <find>[1, '']</find>
-      <find>红米Note 4X</find>
-      <find>'ClassifyValueMap': ''</find>
-      <find>Galaxy Note</find>
+      <find />
+      <find />
+      <find />
+      <find />
       <find>232</find>
-      <find>iPhone 7 Plus</find>
+      <find />
       <find>print</find>
       <find>sftp_down_file</find>
       <find>getfilename</find>
       <find>GV.ReceiveStandardDataList</find>
       <find>SingleReceiveStandardDataList.</find>
       <find>SingleReceiveStandardDataList</find>
+      <find>NoneType</find>
+      <find>CooperationCompany</find>
     </findStrings>
     <replaceStrings>
       <replace>self.MysqlObject</replace>
@@ -204,23 +198,23 @@
         <option value="$PROJECT_DIR$/FillClassifyValueMap.py" />
         <option value="$PROJECT_DIR$/OperateDataExtractBatch.py" />
         <option value="$PROJECT_DIR$/QJC/OriginDataStatistics.py" />
-        <option value="$PROJECT_DIR$/OperateCooperationCompany.py" />
-        <option value="$PROJECT_DIR$/MySQLOperation.py" />
         <option value="$PROJECT_DIR$/InsertResultPersonNumber.py" />
         <option value="$PROJECT_DIR$/QJC0831/Main.py" />
         <option value="$PROJECT_DIR$/QJC0831/AppInfo.py" />
         <option value="$PROJECT_DIR$/QJC0831/BaseInfo.py" />
         <option value="$PROJECT_DIR$/QJC0831/ServiceInfo.py" />
-        <option value="$PROJECT_DIR$/QJC0831/BaseInfoAnalysis.py" />
         <option value="$PROJECT_DIR$/OperateClassifyValue.py" />
-        <option value="$PROJECT_DIR$/QJC0831/QJCMain.py" />
-        <option value="$PROJECT_DIR$/InitFinalResultRegisterDict.py" />
         <option value="$PROJECT_DIR$/GlobalVariable.py" />
-        <option value="$PROJECT_DIR$/QJC0831/AppInfoAnalysis.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/ExtractPublicTaskInfo.py" />
+        <option value="$PROJECT_DIR$/QJC0831/AppInfoAnalysis.py" />
+        <option value="$PROJECT_DIR$/InitFinalResultRegisterDict.py" />
+        <option value="$PROJECT_DIR$/QJC0831/QJCMain.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/QJC0831/BaseInfoAnalysis.py" />
         <option value="$PROJECT_DIR$/EachBatchGroupOperation.py" />
+        <option value="$PROJECT_DIR$/OperateCooperationCompany.py" />
         <option value="$PROJECT_DIR$/UpdateLabelGroupPersonas.py" />
+        <option value="$PROJECT_DIR$/MySQLOperation.py" />
         <option value="$PROJECT_DIR$/Main.py" />
       </list>
     </option>
@@ -245,6 +239,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,7 +251,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -284,7 +278,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.UpdateLabelGroupPersonas">
+  <component name="RunManager" selected="Python.Main">
     <configuration name="BaseInfoAnalysis" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="UserPortrayal(ChangeDatabase)" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -389,11 +383,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.UpdateLabelGroupPersonas" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.EachBatchGroupOperation" />
         <item itemvalue="Python.Main" />
+        <item itemvalue="Python.UpdateLabelGroupPersonas" />
+        <item itemvalue="Python.EachBatchGroupOperation" />
         <item itemvalue="Python.BaseInfoAnalysis" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -427,9 +421,9 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2560778" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.26256078" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17776097" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28214827" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -463,6 +457,8 @@
           <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#648#1809#0" />
+            <element signature="e#3383#5917#0" />
           </folding>
         </state>
       </provider>
@@ -471,9 +467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="703">
           <caret line="38" column="234" selection-start-line="38" selection-start-column="218" selection-end-line="38" selection-end-column="234" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -704,38 +697,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QJC0831/BaseInfoAnalysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="69" column="49" lean-forward="true" selection-start-line="69" selection-start-column="49" selection-end-line="69" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/QJC0831/AppInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="18" column="12" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/QJC0831/QJCMain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/OperateClassifyValue.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OperateCooperationCompany.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -753,31 +718,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QJC0831/AppInfoAnalysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="18" column="33" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ExtractPublicTaskInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="27" />
-          <folding>
-            <element signature="e#105#404#0" />
-            <element signature="e#450#2217#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FillClassifyValueMap.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -789,9 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
           <caret line="6" column="61" selection-start-line="6" selection-start-column="61" selection-end-line="6" selection-end-column="61" />
-          <folding>
-            <element signature="e#206#719#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -799,16 +736,69 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="3" column="35" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="35" />
-          <folding>
-            <element signature="e#103#1032#0" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InsertResultPersonNumber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InitFinalResultRegisterDict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1311">
+          <caret line="70" column="46" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QJC0831/AppInfoAnalysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="55" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QJC0831/BaseInfoAnalysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UpdateLabelGroupPersonas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OperateCooperationCompany.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MySQLOperation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+        <state relative-caret-position="420">
+          <caret line="124" column="35" lean-forward="true" selection-start-line="124" selection-start-column="35" selection-end-line="124" selection-end-column="35" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <element signature="e#307#748#0" />
@@ -826,61 +816,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InitFinalResultRegisterDict.py">
+    <entry file="file://$PROJECT_DIR$/ExtractPublicTaskInfo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="209">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/InsertResultPersonNumber.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-          <folding>
-            <element signature="e#23#50#0" expanded="true" />
-            <element signature="e#112#967#0" />
-            <element signature="e#1017#7835#0" />
-            <element signature="e#7884#13182#0" />
-            <element signature="e#13233#15141#0" />
-            <element signature="e#15193#16973#0" />
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#105#404#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/EachBatchGroupOperation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+        <state relative-caret-position="154">
+          <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
           <folding>
             <element signature="e#32#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GlobalVariable.py">
+    <entry file="file://$PROJECT_DIR$/QJC0831/QJCMain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="91" lean-forward="true" selection-start-line="9" selection-end-line="9" selection-end-column="91" />
+        <state relative-caret-position="1336">
+          <caret line="145" column="8" selection-start-line="145" selection-start-column="8" selection-end-line="145" selection-end-column="8" />
+          <folding>
+            <element signature="e#327#4129#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UpdateLabelGroupPersonas.py">
+    <entry file="file://$PROJECT_DIR$/QJC0831/AppInfo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+        <state relative-caret-position="266">
+          <caret line="16" column="49" lean-forward="true" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="128" selection-start-line="128" selection-end-line="128" />
+        <state relative-caret-position="358">
+          <caret line="135" column="26" lean-forward="true" selection-start-line="135" selection-start-column="26" selection-end-line="135" selection-end-column="26" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#648#1809#0" />
+            <element signature="e#3383#5917#0" />
           </folding>
         </state>
       </provider>

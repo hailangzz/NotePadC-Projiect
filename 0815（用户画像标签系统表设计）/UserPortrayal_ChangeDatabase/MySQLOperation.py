@@ -33,7 +33,7 @@ class Mysql:
             self.CreateDatabase(DatabaseName)
         self.CheckUserTagTable(DatabaseName,self._TableList)
 
-    def  CreateDatabase(self,DatabaseName='label_support'):
+    def CreateDatabase(self,DatabaseName='label_support'):
         try:
             MysqlCommand="create database if not exists %s;" % DatabaseName
             self._MysqlCursor.execute(MysqlCommand)
@@ -121,4 +121,6 @@ class Mysql:
             #print(MysqlDropCommand)
             self._MysqlCursor.execute(MysqlDropCommand)
 
+    def DatabaseClose(self):
+        self._MysqlDatabase.close()
 #testa=Mysql('127.0.0.1',3306,'root','mysql')

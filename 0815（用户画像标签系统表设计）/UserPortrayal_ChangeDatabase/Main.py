@@ -16,6 +16,7 @@ import copy
 import gc
 import EachBatchGroupOperation as EBGO
 import UpdateLabelGroupPersonas as ULGP
+import time
 
 #最简单的数据插入版本···
 def main0826():
@@ -45,7 +46,7 @@ def main0826():
     EPTI.ExtractPublicTaskInfo(MysqlObject)
     print(GV.ExtractPublicTaskInfoDict)
 
-#自动化运行实现不够完全···
+#自动化运行实现不够完全···0831
 def main0831():
     MysqlObject=MSQLO.Mysql('192.168.7.31',3306,'ngoss_dim','ngoss_dim')
     #MysqlObject = MSQLO.Mysql('127.0.0.1', 3306, 'root', 'mysql')
@@ -55,7 +56,7 @@ def main0831():
     # print(GV.ReceiveStandardDataList)
     if GV.ReceiveStandardDataList:
         for SingleReceiveStandardDataList in GV.ReceiveStandardDataList:
-            IFRRD.InitFinalResultRegisterDict(SingleReceiveStandardDataList)
+            IFRRD.InitFinalResultRegisterDict(GV.ReceiveStandardDataList[SingleReceiveStandardDataList])
             EPTI.ExtractPublicTaskInfo(MysqlObject)
             print(GV.ExtractPublicTaskInfoDict)
             # print(GV.FinalResultRegisterDict)
@@ -117,15 +118,20 @@ def main0831_2():
         else:
             print('没有新的数据统计分析任务···')
 
+#0905(可自动化运行，但有待同事协调运行)···
 def main():
-    MysqlObject=MSQLO.Mysql('192.168.7.31',3306,'ngoss_dim','ngoss_dim')
-    #MysqlObject = MSQLO.Mysql('127.0.0.1', 3306, 'root', 'mysql')
-    # print(MysqlObject._UseDatabase)
-    #OriginDataPath = r'./QJC_Single/test10000.txt'
-    EPTI.ExtractPublicTaskInfo(MysqlObject)
-    if len(GV.ExtractPublicTaskInfoDict['ExtractTaskID'])!=0:
-        EBGO.EachBatchGroupOperation(MysqlObject)
-    ULGP.UpdateLabelGroupPersonas(MysqlObject)
+
+    while True:
+        MysqlObject=MSQLO.Mysql('192.168.7.31',3306,'ngoss_dim','ngoss_dim')
+        #MysqlObject = MSQLO.Mysql('127.0.0.1', 3306, 'root', 'mysql')
+        # print(MysqlObject._UseDatabase)
+        #OriginDataPath = r'./QJC_Single/test10000.txt'
+        EPTI.ExtractPublicTaskInfo(MysqlObject)
+        if len(GV.ExtractPublicTaskInfoDict['ExtractTaskID'])!=0:
+            EBGO.EachBatchGroupOperation(MysqlObject)
+            ULGP.UpdateLabelGroupPersonas(MysqlObject)
+        MysqlObject.DatabaseClose()
+        time.sleep(600)
 
 if __name__ == '__main__':
     main()

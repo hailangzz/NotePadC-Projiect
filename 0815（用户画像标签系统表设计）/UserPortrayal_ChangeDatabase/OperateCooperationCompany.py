@@ -37,7 +37,6 @@ def InsertCooperationCompanyRegister(MysqlObject,CompanyName):
 
         if CompanyName not in CompanyInfoDict.keys() :
             MysqlCommand = "insert into %s.CooperationCompany (CompanyName) Values('%s')" % (MysqlObject._UseDatabase, CompanyName)
-            # print(MysqlCommand)
             MysqlObject._MysqlCursor.execute(MysqlCommand)
             MysqlObject._MysqlDatabase.commit()
     except Exception as result:

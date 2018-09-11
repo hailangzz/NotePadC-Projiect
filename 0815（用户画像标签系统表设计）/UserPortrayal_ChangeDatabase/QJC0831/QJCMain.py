@@ -83,10 +83,11 @@ def QJC0831_Main():
     ServiceInfo_path=ServiceInfo.data_path
     # import time
     filenums=len(AppInfo_path)
-
+    #print(AppInfo_path)
+    #print(filenums)
     if filenums :
         for filenumber in range(filenums):
-            filename=filenumber.split('\\')[-1].strip('.txt')
+            filename=AppInfo_path[filenumber].split('\\')[-1].strip('.txt')
             if filename not in MultiReceiveStandardDataList:
                 MultiReceiveStandardDataList = {filename:[]}
                 start_time=time.time()
@@ -143,5 +144,5 @@ def QJC0831_Main():
                 MultiReceiveStandardDataList[filename].append(service)
     else:
         print('没有发现新文件，继续扫描')
-
+    #print(MultiReceiveStandardDataList)
     return MultiReceiveStandardDataList

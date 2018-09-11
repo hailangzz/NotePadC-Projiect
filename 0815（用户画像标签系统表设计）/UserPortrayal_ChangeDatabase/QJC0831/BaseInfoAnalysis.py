@@ -60,20 +60,26 @@ class BaseAnalysis():
         dict_result['MainClass']={'手机品牌_MainClass_Equal':dict_class}
         dict_result['MainClassTotal']={'手机品牌汇总':len(data_brand_model)}
         return dict_result
+
     def get_listing_date(self):
         data_listing_date=self.data.listing_date.value_counts()
         dicts = {}
+        #print(data_listing_date)
         for i in range(2000, 2019):
             for j in dict(data_listing_date).items():
-                if j[0][:4] == str(i):
+                #print(j,type(j))
+                list_buf=list(j)
+                list_buf[0]=str(list_buf[0])
+                if list_buf[0] == str(i):
                     if (str(i)) not in dicts.keys():
-                        dicts[str(i)] = int(j[1])
+                        dicts[str(i)] = int(list_buf[0][1])
                     else:
-                        dicts[str(i)] += int(j[1])
+                        dicts[str(i)] += int(list_buf[0][1])
         result = {}
-        result['MainClass'] = {'上市时间_MainClass_Range': {'ClassifyValue': dicts}}
+        result['MainClass'] = {'上市时间_MainClass_Equal': {'ClassifyValue': dicts}}
         result['MainClassTotal'] = {'上市时间汇总': self.data.listing_date.count()}
         return result
+    
     def get_listing_price(self):
         data_new=self.data.listing_price.apply(pd.to_numeric,errors='coerce')
         data_listing_price =data_new.value_counts()
@@ -90,7 +96,7 @@ class BaseAnalysis():
         dicts['9500-10000'] = data_listing_price[(data_listing_price.index >= 9500) & (data_listing_price.index <= 10000)].sum()
         dicts['10000以上']=data_listing_price[(data_listing_price.index >10000)].sum()
         result = {}
-        result['MainClass'] = {'上市价格总_MainClass_Range': {'ClassifyValue': dicts}}
+        result['MainClass'] = {'上市价格_MainClass_Range': {'ClassifyValue': dicts}}
         result['MainClassTotal'] = {'上市价格汇总': self.data.listing_price.count()}
         return result
     def get_netlong(self):

@@ -62,6 +62,10 @@ def InitFinalResultRegisterDict(SingleReceiveStandardDataList): # 适合原始�
         print("标准化结果数据列表为空")
         return
     else:
+        # print(type(SingleReceiveStandardDataList))
+        # print(SingleReceiveStandardDataList)
+        # for ReceiveStandardData in SingleReceiveStandardDataList:
+        #     print(ReceiveStandardData)
         for ReceiveStandardData in SingleReceiveStandardDataList:
             for FirstFloorKey in ReceiveStandardData.keys():
                 if FirstFloorKey=='MainClass':

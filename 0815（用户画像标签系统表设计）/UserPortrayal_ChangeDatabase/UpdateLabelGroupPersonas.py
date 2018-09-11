@@ -8,12 +8,12 @@ def InitExtractPublicTaskInfo():
 def UpdateLabelGroupPersonas(MysqlObject):
     try:
         for ExtractTaskID in GV.ExtractPublicTaskInfoDict['ExtractTaskID']:
-            MysqlCommand = "update %s.label_group_personas set  status=%d,endtime=%s where filename=%s;" % (MysqlObject._UseDatabase,GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['status'],
+            MysqlCommand = "update %s.label_group_personas set  status=%d,endtime='%s' where filename='%s';" % (MysqlObject._UseDatabase,GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['status'],
                                                                                                             GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['endtime'],
                                                                                                             GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['filename']
                                                                                                             )
             MysqlObject._MysqlCursor.execute(MysqlCommand)
-            MysqlObject._MysqlCursor.commit()
+            MysqlObject._MysqlDatabase.commit()
 
         #将数据提取批次任务列表初始化归零···
         InitExtractPublicTaskInfo()

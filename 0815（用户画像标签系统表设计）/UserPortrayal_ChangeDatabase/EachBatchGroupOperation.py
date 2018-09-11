@@ -13,6 +13,7 @@ import FillClassifyValueMap as FCVM
 import FillDataExtractBatch as FDEB
 import InsertResultPersonNumber as IRPN
 import ExtractPublicTaskInfo as EPTI
+import EachBatchGroupOperation as EBGO
 import copy
 import datetime
 
@@ -31,9 +32,9 @@ def EachBatchGroupOperation(MysqlObject):
             for ExtractTaskID in GV.ExtractPublicTaskInfoDict['ExtractTaskID']:
                 if GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['filename'].strip('.txt') == SingleReceiveStandardDataListFileName:
                     CompanyName = (GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['labelname'])
-                    OCC.InsertCooperationCompanyRegister(MysqlObject, CompanyName)
                     BatchTuple = (GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['labelname'],
                                   GV.ExtractPublicTaskInfoDict['ExtractTaskID'][ExtractTaskID]['createtime'])
+                    OCC.InsertCooperationCompanyRegister(MysqlObject, CompanyName)
                     ODEB.InsertBatchRegister(MysqlObject, BatchTuple)
                     OTC.InsertTagClassifyRegister(MysqlObject)
                     FTCM.FillTagClassifyMap(MysqlObject)

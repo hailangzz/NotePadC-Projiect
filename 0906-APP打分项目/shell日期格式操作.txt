@@ -1,0 +1,28 @@
+#!/bin/bash
+if [ $# -eq 1 ];then
+    #dated=`date -d $1 +"%Y-%m-%d"`
+    ym=$1
+else
+    dated=`date -d today +"%Y-%m-%d"`
+fi
+	d=`date -d $dated +"%Y-%m"`
+	echo $d
+	date_1=$(date -d "-1 day " +"%Y-%m-%d")
+	echo $date_1
+	
+    date_1=$(date -d "-1 month $dated" +"%Y-%m-%d")
+	echo $date_1
+    dated=$(date -d "-2 month $dated" +"%Y-%m-%d")
+    year=`date -d $date_1 +"%Y"`
+	echo $year
+    month=`date -d $date_1 +"%m"`
+	echo $month
+	day=$(date -d $date_1 +"%d")
+	echo $day
+    ym=`date -d $date_1 +"%Y%m"`	
+    ym_1=`date -d $date_1 +"%Y-%m"`	
+    ym_2=`date -d $dated +"%Y%m"`
+echo 'dated:'$dated 
+echo 'ym:'$ym
+echo 'ym_1:'$ym_1
+echo 'ym_2:'$ym_2

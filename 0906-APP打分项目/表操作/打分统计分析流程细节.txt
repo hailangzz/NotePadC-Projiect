@@ -1,0 +1,131 @@
+1.创建评分原始数据中间表：	
+create table if not exists mid.ZZGradeOriginalData (imei1 string,APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+
+insert overwrite table mid.ZZGradeOriginalData partition(dt='2018-07')
+select t1.imei1 ,t2.APPClassify ,sum(t1.usertime) as TimeTotal,sum(t1.opencount) as OpenTotal            
+from dw_ods.exter_terminal_application_new t1 
+inner join 
+mid.ZZAPPClassify0906 t2 
+on(t1.appname=t2.APPName)
+where t1.year='2018' and t1.month='7' and t1.usertime>0 and t1.usertime<=720 and t1.opencount>0 and t1.opencount<=2592000 and t1.imei1 rlike '^(86|35)' and t2.APPClassify rlike '[\u4e00-\u9fa5]'
+group by t2.APPClassify,t1.imei1;
+
+2.将得到的原始数据进行清洗，排除异常值···
+sql_command:
+create table if not exists mid.ZZGradeReasonableData (imei1 string,APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+		   
+insert overwrite table mid.ZZGradeReasonableData partition(dt='2018-07')
+select imei1,APPClassify,TimeTotal,OpenTotal
+from mid.ZZGradeOriginalData
+where dt='2018-07' and TimeTotal<=720 and OpenTotal<=2592000;
+
+3.将不同分类的APP打开时间最大及最小值、APP打开次数最大最小值存入表中···
+sql_command:
+create table if not exists mid.ZZGradeExtremeValueData (APPClassify string,TimeTotalMin string,TimeTotalMax string,OpenTotalMin string,OpenTotalMax string) partitioned by (`dt` varchar(100));
+
+insert overwrite table mid.ZZGradeExtremeValueData  partition(dt='2018-07')
+select APPClassify as APPClassify,
+min(TimeTotal) as TimeTotalMin,
+max(TimeTotal) as TimeTotalMax,
+min(OpenTotal) as OpenTotalMin,
+max(OpenTotal) as OpenTotalMax
+from mid.ZZGradeReasonableData where dt='2018-07'
+group by APPClassify;
+
+4.将清洗后的数据标准化处理···
+sql_command:
+create table if not exists mid.ZZGradeStandardData (imei1 string,APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+
+insert overwrite table mid.ZZGradeStandardData partition(dt='2018-07')
+select t1.imei1,t1.APPClassify,
+(t1.TimeTotal-t2.TimeTotalMin)/(t2.TimeTotalMax-t2.TimeTotalMin),
+(t1.OpenTotal-t2.OpenTotalMin)/(t2.OpenTotalMax-t2.OpenTotalMin)
+from mid.ZZGradeReasonableData t1, mid.ZZGradeExtremeValueData t2
+where t1.dt='2018-07' and t2.dt='2018-07' and t1.APPClassify=t2.APPClassify;
+
+5.计算统计量（参数）的标准化比重值，并存储···
+sql_command:
+create table if not exists mid.ZZGradeVariableProportionData (imei1 string,APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+
+insert overwrite table mid.ZZGradeVariableProportionData partition(dt='2018-07')
+select t1.imei1,t1.APPClassify,
+t1.TimeTotal/T.SumTimeTotal,
+t1.OpenTotal/T.SumOpenTotal 
+from mid.ZZGradeStandardData t1,
+(select APPClassify,sum(TimeTotal) as SumTimeTotal,sum(OpenTotal) as SumOpenTotal
+from mid.ZZGradeStandardData 
+where dt='2018-07' group by APPClassify) T
+where t1.dt='2018-07' and t1.APPClassify=T.APPClassify
+;
+
+6.计算统计量（参数）的熵值数据，并存储···
+sql_command:
+create table if not exists mid.ZZGradeEntropyData (APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+
+
+insert overwrite table mid.ZZGradeEntropyData partition(dt='2018-07')
+select T2.APPClassify,
+T2.TimeTotal/T3.lnk as TimeTotal,
+T2.OpenTotal/T3.lnk as OpenTotal 
+from
+(select T1.APPClassify,-(SUM(T1.TimeTotal)) as TimeTotal,-(SUM(T1.OpenTotal)) as OpenTotal
+from 
+(
+select APPClassify,TimeTotal*ln(TimeTotal) AS TimeTotal,OpenTotal*ln(OpenTotal) AS OpenTotal
+from mid.ZZGradeVariableProportionData where dt='2018-07'
+) T1 group by T1.APPClassify)T2,
+(select ln(count(*)) as lnk from mid.ZZGradeVariableProportionData  where dt='2018-07')T3
+;
+
+7.计算统计量（参数）的权重值数据，并存储···
+sql_command:
+create table if not exists mid.ZZGradeWeightData (APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+
+insert overwrite table mid.ZZGradeWeightData partition(dt='2018-07')
+select APPClassify,(1-TimeTotal)/((1-TimeTotal)+(1-OpenTotal)) as TimeTotal,(1-OpenTotal)/((1-TimeTotal)+(1-OpenTotal)) as OpenTotal
+from mid.ZZGradeEntropyData
+where dt='2018-07'
+;
+
+8.计算统计量（参数）的得分值数据，并存储···
+sql_command:
+create table if not exists mid.ZZGradeScoreData (imei1 string,APPClassify string,score string) partitioned by (`dt` varchar(100));
+
+insert overwrite table mid.ZZGradeScoreData partition(dt='2018-07')
+select t1.imei1,t1.APPClassify,
+(t1.TimeTotal*t2.TimeTotal+t1.OpenTotal*t2.OpenTotal) as score
+from mid.ZZGradeStandardData t1,mid.ZZGradeWeightData t2
+where t1.dt='2018-07' and t2.dt='2018-07' and t1.APPClassify=t2.APPClassify
+;
+
+9.计算统计量（参数）的得分值分位数，并存储···
+sql_command:
+(示例：select percentile_approx(cast(timetotal as FLOAT),array(0.05,0.5,0.95)) from mid.ZZGradeWeightData;)
+(示例：select percentile_approx(cast(timetotal as FLOAT),array(0.05,0.5,0.95)) from mid.ZZGradeWeightData group by APPClassify;)
+
+create table if not exists mid.ZZGradePercentData (APPClassify string,scorepercentlist ARRAY<double>) partitioned by (`dt` varchar(100));
+insert overwrite table mid.ZZGradePercentData partition(dt='2018-07')
+select APPClassify,percentile_approx(cast(score as FLOAT),array(0.2,0.4,0.6,0.8)) as scorepercentlist
+from mid.ZZGradeScoreData where dt='2018-07' group by APPClassify;
+
+10.结果用户统计量（参数）计算等级，并存储···
+sql_command:
+create table if not exists mid.ZZGradeUserLevelData (imei1 string,APPClassify string,Level string) partitioned by (`dt` varchar(100));
+
+insert overwrite table mid.ZZGradeUserLevelData partition(dt='2018-07')
+select t1.imei1,t1.APPClassify,
+case 
+when cast(t1.score as double)<t2.scorepercentlist[0] then '1'
+when cast(t1.score as double)>=t2.scorepercentlist[0] and cast(t1.score as double)<t2.scorepercentlist[1] then '2'
+when cast(t1.score as double)>=t2.scorepercentlist[1] and cast(t1.score as double)<t2.scorepercentlist[2] then '3'
+when cast(t1.score as double)>=t2.scorepercentlist[2] and cast(t1.score as double)<t2.scorepercentlist[3] then '4'
+else '5' end as Level
+from mid.ZZGradeScoreData t1,mid.ZZGradePercentData t2
+where t1.dt='2018-07' and t2.dt='2018-07' and t1.APPClassify=t2.APPClassify
+;
+
+
+对打分结果进行简单检验：
+ select * from mid.ZZGradeReasonableData where imei1='863012032140635' and appclassify='教师类';--->>>863012032140635 教师类  25.64   26.0    2018-07  5Level
+ select * from mid.ZZGradeReasonableData where imei1='863043030806786' and appclassify='教师类';--->>>863043030806786 教师类  0.02    4.0     2018-07  1Level
+ 

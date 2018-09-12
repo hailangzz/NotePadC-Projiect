@@ -1,0 +1,223 @@
+一、准备原始的APP分类原始数据文件ZZAPPClassifyFile0906：（/home/qizhi_user/zhangzhuo/AllFileDir/ZZAPPClassifyFile0906）
+   1.先查看dw_ods.application_detail中的 cat_name:
+      select distinct cat_name from dw_ods.application_detail;
+		休闲益智、体育竞速、健康、儿童、出行、办公、动作冒险、娱乐、安全、工具、摄影、教育、新闻、旅游、棋牌中心
+		游戏、理财、生活、社交、系统、经营策略、网络游戏、美化、视频、角色扮演、购物、通讯、阅读、音乐、飞行射击
+	  select distinct name, cat_name from dw_ods.application_detail where cat_name='理财' and name in ('恒大金服','菠萝理财','第一理财','鑫格理财','惠盈理财','风车理财','我能理财','和信贷理财','PPmoney理财','悟空理财','百度理财','桔子理财','鲸鱼理财','小米金融','京东白条','唯品金融','苏宁金融','人人贷理财','速刷理财版','简理财','掌悦理财','唐小僧理财','小赢理财','移动理财','国金宝理财','麻袋理财','易通贷理财','金储宝理财','盈盈理财','口袋理财','多融理财','小金理财','嘉实理财嘉','石头理财','君融理财','城城理财','多多理财','火钱理财','爱贷网理财','短融网理财','理财范','甜橙理财','铜掌柜理财','泰理财','蜂涌理财','盎盎理财','巨人理财','好规划理财','金碗理财','朵朵金融理财','发财猪理财','多盈理财','招财猫理财','金蛋理财');
+      理财类APP在之前的打分表中已经涵盖了·······
+	  
+	  select distinct name from dw_ods.application_detail where cat_name='理财';
+	  select distinct name from dw_ods.application_detail where cat_name='旅游' and name in ;
+	  select distinct name from dw_ods.application_detail where cat_name='购物';
+	  
+	  select distinct name from dw_ods.application_detail where name like '%信用卡%';
+	  
+   2.需要创建的标签表：
+		Loans_score	        贷款类打分	    String			
+		CreditCard_score	信用卡类打分	String			
+		Car_score	        汽车类打分	    String			
+		Travel_score	    商旅类打分	    String			
+		PayingOnline_score	    网上支付类打分	String			
+		WhiteCollar_score	白领类打分	    String			
+		Teacher_score	    教师类打分	    String			
+		Doctor_score	    医生类打分	    String			
+		CivilServant_score	公务员类打分	String	
+	  
+
+二、创建tags库中的标签打分数据表；
+	1.创建各个分类打分表的tags库中标签表：
+	  DROP TABLE IF EXISTS `tags.tag_1551_Loans_score`;
+	  CREATE TABLE `tags.tag_1551_Loans_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,  
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	  
+	  DROP TABLE IF EXISTS `tags.tag_1552_CreditCard_score`;
+	  CREATE TABLE `tags.tag_1502_CreditCard_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	  
+	  DROP TABLE IF EXISTS `tags.tag_1553_Car_score`;
+	  CREATE TABLE `tags.tag_1553_Car_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	   
+	  DROP TABLE IF EXISTS `tags.tag_1554_Travel_score`;
+	  CREATE TABLE `tags.tag_1554_Travel_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	   
+	  DROP TABLE IF EXISTS `tags.tag_1555_PayingOnline_score`;
+	  CREATE TABLE `tags.tag_1555_PayingOnline_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	   
+	  DROP TABLE IF EXISTS `tags.tag_1556_WhiteCollar_score`;
+	  CREATE TABLE `tags.tag_1556_WhiteCollar_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	   
+	  DROP TABLE IF EXISTS `tags.tag_1557_Teacher_score`;
+	  CREATE TABLE `tags.tag_1557_Teacher_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	  
+	  DROP TABLE IF EXISTS `tags.tag_1558_Doctor_score`;
+	  CREATE TABLE `tags.tag_1558_Doctor_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	  
+	  DROP TABLE IF EXISTS `tags.tag_1559_CivilServant_score`;
+	  CREATE TABLE `tags.tag_1559_CivilServant_score` 
+	  (
+	  `source_id` varchar(100) ,  `id_type` varchar(100) ,  `id` varchar(100) ,  `tag_domain` varchar(100) ,
+	  `tag_id` varchar(100) ,  `tag_path` varchar(100) ,  `tag_value_type` varchar(100) ,
+	  `tag_value` varchar(100) ,  `updatetime` varchar(100)     ) partitioned by (`dt` varchar(100)) ;
+	  
+三、打分运算中间表操作；
+	1.创建项目的APP分类表：（mid.ZZAPPClassify0906）
+
+		create table if not exists mid.ZZAPPClassify0906 (APPName string,APPClassify string,CreateTime string)
+		row format delimited fields terminated by '\t'
+		LINES TERMINATED BY '\n';
+		
+	2.向APP分类表插入记录：
+		LOAD DATA LOCAL INPATH '/home/qizhi_user/zhangzhuo/AllFileDir/0906' OVERWRITE INTO table mid.ZZAPPClassify0906;
+		
+	3.熵权法打分的运算流程：
+	   1.创建计算所需的中间表；
+	     a.create table if not exists mid.ZZGradeOriginalData (imei1 string,APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+	     b.create table if not exists mid.ZZGradeReasonableData (imei1 string,APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+	     c.create table if not exists mid.ZZGradeExtremeValueData (APPClassify string,TimeTotalMin string,TimeTotalMax string,OpenTotalMin string,OpenTotalMax string) partitioned by (`dt` varchar(100));
+		 d.create table if not exists mid.ZZGradeStandardData (imei1 string,APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+         e.create table if not exists mid.ZZGradeVariableProportionData (imei1 string,APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+	     f.create table if not exists mid.ZZGradeEntropyData (APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+		 g.create table if not exists mid.ZZGradeWeightData (APPClassify string,TimeTotal string,OpenTotal string) partitioned by (`dt` varchar(100));
+	     h.create table if not exists mid.ZZGradeScoreData (imei1 string,APPClassify string,score string) partitioned by (`dt` varchar(100));
+		 i.create table if not exists mid.ZZGradePercentData (APPClassify string,scorepercentlist ARRAY<double>) partitioned by (`dt` varchar(100));
+	     j.create table if not exists mid.ZZGradeUserLevelData (imei1 string,APPClassify string,Level string) partitioned by (`dt` varchar(100));
+	   a.统计每个用户APP使用的：TimeTotal,OpenTotal
+		   sql_command:
+		   insert overwrite table mid.ZZGradeOriginalData  partition(dt='2018-06')
+				select  
+				t1.imei1 as imei1,
+				t2.cat_name as APPClassify,
+				sum(t1.usertime) as TimeTotal,
+				sum(t1.opencount) as OpenTotal               
+				from dw_ods.exter_terminal_application_new t1 
+				join 
+					mid.ZZAPPClassify0906 t2 
+				on(t1.appname=t2.APPName)
+				where t1.year='$year'
+				and t1.month='06'
+				and t1.usertime>0                                                     
+				and t1.usertime<=720 
+				and t1.opencount>0 
+				and t1.opencount<=2592000                              
+				and t1.imei1 rlike '^(86|35)' 
+				and t2.APPClassify rlike '[\u4e00-\u9fa5]'
+				group by t1.imei1,t2.cat_name;
+	   b.将得到的原始数据进行清洗，排除异常值···
+		   sql_command:
+		   insert overwrite table mid.ZZGradeReasonableData partition(dt='2018-07')
+			   select imei1,APPClassify,TimeTotal,OpenTotal
+			   from mid.ZZGradeOriginalData
+			   where dt='2018-07' and usertime<=720 and OpenTotal<=2592000
+		   
+	   c.将不同分类的APP打开时间最大及最小值、APP打开次数最大最小值存入表中···
+	       sql_command:
+		   insert overwrite table mid.ZZGradeExtremeValueData  partition(dt='2018-07')
+		   select APPClassify as APPClassify,
+		          min(TimeTotal) as TimeTotalMin,
+				  max(TimeTotal) as TimeTotalMax,
+				  min(OpenTotal) as OpenTotalMin,
+				  max(OpenTotal) as OpenTotalMax
+		   from mid.ZZGradeReasonableData where dt='2018-07'
+		   group by APPClassify;
+	   d.将清洗后的数据标准化处理···
+	       sql_command:
+		   insert overwrite table mid.ZZGradeStandardData partition(dt='2018-07')
+		   select t1.imei1,t1.APPClassify,
+		   (t1.TimeTotal-t2.TimeTotalMin)/(t2.TimeTotalMax-t2.TimeTotalMin),
+		   (t1.OpenTotal-t2.OpenTotalMin)/(t2.OpenTotalMax-t2.OpenTotalMin)
+		   from mid.ZZGradeReasonableData t1,exists mid.ZZGradeExtremeValueData t2
+		   where t1.dt='2018-07' and t2.dt='2018-07' and t1.APPClassify=t2.APPClassify;
+	   
+	   e.计算统计量（参数）的标准化比重值，并存储···
+	       sql_command:
+		   insert overwrite table mid.ZZGradeVariableProportionData partition(dt='2018-07')
+			select t1.imei1,t1.APPClassify,
+			t1.TimeTotal/T.SumTimeTotal,
+			t1.OpenTotal/T.SumOpenTotal 
+			from mid.ZZGradeStandardData t1,
+			(select APPClassify,sum(TimeTotal) as SumTimeTotal,sum(OpenTotal) as SumOpenTotal
+			from mid.ZZGradeStandardData 
+			where dt='2018-07' group by APPClassify) T
+			where t1.dt='2018-07' and t1.APPClassify=T.APPClassify
+			;
+			
+	   f.计算统计量（参数）的熵值数据，并存储···
+	       sql_command:
+		   insert overwrite table mid.ZZGradeEntropyData partition(dt='2018-07')
+			select T2.APPClassify,
+			T2.TimeTotal/T3.lnk as TimeTotal,
+			T2.OpenTotal/T3.lnk as OpenTotal 
+			from
+			(select T1.APPClassify,-(SUM(T1.TimeTotal)) as TimeTotal,-(SUM(T1.OpenTotal)) as OpenTotal
+			from 
+			(
+			select APPClassify,TimeTotal*ln(TimeTotal) AS TimeTotal,OpenTotal*ln(OpenTotal) AS OpenTotal
+			from mid.ZZGradeVariableProportionData where dt='2018-07'
+			) T1 group by T1.APPClassify)T2,
+			(select ln(count(*)) as lnk from mid.ZZGradeVariableProportionData  where dt='2018-07')T3
+			;	
+			
+	   g.计算统计量（参数）的权重值数据，并存储···
+	       sql_command:
+		   insert overwrite table mid.ZZGradeWeightData partition(dt='2018-07')
+		   select APPClassify,(1-TimeTotal)/((1-TimeTotal)+(1-OpenTotal)) as TimeTotal,(1-OpenTotal)/((1-TimeTotal)+(1-OpenTotal)) as OpenTotal
+		   from mid.ZZGradeEntropyData
+		   where dt='2018-07'
+	   h.计算统计量（参数）的得分值数据，并存储···
+	       sql_command:
+		   insert overwrite table mid.ZZGradeScoreData partition(dt='2018-07')
+		   select t1.imei1,t1.APPClassify,
+		   (t1.TimeTotal*t2.TimeTotal+t1.OpenTotal*t2.OpenTotal) as score
+		   from mid.ZZGradeStandardData t1,mid.ZZGradeWeightData t2
+		   where t1.dt='2018-07' and t2.dt='2018-07' and t1.APPClassify=t2.APPClassify
+		   ;
+		   
+	   i.计算统计量（参数）的得分值分位数，并存储···
+		   sql_command:
+		   insert overwrite table mid.ZZGradePercentData partition(dt='2018-07')
+		   select APPClassify,percentile_approx(cast(score as FLOAT),array(0.2,0.4,0.6,0.8)) as scorepercentlist
+		   from mid.ZZGradeScoreData where dt='2018-07' group by APPClassify;
+       j.结果用户统计量（参数）计算等级，并存储···
+	       sql_command:
+		   insert overwrite table mid.ZZGradeUserLevelData partition(dt='2018-07')
+		   select t1.imei1,t1.APPClassify,
+		   case 
+		   when cast(t1.score as double)<t2.scorepercentlist[0] then '1'
+		   when cast(t1.score as double)>=t2.scorepercentlist[0] and cast(t1.score as double)<t2.scorepercentlist[1] then '2'
+		   when cast(t1.score as double)>=t2.scorepercentlist[1] and cast(t1.score as double)<t2.scorepercentlist[2] then '3'
+		   when cast(t1.score as double)>=t2.scorepercentlist[2] and cast(t1.score as double)<t2.scorepercentlist[3] then '4'
+		   else '5' end as Level
+		   from mid.ZZGradeScoreData t1,mid.ZZGradePercentData t2
+		   where t1.dt='2018-07' and t2.dt='2018-07' and t1.APPClassify=t2.APPClassify
+		   ;
+		   

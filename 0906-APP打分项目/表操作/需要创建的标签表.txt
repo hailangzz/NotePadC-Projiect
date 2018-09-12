@@ -1,0 +1,13 @@
+
+宽表列族名为：Xfsx
+
+以下为对应列族新添列名：
+Loans_score	贷款类打分	String			
+CreditCard_score	信用卡类打分	String			
+Car_score	汽车类打分	String			
+Travel_score	商旅类打分	String			
+PayingOnline	网上支付类打分	String			
+WhiteCollar_score	白领类打分	String			
+Teacher_score	教师类打分	String			
+Doctor_score	医生类打分	String			
+CivilServant_score	公务员类打分	String			

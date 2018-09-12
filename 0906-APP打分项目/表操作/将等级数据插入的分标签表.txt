@@ -1,0 +1,166 @@
+#说明：将等级数据插入到得分标签表中···
+
+
+insert overwrite table tags.tag_1551_Loans_score partition(dt='2018-07')
+select 
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1551000001' as tag_id,
+'relative.finance.Loans' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime
+from
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='贷款类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+insert overwrite table tags.tag_1552_CreditCard_score partition(dt='2018-07')
+select  distinct
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1552000001' as tag_id,
+'relative.finance.CreditCard' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime 
+from 
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='信用卡类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+insert overwrite table tags.tag_1553_Car_score partition(dt='2018-07')
+select  distinct
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1553000001' as tag_id,
+'relative.finance.Car' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime 
+from 
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='汽车类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+insert overwrite table tags.tag_1554_Travel_score partition(dt='2018-07')
+select  distinct
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1554000001' as tag_id,
+'relative.finance.Travel' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime 
+from 
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='商旅类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+insert overwrite table tags.tag_1555_PayingOnline_score partition(dt='2018-07')
+select  distinct
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1555000001' as tag_id,
+'relative.finance.PayingOnline' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime 
+from 
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='网上支付类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+insert overwrite table tags.tag_1556_WhiteCollar_score partition(dt='2018-07')
+select  distinct
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1556000001' as tag_id,
+'relative.finance.WhiteCollar' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime 
+from 
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='白领类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+insert overwrite table tags.tag_1557_Teacher_score partition(dt='2018-07')
+select  distinct
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1557000001' as tag_id,
+'relative.finance.Teacher' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime 
+from 
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='教师类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+insert overwrite table tags.tag_1558_Doctor_score partition(dt='2018-07')
+select  distinct
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1558000001' as tag_id,
+'relative.finance.Doctor' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime 
+from 
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='医生类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+insert overwrite table tags.tag_1559_CivilServant_score partition(dt='2018-07')
+select  distinct
+'3' as source_id,
+'1' as id_type,
+a.id as id,
+'0' as tag_domain,
+'1559000001' as tag_id,
+'relative.finance.CivilServant' as tag_path,
+'1' as tag_value_type,
+b.Level as tag_value,
+from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as updatetime 
+from 
+(select id,tag_value from tags.tag_1101_imei where dt='2018-07') a,
+(select imei1,Level from  mid.ZZGradeUserLevelData where dt='2018-07' and APPClassify='公务员类') b
+where a.tag_value=substring(b.imei1,1,14);
+
+Loans_num=$(hive -e "select count(*) as num from tags.tag_1551_Loans_score where dt='$year_month';")
+CreditCard_num=$(hive -e "select count(*) as num from tags.tag_1552_CreditCard_score where dt='$year_month';")
+Car_num=$(hive -e "select count(*) as num from tags.tag_1553_Car_score where dt='$year_month';")
+Travel_num=$(hive -e "select count(*) as num from tags.tag_1554_Travel_score where dt='$year_month';")
+PayingOnline_num=$(hive -e "select count(*) as num from tags.tag_1555_PayingOnline_score where dt='$year_month';")
+WhiteCollar_num=$(hive -e "select count(*) as num from tags.tag_1556_WhiteCollar_score where dt='$year_month';")
+Teacher_num=$(hive -e "select count(*) as num from tags.tag_1557_Teacher_score where dt='$year_month';")
+Doctor_num=$(hive -e "select count(*) as num from tags.tag_1558_Doctor_score where dt='$year_month';")
+CivilServant_num=$(hive -e "select count(*) as num from tags.tag_1559_CivilServant_score where dt='$year_month';")
+
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1551_Loans_score/dt=$year_month','Xfsx','Loans_score','0',now(),'$month','$Loans_num');"
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1552_CreditCard_score/dt=$year_month','Xfsx','CreditCard_score','0',now(),'$month','$CreditCard_num');"
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1553_Car_score/dt=$year_month','Xfsx','Car_score','0',now(),'$month','$Car_num');"
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1554_Travel_score/dt=$year_month','Xfsx','Travel_score','0',now(),'$month','$Travel_num');"
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1555_PayingOnline_score/dt=$year_month','Xfsx','PayingOnline_score','0',now(),'$month','$PayingOnline_num');"
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1556_WhiteCollar_score/dt=$year_month','Xfsx','WhiteCollar_score','0',now(),'$month','$WhiteCollar_num');"
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1557_Teacher_score/dt=$year_month','Xfsx','Teacher_score','0',now(),'$month','$Teacher_num');"
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1558_Doctor_score/dt=$year_month','Xfsx','Doctor_score','0',now(),'$month','$Doctor_num');"
+mysql -h192.168.8.162 -P3306 -ungoss_dim -pngoss_dim label_support --default-character-set=utf8 -e "insert into label_hbase_auto (file,Hbase_family,Hbase_col,status,createTime,month,amount) values ('/apps/hive/warehouse/tags.db/tag_1559_CivilServant_score/dt=$year_month','Xfsx','CivilServant_score','0',now(),'$month','$CivilServant_num');"
